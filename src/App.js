@@ -6,6 +6,9 @@ function App() {
   return (
     <Admin dataProvider={restProvider("http://localhost:5000/api")}>
       <Resource name="buildings" list={ListGuesser} />
+      <Resource name="fees" list={ListGuesser} />
+      <Resource name="users" list={ListGuesser} />
+      <Resource name="statistics" list={ListGuesser} />
     </Admin>
   );
 }

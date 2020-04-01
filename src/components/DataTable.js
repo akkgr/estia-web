@@ -111,8 +111,6 @@ export const DataTable = ({ entity, columns, filterFn }) => {
         }}
         loading={status === "loading" || isFetching}
         onChange={handleTableChange}
-        bordered={true}
-        size={"small"}
       />
     </>
   );

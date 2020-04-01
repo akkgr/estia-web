@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useQuery } from "react-query";
 import { Table, notification, Form, Input } from "antd";
 import { EditOutlined } from "@ant-design/icons";
+
+import UserContext from "../UserContext";
 
 const { Search } = Input;
 
@@ -17,6 +19,7 @@ export const DataTable = ({ entity, columns, filterFn }) => {
   const [filter, setFilter] = useState({});
   const [form] = Form.useForm();
   const [columnsWithActions, setColumnsWithActions] = useState([]);
+  const manager = useContext(UserContext);
 
   useEffect(() => {
     if (!columns.length) return;
@@ -40,8 +43,17 @@ export const DataTable = ({ entity, columns, filterFn }) => {
   const fetchData = async (key, uri, page, rows, sort, filter) => {
     const s = JSON.stringify(sort);
     const f = JSON.stringify(filter);
+    const user = await manager.getUser();
+    if (!user) {
+      manager.signinRedirect();
+    }
     const { data } = await axios.get(
-      `${uri}/${key}?sort=${s}&page=[${page},${rows}]&filter=${f}`
+      `${uri}/${key}?sort=${s}&page=[${page},${rows}]&filter=${f}`,
+      {
+        headers: {
+          Authorization: `Bearer ${user.access_token}`
+        }
+      }
     );
     setTotal(data.count);
     return data.data;

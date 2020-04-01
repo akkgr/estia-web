@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import "./App.css";
 import {
   BrowserRouter as Router,
@@ -15,7 +15,7 @@ import {
   LoginOutlined
 } from "@ant-design/icons";
 
-import Oidc from "oidc-client";
+import UserContext from "./UserContext";
 import MainMenu from "./components/MainMenu";
 import Callback from "./pages/Callback";
 import { BuildingList } from "./pages/BuildingList";
@@ -24,56 +24,34 @@ import { Dashboard } from "./pages/Dashboard";
 const { Content, Footer, Sider, Header } = Layout;
 const { SubMenu } = Menu;
 
-const config = {
-  authority: "http://localhost:4000",
-  client_id: "js",
-  redirect_uri: "http://localhost:3000/callback",
-  response_type: "code",
-  scope: "openid profile estiaApi",
-  post_logout_redirect_uri: "http://localhost:3000/"
-};
-
 function App() {
   const [collapsed, setCollapsed] = useState(false);
-  const [user, setUser] = useState({});
-  const [mgr, setMgr] = useState(null);
+  const manager = useContext(UserContext);
+  const [user, setUser] = useState(null);
 
-  const login = () => {
-    mgr.signinRedirect();
-  };
-
-  const logout = () => {
-    mgr.signoutRedirect();
-  };
+  useEffect(() => {
+    manager.getUser().then(u => {
+      if (u) {
+        setUser(u);
+      } else {
+        setUser(null);
+      }
+    });
+  }, [manager]);
 
   const menuClick = ({ key }) => {
     switch (key) {
       case "login":
-        login();
+        manager.signinRedirect();
         break;
       case "logout":
-        logout();
+        manager.signoutRedirect();
         break;
 
       default:
         break;
     }
   };
-
-  useEffect(() => {
-    if (!mgr) {
-      const m = new Oidc.UserManager(config);
-      setMgr(m);
-    } else {
-      mgr.getUser().then(function(user) {
-        if (user) {
-          setUser(user);
-        } else {
-          setUser({});
-        }
-      });
-    }
-  }, [mgr]);
 
   return (
     <Router>
@@ -98,18 +76,21 @@ function App() {
                   <span>
                     {" "}
                     <UserOutlined />
-                    <span>username</span>
+                    <span>{user?.profile.name}</span>
                   </span>
                 }
               >
-                <Menu.Item key="login">
-                  <LoginOutlined />
-                  <span>Είσοδος</span>
-                </Menu.Item>
-                <Menu.Item key="logout">
-                  <LogoutOutlined />
-                  <span>Έξοδος</span>
-                </Menu.Item>
+                {user ? (
+                  <Menu.Item key="logout">
+                    <LogoutOutlined />
+                    <span>Έξοδος</span>
+                  </Menu.Item>
+                ) : (
+                  <Menu.Item key="login">
+                    <LoginOutlined />
+                    <span>Είσοδος</span>
+                  </Menu.Item>
+                )}
               </SubMenu>
             </Menu>
           </Header>

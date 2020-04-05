@@ -20,6 +20,7 @@ import MainMenu from "./components/MainMenu";
 import Callback from "./pages/Callback";
 import { BuildingList } from "./pages/BuildingList";
 import { Dashboard } from "./pages/Dashboard";
+import { Building } from "./pages/Building";
 
 const { Content, Footer, Sider, Header } = Layout;
 const { SubMenu } = Menu;
@@ -111,6 +112,9 @@ function App() {
               </Route>
               <Route exact path="/buildings">
                 <BuildingList></BuildingList>
+              </Route>
+              <Route exact path="/buildings/:id">
+                <Building></Building>
               </Route>
               <Route exact path="/callback">
                 <Callback></Callback>

@@ -8,34 +8,34 @@ const columns = [
     key: "address.street",
     title: "Οδός",
     dataIndex: ["address", "street"],
-    sorter: true
+    sorter: true,
   },
   {
     key: "address.streetnumber",
     title: "Αριθμός",
     dataIndex: ["address", "streetnumber"],
-    sorter: true
+    sorter: true,
   },
   {
     key: "address.area",
     title: "Περιοχή",
     dataIndex: ["address", "area"],
-    sorter: true
-  }
+    sorter: true,
+  },
 ];
 
-const filterFn = value => {
+const filterFn = (value: any) => {
   return {
     $or: [
       { "address.street": { $regex: `${value}`, $options: "i" } },
       {
         "address.streetnumber": {
           $regex: `${value}`,
-          $options: "i"
-        }
+          $options: "i",
+        },
       },
-      { "address.area": { $regex: `${value}`, $options: "i" } }
-    ]
+      { "address.area": { $regex: `${value}`, $options: "i" } },
+    ],
   };
 };
 

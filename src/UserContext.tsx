@@ -7,7 +7,7 @@ const config = {
   redirect_uri: "http://localhost:3000/callback",
   response_type: "code",
   scope: "openid profile estiaApi",
-  post_logout_redirect_uri: "http://localhost:3000/"
+  post_logout_redirect_uri: "http://localhost:3000/",
 };
 
 const userManager = new Oidc.UserManager(config);

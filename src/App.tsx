@@ -4,7 +4,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Redirect
+  Redirect,
 } from "react-router-dom";
 import { Layout, Menu } from "antd";
 import {
@@ -12,7 +12,7 @@ import {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
   LogoutOutlined,
-  LoginOutlined
+  LoginOutlined,
 } from "@ant-design/icons";
 
 import UserContext from "./UserContext";
@@ -27,10 +27,10 @@ const { SubMenu } = Menu;
 function App() {
   const [collapsed, setCollapsed] = useState(false);
   const manager = useContext(UserContext);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<Oidc.User | null>(null);
 
   useEffect(() => {
-    manager.getUser().then(u => {
+    manager.getUser().then((u) => {
       if (u) {
         setUser(u);
       } else {
@@ -39,8 +39,8 @@ function App() {
     });
   }, [manager]);
 
-  const menuClick = ({ key }) => {
-    switch (key) {
+  const menuClick = (value: { key: string }) => {
+    switch (value.key) {
       case "login":
         manager.signinRedirect();
         break;
@@ -65,7 +65,7 @@ function App() {
               collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
               {
                 className: "trigger",
-                onClick: () => setCollapsed(!collapsed)
+                onClick: () => setCollapsed(!collapsed),
               }
             )}
             <Menu mode="horizontal" onClick={menuClick}>
@@ -99,7 +99,7 @@ function App() {
             style={{
               margin: "24px 16px",
               padding: 24,
-              minHeight: 280
+              minHeight: 280,
             }}
           >
             <Switch>

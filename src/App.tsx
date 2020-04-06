@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect, useCallback } from "react";
 import "./App.css";
 import {
   BrowserRouter as Router,
@@ -30,7 +30,7 @@ function App() {
   const manager = useContext(UserContext);
   const [user, setUser] = useState<Oidc.User | null>(null);
 
-  useEffect(() => {
+  const changeUser = useCallback(() => {
     manager.getUser().then((u) => {
       if (u) {
         setUser(u);
@@ -39,6 +39,10 @@ function App() {
       }
     });
   }, [manager]);
+
+  useEffect(() => {
+    changeUser();
+  }, []);
 
   const menuClick = (value: { key: string }) => {
     switch (value.key) {
@@ -108,7 +112,7 @@ function App() {
                 <Redirect to="/dashboard" />
               </Route>
               <Route exact path="/dashboard">
-                <Dashboard />
+                <Dashboard changeUser={changeUser} />
               </Route>
               <Route exact path="/buildings">
                 <BuildingList></BuildingList>

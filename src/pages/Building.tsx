@@ -5,6 +5,7 @@ import axios from "axios";
 import { Form, Skeleton, Input, notification } from "antd";
 
 import UserContext from "../UserContext";
+import { Address } from "../components/Address";
 
 const uri = process.env.REACT_APP_API_URL + "/api";
 const entity = "buildings";
@@ -46,43 +47,10 @@ export const Building = () => {
       }),
   });
 
-  // useEffect(() => {
-  //   if (form && data) {
-  //     console.log(data);
-  //     form.setFieldsValue(data);
-  //   }
-  // }, [form, data]);
-
   return (
     <>
       <Skeleton active loading={status === "loading" || isFetching}>
-        <Form
-          form={form}
-          layout={"horizontal"}
-          {...formLayout}
-          initialValues={data?.address}
-        >
-          <Form.Item label="Οδός" name="street" rules={[{ required: true }]}>
-            <Input />
-          </Form.Item>
-          <Form.Item
-            label="Αριθός"
-            name="streetnumber"
-            rules={[{ required: true }]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item label="Περιοχή" name="area" rules={[{ required: true }]}>
-            <Input />
-          </Form.Item>
-          <Form.Item
-            label="Τ.Κ."
-            name="postalCode"
-            rules={[{ required: true }]}
-          >
-            <Input />
-          </Form.Item>
-        </Form>
+        <Address data={data?.address} />
       </Skeleton>
     </>
   );

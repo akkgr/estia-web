@@ -1,23 +1,18 @@
 import React, { useContext } from "react";
-import { useParams } from "react-router-dom";
-import { useQuery } from "react-query";
+import { useParams, Link } from "react-router-dom";
+import { useQuery, useMutation, queryCache } from "react-query";
 import axios from "axios";
-import { Form, Skeleton, Input, notification } from "antd";
+import { Skeleton, notification, Space, Breadcrumb } from "antd";
 
 import UserContext from "../UserContext";
 import { Address } from "../components/Address";
+import { AppartmentList } from "../components/AppartmentList";
 
 const uri = process.env.REACT_APP_API_URL + "/api";
 const entity = "buildings";
 
-const formLayout = {
-  labelCol: { span: 4 },
-  wrapperCol: { span: 16 },
-};
-
 export const Building = () => {
   const manager = useContext(UserContext);
-  const [form] = Form.useForm();
   let { id } = useParams();
 
   const fetchData = async (key: string, id: string | undefined) => {
@@ -33,11 +28,29 @@ export const Building = () => {
     return data;
   };
 
+  const updateData = async (input: any) => {
+    const user = await manager.getUser();
+    if (!user) {
+      notification["error"]({
+        message: "Σφάλμα !!!",
+        description:
+          "Η σύνδεση σας έχει λήξει. Παρακαλώ ξανά συνδεθείτε για να συνεχίσετε.",
+        duration: 10,
+      });
+    }
+    const { data } = await axios.put(`${uri}/${entity}/${id}`, input, {
+      headers: {
+        Authorization: `Bearer ${user?.access_token}`,
+      },
+    });
+    return data;
+  };
+
   const { status, data, isFetching } = useQuery<
     any,
     [string, string | undefined]
   >([entity, id], fetchData, {
-    retry: 1,
+    retry: false,
     refetchOnWindowFocus: false,
     onError: (error: any) =>
       notification["error"]({
@@ -47,11 +60,35 @@ export const Building = () => {
       }),
   });
 
+  const [mutate] = useMutation(updateData, {
+    onSuccess: (data) => queryCache.setQueryData([entity, id], data),
+    onError: (error: any) =>
+      notification["error"]({
+        message: "Σφάλμα !!!",
+        description: error.message,
+        duration: 10,
+      }),
+  });
+
+  const updateAddress = (input: any) => {
+    const newData = { ...data, address: input };
+    mutate(newData);
+  };
+
   return (
-    <>
-      <Skeleton active loading={status === "loading" || isFetching}>
-        <Address data={data?.address} />
-      </Skeleton>
-    </>
+    <Skeleton active loading={status === "loading" || isFetching}>
+      <Space direction="vertical" style={{ width: "100%" }}>
+        <Breadcrumb className="breadcrumb">
+          <Breadcrumb.Item>
+            <Link to="/buildings">Κτίρια</Link>
+          </Breadcrumb.Item>
+          <Breadcrumb.Item>
+            {`${data?.address?.street} ${data?.address?.streetnumber}`}
+          </Breadcrumb.Item>
+        </Breadcrumb>
+        <Address data={data?.address} update={updateAddress} />
+        <AppartmentList data={data?.appartments}></AppartmentList>
+      </Space>
+    </Skeleton>
   );
 };

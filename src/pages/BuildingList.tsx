@@ -1,5 +1,6 @@
 import React from "react";
 import { DataTable } from "../components/DataTable";
+import { Breadcrumb, Space } from "antd";
 
 const entity = "buildings";
 
@@ -40,5 +41,14 @@ const filterFn = (value: any) => {
 };
 
 export const BuildingList = () => {
-  return <DataTable entity={entity} columns={columns} filterFn={filterFn} />;
+  return (
+    <>
+      <Space direction="vertical" style={{ width: "100%" }}>
+        <Breadcrumb className="breadcrumb">
+          <Breadcrumb.Item>Κτίρια</Breadcrumb.Item>
+        </Breadcrumb>
+        <DataTable entity={entity} columns={columns} filterFn={filterFn} />
+      </Space>
+    </>
+  );
 };

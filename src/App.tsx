@@ -21,6 +21,7 @@ import Callback from "./pages/Callback";
 import { BuildingList } from "./pages/BuildingList";
 import { Dashboard } from "./pages/Dashboard";
 import { Building } from "./pages/Building";
+import Silent from "./pages/Silent";
 
 const { Content, Footer, Sider, Header } = Layout;
 const { SubMenu } = Menu;
@@ -42,7 +43,7 @@ function App() {
 
   useEffect(() => {
     changeUser();
-  }, []);
+  }, [changeUser]);
 
   const menuClick = (value: { key: string }) => {
     switch (value.key) {
@@ -122,6 +123,9 @@ function App() {
               </Route>
               <Route exact path="/callback">
                 <Callback></Callback>
+              </Route>
+              <Route exact path="/callback">
+                <Silent></Silent>
               </Route>
             </Switch>
           </Content>

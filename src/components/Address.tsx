@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Form, Input, Collapse, Button, Space } from "antd";
 
 const { Panel } = Collapse;
@@ -16,25 +16,19 @@ export const Address = (props: any) => {
   const [form] = Form.useForm();
   const { data } = props;
 
-  useEffect(() => {
-    if (form && data) {
-      form.setFieldsValue(data);
-    }
-  }, [form, data]);
-
   const onReset = () => {
     form.resetFields();
   };
 
   const onFinish = (values: any) => {
-    console.log(values);
+    props.update(values);
   };
 
   return (
     <>
       <Collapse expandIconPosition={"right"}>
         <Panel
-          header={`${data.street} ${data.streetnumber}, ${data.area} ${data.postalCode}`}
+          header={`Διεύθυνση: ${data.street} ${data.streetnumber}, ${data.area} ${data.postalCode}`}
           key="1"
         >
           <Form

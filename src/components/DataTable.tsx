@@ -74,7 +74,7 @@ export const DataTable = ({ entity, columns, filterFn }: DataTableProps) => {
     any,
     [string, string, number, number, string[], {}]
   >([entity, uri, page, rows, sort, filter], fetchData, {
-    retry: 1,
+    retry: false,
     refetchOnWindowFocus: false,
     onError: (error: any) =>
       notification["error"]({

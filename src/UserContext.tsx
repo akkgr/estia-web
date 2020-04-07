@@ -8,6 +8,11 @@ const config = {
   response_type: "code",
   scope: "openid profile estiaApi",
   post_logout_redirect_uri: "http://localhost:3000/",
+  loadUserInfo: true,
+  silent_redirect_uri: "http://localhost:3000/silent",
+  automaticSilentRenew: true,
+  monitorAnonymousSession: true,
+  revokeAccessTokenOnSignout: true,
 };
 
 const userManager = new Oidc.UserManager(config);

@@ -11,7 +11,7 @@ import { AppartmentList } from "../../components/AppartmentList";
 const uri = process.env.REACT_APP_API_URL + "/api";
 const entity = "buildings";
 
-export const Building = () => {
+export const Apartment = () => {
   const manager = useContext(UserContext);
   let { id } = useParams();
 

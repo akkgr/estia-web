@@ -2,6 +2,7 @@ import React from "react";
 import { Table } from "antd";
 import { Link } from "react-router-dom";
 import { EditOutlined } from "@ant-design/icons";
+import { DataTable } from "./DataTable";
 
 const columns = [
   {
@@ -58,13 +59,33 @@ const actions = {
 let tmp: any[];
 tmp = [...columns, actions];
 
+const filterFn = (value: any) => {
+  return {
+    $or: [
+      { "address.street": { $regex: `${value}`, $options: "i" } },
+      {
+        "address.streetnumber": {
+          $regex: `${value}`,
+          $options: "i",
+        },
+      },
+      { "address.area": { $regex: `${value}`, $options: "i" } },
+    ],
+  };
+};
+
 export const AppartmentList = (props: any) => {
   return (
-    <Table
-      columns={tmp}
-      rowKey="position"
-      dataSource={props.data}
-      pagination={{ pageSize: 5 }}
+    <DataTable
+      entity={`buildings/${props.data.id}/apartments`}
+      columns={columns}
+      filterFn={filterFn}
     />
+    // <Table
+    //   columns={tmp}
+    //   rowKey="position"
+    //   dataSource={props.data}
+    //   pagination={{ pageSize: 5 }}
+    // />
   );
 };

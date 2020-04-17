@@ -23,6 +23,8 @@ import { Dashboard } from "./pages/Dashboard";
 import { Building } from "./pages/buildings/Building";
 import Silent from "./pages/Silent";
 import { NewBuilding } from "./pages/buildings/NewBuilding";
+import { Apartment } from "./pages/apartments/Apartment";
+import { NewApartment } from "./pages/apartments/NewApartment";
 
 const { Content, Footer, Sider, Header } = Layout;
 const { SubMenu } = Menu;
@@ -124,6 +126,12 @@ function App() {
               </Route>
               <Route exact path="/buildings/:id">
                 <Building></Building>
+              </Route>
+              <Route exact path="/buildings/:id/apartments/new">
+                <NewApartment></NewApartment>
+              </Route>
+              <Route exact path="/buildings/:id1/apartments/:id2">
+                <Apartment></Apartment>
               </Route>
               <Route exact path="/callback">
                 <Callback></Callback>

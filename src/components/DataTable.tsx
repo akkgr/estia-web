@@ -1,9 +1,22 @@
-import React, { useState, useEffect, useContext } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect, useContext, useCallback } from "react";
+import { useHistory } from "react-router-dom";
 import axios from "axios";
-import { useQuery } from "react-query";
-import { Table, notification, Form, Input } from "antd";
-import { EditOutlined } from "@ant-design/icons";
+import { useQuery, queryCache } from "react-query";
+import {
+  Table,
+  notification,
+  Form,
+  Input,
+  Space,
+  Button,
+  Popconfirm,
+} from "antd";
+import {
+  EditOutlined,
+  PlusCircleOutlined,
+  MinusCircleOutlined,
+  QuestionCircleOutlined,
+} from "@ant-design/icons";
 
 import UserContext from "../UserContext";
 
@@ -18,6 +31,7 @@ type DataTableProps = {
 };
 
 export const DataTable = ({ entity, columns, filterFn }: DataTableProps) => {
+  const history = useHistory();
   const [page, setPage] = useState(1);
   const [rows, setRows] = useState(10);
   const [total, setTotal] = useState(0);
@@ -27,26 +41,65 @@ export const DataTable = ({ entity, columns, filterFn }: DataTableProps) => {
   const [columnsWithActions, setColumnsWithActions] = useState<any[]>([]);
   const manager = useContext(UserContext);
 
+  const memoizedCallback = useCallback(
+    async (id: string) => {
+      try {
+        const user = await manager.getUser();
+        await axios.delete(`${uri}/${entity}/${id}`, {
+          headers: {
+            Authorization: `Bearer ${user?.access_token}`,
+          },
+        });
+        queryCache.refetchQueries([entity, page, rows, sort, filter]);
+      } catch (error) {
+        notification["error"]({
+          message: "Σφάλμα !!!",
+          description: error.message,
+          duration: 10,
+        });
+      }
+    },
+    [entity, filter, manager, page, rows, sort]
+  );
+
   useEffect(() => {
     if (!columns.length) return;
     const actions = {
       key: "action",
-      title: "",
+      title: (
+        <Button
+          type="link"
+          icon={<PlusCircleOutlined style={{ color: "green" }} />}
+          onClick={() => history.push(`/${entity}/new`)}
+        />
+      ),
       align: "center",
       render: (_: string, record: any) => (
-        <span>
-          <Link to={`/${entity}/${record.id}`}>
-            <EditOutlined />
-          </Link>
-        </span>
+        <Space>
+          <Button
+            type="link"
+            icon={<EditOutlined />}
+            onClick={() => history.push(`/${entity}/${record.id}`)}
+          />
+          <Popconfirm
+            title="Are you sure delete this record?"
+            onConfirm={() => {
+              memoizedCallback(record.id);
+            }}
+            okText="Yes"
+            cancelText="No"
+            icon={<QuestionCircleOutlined style={{ color: "red" }} />}
+          >
+            <MinusCircleOutlined style={{ color: "red" }} className="command" />
+          </Popconfirm>
+        </Space>
       ),
     };
     setColumnsWithActions([...columns, actions]);
-  }, [entity, columns]);
+  }, [entity, columns, history, memoizedCallback]);
 
   const fetchData = async (
     key: string,
-    uri: string,
     page: number,
     rows: number,
     sort: string[],
@@ -55,7 +108,7 @@ export const DataTable = ({ entity, columns, filterFn }: DataTableProps) => {
     const s = JSON.stringify(sort);
     const f = JSON.stringify(filter);
     const user = await manager.getUser();
-    if (!user) {
+    if (!user || user?.expired) {
       manager.signinRedirect();
     }
     const { data } = await axios.get(
@@ -72,8 +125,8 @@ export const DataTable = ({ entity, columns, filterFn }: DataTableProps) => {
 
   const { status, data, isFetching } = useQuery<
     any,
-    [string, string, number, number, string[], {}]
-  >([entity, uri, page, rows, sort, filter], fetchData, {
+    [string, number, number, string[], {}]
+  >([entity, page, rows, sort, filter], fetchData, {
     retry: false,
     refetchOnWindowFocus: false,
     onError: (error: any) =>

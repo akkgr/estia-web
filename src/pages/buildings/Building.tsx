@@ -4,9 +4,9 @@ import { useQuery, useMutation, queryCache } from "react-query";
 import axios from "axios";
 import { Skeleton, notification, Space, Breadcrumb } from "antd";
 
-import UserContext from "../UserContext";
-import { Address } from "../components/Address";
-import { AppartmentList } from "../components/AppartmentList";
+import UserContext from "../../UserContext";
+import { Address } from "../../components/Address";
+import { AppartmentList } from "../../components/AppartmentList";
 
 const uri = process.env.REACT_APP_API_URL + "/api";
 const entity = "buildings";
@@ -17,7 +17,7 @@ export const Building = () => {
 
   const fetchData = async (key: string, id: string | undefined) => {
     const user = await manager.getUser();
-    if (!user) {
+    if (!user || user?.expired) {
       manager.signinRedirect();
     }
     const { data } = await axios.get(`${uri}/${key}/${id}`, {
@@ -30,7 +30,7 @@ export const Building = () => {
 
   const updateData = async (input: any) => {
     const user = await manager.getUser();
-    if (!user) {
+    if (!user || user?.expired) {
       notification["error"]({
         message: "Σφάλμα !!!",
         description:

@@ -18,10 +18,11 @@ import {
 import UserContext from "./UserContext";
 import MainMenu from "./components/MainMenu";
 import Callback from "./pages/Callback";
-import { BuildingList } from "./pages/BuildingList";
+import { BuildingList } from "./pages/buildings/BuildingList";
 import { Dashboard } from "./pages/Dashboard";
-import { Building } from "./pages/Building";
+import { Building } from "./pages/buildings/Building";
 import Silent from "./pages/Silent";
+import { NewBuilding } from "./pages/buildings/NewBuilding";
 
 const { Content, Footer, Sider, Header } = Layout;
 const { SubMenu } = Menu;
@@ -117,6 +118,9 @@ function App() {
               </Route>
               <Route exact path="/buildings">
                 <BuildingList></BuildingList>
+              </Route>
+              <Route exact path="/buildings/new">
+                <NewBuilding></NewBuilding>
               </Route>
               <Route exact path="/buildings/:id">
                 <Building></Building>

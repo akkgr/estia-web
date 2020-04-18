@@ -5,13 +5,14 @@ import axios from "axios";
 import { Skeleton, notification, Space, Breadcrumb } from "antd";
 
 import UserContext from "../../UserContext";
-import { Address } from "../../components/Address";
+import { AddressForm } from "../../components/AddressForm";
 import { AppartmentList } from "../../components/AppartmentList";
+import { Address } from "../../models/Address";
 
 const uri = process.env.REACT_APP_API_URL + "/api";
 const entity = "buildings";
 
-export const Building = () => {
+export const BuildingForm = () => {
   const manager = useContext(UserContext);
   let { id } = useParams();
 
@@ -70,7 +71,7 @@ export const Building = () => {
       }),
   });
 
-  const updateAddress = (input: any) => {
+  const updateAddress = (input: Address) => {
     const newData = { ...data, address: input };
     mutate(newData);
   };
@@ -86,7 +87,7 @@ export const Building = () => {
             {`${data?.address?.street} ${data?.address?.streetnumber}`}
           </Breadcrumb.Item>
         </Breadcrumb>
-        <Address data={data?.address} update={updateAddress} />
+        <AddressForm data={data?.address} update={updateAddress} />
         <AppartmentList data={data}></AppartmentList>
       </Space>
     </Skeleton>

@@ -2,8 +2,19 @@ import React, { useContext } from "react";
 import { useHistory, Link, useParams } from "react-router-dom";
 import { useMutation, queryCache, useQuery } from "react-query";
 import axios from "axios";
-import { Form, Input, Button, Space, Breadcrumb, notification } from "antd";
+import {
+  Form,
+  Input,
+  Button,
+  Space,
+  Breadcrumb,
+  notification,
+  Row,
+  Col,
+  InputNumber,
+} from "antd";
 import UserContext from "../../UserContext";
+import { PersonForm } from "../../components/PersonForm";
 
 const formLayout = {
   labelCol: { span: 4 },
@@ -11,11 +22,12 @@ const formLayout = {
 };
 
 const tailLayout = {
-  wrapperCol: { offset: 8, span: 16 },
+  wrapperCol: { span: 24 },
 };
 
 const uri = process.env.REACT_APP_API_URL + "/api";
-const entity = "buildings";
+const parentEntity = "buildings";
+const entity = "apartments";
 
 export const NewApartment = () => {
   const [form] = Form.useForm();
@@ -28,7 +40,7 @@ export const NewApartment = () => {
   };
 
   const onFinish = (values: any) => {
-    updateAddress(values);
+    update(values);
   };
 
   const fetchData = async (key: string, id: string | undefined) => {
@@ -47,7 +59,7 @@ export const NewApartment = () => {
   const { status, data, isFetching } = useQuery<
     any,
     [string, string | undefined]
-  >([entity, id], fetchData, {
+  >([parentEntity, id], fetchData, {
     retry: false,
     refetchOnWindowFocus: false,
     onError: (error: any) =>
@@ -78,8 +90,8 @@ export const NewApartment = () => {
 
   const [mutate] = useMutation(updateData, {
     onSuccess: (data) => {
-      queryCache.setQueryData([entity, data.id], data);
-      history.push(`/buildings/${data.id}`);
+      queryCache.setQueryData([parentEntity, data.id], data);
+      history.push(`/buildings/${data.buildingId}/apartments/${data.id}`);
     },
     onError: (error: any) =>
       notification["error"]({
@@ -89,7 +101,8 @@ export const NewApartment = () => {
       }),
   });
 
-  const updateAddress = (input: any) => {
+  const update = (input: any) => {
+    input.buildingId = id;
     mutate(input);
   };
 
@@ -112,23 +125,25 @@ export const NewApartment = () => {
         {...formLayout}
         onFinish={onFinish}
       >
-        <Form.Item label="Οδός" name="street" rules={[{ required: true }]}>
+        <Form.Item label="Διαμέρισμα" name="title" rules={[{ required: true }]}>
           <Input />
         </Form.Item>
-        <Form.Item
-          label="Αριθός"
-          name="streetnumber"
-          rules={[{ required: true }]}
-        >
-          <Input />
+        <Form.Item label="Α/Α" name="position" rules={[{ required: true }]}>
+          <InputNumber />
         </Form.Item>
-        <Form.Item label="Περιοχή" name="area" rules={[{ required: true }]}>
-          <Input />
-        </Form.Item>
-        <Form.Item label="Τ.Κ." name="postalCode" rules={[{ required: true }]}>
-          <Input />
-        </Form.Item>
-        <Form.Item {...tailLayout}>
+        <Row>
+          <Col span={12}>Ιδιοκτήτης</Col>
+          <Col span={12}>Ένοικος</Col>
+        </Row>
+        <Row>
+          <Col span={12}>
+            <PersonForm entity="owner" />
+          </Col>
+          <Col span={12}>
+            <PersonForm entity="resident" />
+          </Col>
+        </Row>
+        <Form.Item {...tailLayout} style={{ float: "right" }}>
           <Space>
             <Button type="primary" htmlType="submit">
               Add

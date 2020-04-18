@@ -11,7 +11,7 @@ const formLayout = {
 };
 
 const tailLayout = {
-  wrapperCol: { offset: 8, span: 16 },
+  wrapperCol: { span: 24 },
 };
 
 const uri = process.env.REACT_APP_API_URL + "/api";
@@ -95,7 +95,7 @@ export const NewBuilding = () => {
         <Form.Item label="Τ.Κ." name="postalCode" rules={[{ required: true }]}>
           <Input />
         </Form.Item>
-        <Form.Item {...tailLayout}>
+        <Form.Item {...tailLayout} style={{ float: "right" }}>
           <Space>
             <Button type="primary" htmlType="submit">
               Add

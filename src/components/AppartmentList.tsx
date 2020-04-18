@@ -1,7 +1,4 @@
 import React from "react";
-import { Table } from "antd";
-import { Link } from "react-router-dom";
-import { EditOutlined } from "@ant-design/icons";
 import { DataTable } from "./DataTable";
 
 const columns = [
@@ -20,44 +17,26 @@ const columns = [
   {
     key: "owner",
     title: "Ιδιοκτήτης",
-    dataIndex: ["owner"],
     sorter: (a: any, b: any) =>
       `${a.owner?.lastname || ""} ${a.owner?.firstname || ""}`.localeCompare(
-        `${b.owner?.lastname || ""} ${b.owner?.firstname || ""}`
+        `${b.owner?.lastName || ""} ${b.owner?.firstName || ""}`
       ),
     render: (record: any) =>
-      `${record.owner?.lastname || ""} ${record.owner?.firstname || ""}`,
+      `${record.owner?.lastName || ""} ${record.owner?.firstName || ""}`,
   },
   {
     key: "resident",
     title: "Ένοικος",
-    dataIndex: "resident",
     sorter: (a: any, b: any) =>
       `${a.resident?.lastname || ""} ${
         a.resident?.firstname || ""
       }`.localeCompare(
-        `${b.resident?.lastname || ""} ${b.resident?.firstname || ""}`
+        `${b.resident?.lastName || ""} ${b.resident?.firstName || ""}`
       ),
     render: (record: any) =>
-      `${record.resident?.lastname || ""} ${record.resident?.firstname || ""}`,
+      `${record.resident?.lastName || ""} ${record.resident?.firstName || ""}`,
   },
 ];
-
-const actions = {
-  key: "action",
-  title: "",
-  align: "center",
-  render: (_: string, record: any) => (
-    <span>
-      <Link to={`/buildings/id/${record.id}`}>
-        <EditOutlined />
-      </Link>
-    </span>
-  ),
-};
-
-let tmp: any[];
-tmp = [...columns, actions];
 
 const filterFn = (value: any) => {
   return {
@@ -81,11 +60,5 @@ export const AppartmentList = (props: any) => {
       columns={columns}
       filterFn={filterFn}
     />
-    // <Table
-    //   columns={tmp}
-    //   rowKey="position"
-    //   dataSource={props.data}
-    //   pagination={{ pageSize: 5 }}
-    // />
   );
 };

@@ -1,5 +1,6 @@
 import React from "react";
 import { Form, Input, Collapse, Button, Space } from "antd";
+import { Address } from "../models/Address";
 
 const { Panel } = Collapse;
 
@@ -12,16 +13,20 @@ const tailLayout = {
   wrapperCol: { offset: 8, span: 16 },
 };
 
-export const Address = (props: any) => {
+interface IProps {
+  data: Address;
+  update(d: Address): any;
+}
+
+export const AddressForm = ({ data, update }: IProps) => {
   const [form] = Form.useForm();
-  const { data } = props;
 
   const onReset = () => {
     form.resetFields();
   };
 
   const onFinish = (values: any) => {
-    props.update(values);
+    update(values);
   };
 
   return (

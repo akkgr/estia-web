@@ -5,25 +5,18 @@ import axios from "axios";
 import {
   Form,
   Input,
-  Button,
-  Space,
   Breadcrumb,
   notification,
   Row,
   Col,
   InputNumber,
+  Skeleton,
+  Card,
 } from "antd";
 import UserContext from "../../UserContext";
 import { PersonForm } from "../../components/PersonForm";
-
-const formLayout = {
-  labelCol: { span: 4 },
-  wrapperCol: { span: 16 },
-};
-
-const tailLayout = {
-  wrapperCol: { span: 24 },
-};
+import { AddressTitle } from "../../models/Address";
+import { ActionsForm } from "../../components/ActionsForm";
 
 const uri = process.env.REACT_APP_API_URL + "/api";
 const parentEntity = "buildings";
@@ -34,14 +27,6 @@ export const NewApartment = () => {
   const history = useHistory();
   const manager = useContext(UserContext);
   let { id } = useParams();
-
-  const onReset = () => {
-    history.push(`/buildings/${id}`);
-  };
-
-  const onFinish = (values: any) => {
-    update(values);
-  };
 
   const fetchData = async (key: string, id: string | undefined) => {
     const user = await manager.getUser();
@@ -107,53 +92,72 @@ export const NewApartment = () => {
   };
 
   return (
-    <Space direction="vertical" style={{ width: "100%" }}>
-      <Breadcrumb className="breadcrumb">
-        <Breadcrumb.Item>
-          <Link to="/buildings">Κτίρια</Link>
-        </Breadcrumb.Item>
-        <Breadcrumb.Item>
-          <Link
-            to={`/buildings/${id}`}
-          >{`${data?.address?.street} ${data?.address?.streetnumber}`}</Link>
-        </Breadcrumb.Item>
-        <Breadcrumb.Item>Νέο Διαμέρισμα</Breadcrumb.Item>
-      </Breadcrumb>
-      <Form
-        form={form}
-        layout={"horizontal"}
-        {...formLayout}
-        onFinish={onFinish}
+    <Skeleton active loading={status === "loading" || isFetching}>
+      <Form.Provider
+        onFormFinish={async (name, { values, forms }) => {
+          const { appartmentForm, ownerForm, residentForm } = forms;
+          try {
+            await ownerForm.validateFields();
+            await residentForm.validateFields();
+            const owner = ownerForm.getFieldsValue();
+            const resident = residentForm.getFieldsValue();
+            const appartment = appartmentForm.getFieldsValue();
+            update({
+              ...appartment,
+              owner: owner,
+              resident: resident,
+            });
+          } catch {}
+        }}
       >
-        <Form.Item label="Διαμέρισμα" name="title" rules={[{ required: true }]}>
-          <Input />
-        </Form.Item>
-        <Form.Item label="Α/Α" name="position" rules={[{ required: true }]}>
-          <InputNumber />
-        </Form.Item>
-        <Row>
-          <Col span={12}>Ιδιοκτήτης</Col>
-          <Col span={12}>Ένοικος</Col>
-        </Row>
+        <ActionsForm returnUrl={`/buildings/${id}`}>
+          <Breadcrumb.Item>
+            <Link to="/buildings">Κτίρια</Link>
+          </Breadcrumb.Item>
+          <Breadcrumb.Item>
+            <Link to={`/buildings/${id}`}>
+              {data ? AddressTitle(data.address) : ""}
+            </Link>
+          </Breadcrumb.Item>
+          <Breadcrumb.Item>Νέο Διαμέρισμα</Breadcrumb.Item>
+        </ActionsForm>
+
+        <Form form={form} name="appartmentForm" layout={"vertical"}>
+          <Row gutter={[8, 0]}>
+            <Col span={6}>
+              <Form.Item
+                label="Α/Α"
+                name="position"
+                rules={[{ required: true }]}
+              >
+                <InputNumber />
+              </Form.Item>
+            </Col>
+            <Col span={18}>
+              <Form.Item
+                label="Διαμέρισμα"
+                name="title"
+                rules={[{ required: true }]}
+              >
+                <Input />
+              </Form.Item>
+            </Col>
+          </Row>
+        </Form>
+
         <Row>
           <Col span={12}>
-            <PersonForm entity="owner" />
+            <Card title="Ιδιοκτήτης" bordered={false}>
+              <PersonForm formName="ownerForm" data={data?.owner} />
+            </Card>
           </Col>
           <Col span={12}>
-            <PersonForm entity="resident" />
+            <Card title="Ένοικος" bordered={false}>
+              <PersonForm formName="residentForm" data={data?.resident} />
+            </Card>
           </Col>
         </Row>
-        <Form.Item {...tailLayout} style={{ float: "right" }}>
-          <Space>
-            <Button type="primary" htmlType="submit">
-              Add
-            </Button>
-            <Button htmlType="button" onClick={onReset}>
-              Cancel
-            </Button>
-          </Space>
-        </Form.Item>
-      </Form>
-    </Space>
+      </Form.Provider>
+    </Skeleton>
   );
 };

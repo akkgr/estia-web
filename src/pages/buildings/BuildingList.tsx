@@ -44,7 +44,7 @@ export const BuildingList = () => {
   return (
     <>
       <Space direction="vertical" style={{ width: "100%" }}>
-        <Breadcrumb className="breadcrumb">
+        <Breadcrumb className="actionsBar">
           <Breadcrumb.Item>Κτίρια</Breadcrumb.Item>
         </Breadcrumb>
         <DataTable entity={entity} columns={columns} filterFn={filterFn} />

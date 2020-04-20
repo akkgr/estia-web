@@ -2,12 +2,13 @@ import React, { useContext } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useQuery, useMutation, queryCache } from "react-query";
 import axios from "axios";
-import { Skeleton, notification, Space, Breadcrumb } from "antd";
+import { Skeleton, notification, Breadcrumb, Form } from "antd";
 
 import UserContext from "../../UserContext";
 import { AddressForm } from "../../components/AddressForm";
 import { AppartmentList } from "../../components/AppartmentList";
-import { Address } from "../../models/Address";
+import { AddressTitle } from "../../models/Address";
+import { ActionsForm } from "../../components/ActionsForm";
 
 const uri = process.env.REACT_APP_API_URL + "/api";
 const entity = "buildings";
@@ -71,25 +72,30 @@ export const BuildingForm = () => {
       }),
   });
 
-  const updateAddress = (input: Address) => {
+  const updateAddress = (input: any) => {
     const newData = { ...data, address: input };
     mutate(newData);
   };
 
   return (
     <Skeleton active loading={status === "loading" || isFetching}>
-      <Space direction="vertical" style={{ width: "100%" }}>
-        <Breadcrumb className="breadcrumb">
+      <Form.Provider
+        onFormFinish={(name, { values, forms }) => {
+          const { addressForm } = forms;
+          addressForm.validateFields().then((values) => updateAddress(values));
+        }}
+      >
+        <ActionsForm returnUrl="/buildings">
           <Breadcrumb.Item>
             <Link to="/buildings">Κτίρια</Link>
           </Breadcrumb.Item>
           <Breadcrumb.Item>
-            {`${data?.address?.street} ${data?.address?.streetnumber}`}
+            {data ? AddressTitle(data.address) : ""}
           </Breadcrumb.Item>
-        </Breadcrumb>
-        <AddressForm data={data?.address} update={updateAddress} />
+        </ActionsForm>
+        <AddressForm formName="addressForm" data={data?.address} />
         <AppartmentList data={data}></AppartmentList>
-      </Space>
+      </Form.Provider>
     </Skeleton>
   );
 };

@@ -2,33 +2,18 @@ import React, { useContext } from "react";
 import { useHistory, Link } from "react-router-dom";
 import { useMutation, queryCache } from "react-query";
 import axios from "axios";
-import { Form, Input, Button, Space, Breadcrumb, notification } from "antd";
+import { Form, Breadcrumb, notification } from "antd";
 import UserContext from "../../UserContext";
-
-const formLayout = {
-  labelCol: { span: 4 },
-  wrapperCol: { span: 16 },
-};
-
-const tailLayout = {
-  wrapperCol: { span: 24 },
-};
+import { AddressForm } from "../../components/AddressForm";
+import { NewAddress } from "../../models/Address";
+import { ActionsForm } from "../../components/ActionsForm";
 
 const uri = process.env.REACT_APP_API_URL + "/api";
 const entity = "buildings";
 
 export const NewBuilding = () => {
-  const [form] = Form.useForm();
   const history = useHistory();
   const manager = useContext(UserContext);
-
-  const onReset = () => {
-    history.push(`/buildings`);
-  };
-
-  const onFinish = (values: any) => {
-    updateAddress(values);
-  };
 
   const updateData = async (input: any) => {
     const user = await manager.getUser();
@@ -66,46 +51,19 @@ export const NewBuilding = () => {
   };
 
   return (
-    <Space direction="vertical" style={{ width: "100%" }}>
-      <Breadcrumb className="breadcrumb">
+    <Form.Provider
+      onFormFinish={(name, { values, forms }) => {
+        const { addressForm } = forms;
+        addressForm.validateFields().then((values) => updateAddress(values));
+      }}
+    >
+      <ActionsForm returnUrl="/buildings">
         <Breadcrumb.Item>
           <Link to="/buildings">Κτίρια</Link>
         </Breadcrumb.Item>
         <Breadcrumb.Item>Νέο Κτίριο</Breadcrumb.Item>
-      </Breadcrumb>
-      <Form
-        form={form}
-        layout={"horizontal"}
-        {...formLayout}
-        onFinish={onFinish}
-      >
-        <Form.Item label="Οδός" name="street" rules={[{ required: true }]}>
-          <Input />
-        </Form.Item>
-        <Form.Item
-          label="Αριθός"
-          name="streetnumber"
-          rules={[{ required: true }]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item label="Περιοχή" name="area" rules={[{ required: true }]}>
-          <Input />
-        </Form.Item>
-        <Form.Item label="Τ.Κ." name="postalCode" rules={[{ required: true }]}>
-          <Input />
-        </Form.Item>
-        <Form.Item {...tailLayout} style={{ float: "right" }}>
-          <Space>
-            <Button type="primary" htmlType="submit">
-              Add
-            </Button>
-            <Button htmlType="button" onClick={onReset}>
-              Cancel
-            </Button>
-          </Space>
-        </Form.Item>
-      </Form>
-    </Space>
+      </ActionsForm>
+      <AddressForm formName="addressForm" data={NewAddress()} />
+    </Form.Provider>
   );
 };

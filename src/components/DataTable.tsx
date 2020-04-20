@@ -173,6 +173,7 @@ export const DataTable = ({ entity, columns, filterFn }: DataTableProps) => {
         </Form.Item>
       </Form>
       <Table
+        size="small"
         columns={columnsWithActions}
         rowKey={(record) => record.id}
         dataSource={data}

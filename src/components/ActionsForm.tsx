@@ -24,7 +24,7 @@ export const ActionsForm = ({
             <Breadcrumb className="breadcrumb">{children}</Breadcrumb>
           </Col>
           <Col flex="42px">
-            <Form.Item style={{ margin: "0 0" }}>
+            <Form.Item>
               <Tooltip title="Αποθήκευση">
                 <Button
                   type="primary"
@@ -36,7 +36,7 @@ export const ActionsForm = ({
             </Form.Item>
           </Col>
           <Col flex="42px">
-            <Form.Item style={{ margin: "0 0" }}>
+            <Form.Item>
               <Tooltip title="Ακύρωση">
                 <Button
                   htmlType="button"

@@ -11,7 +11,6 @@ import {
   Col,
   InputNumber,
   Skeleton,
-  Card,
 } from "antd";
 
 import UserContext from "../../UserContext";

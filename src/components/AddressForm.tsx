@@ -11,12 +11,12 @@ export const AddressForm = ({ data, formName }: AddressFormProps) => {
   return (
     <Form name={formName} layout={"vertical"} initialValues={data}>
       <Row gutter={[8, 0]}>
-        <Col span={16}>
+        <Col span={10}>
           <Form.Item label="Οδός" name="street" rules={[{ required: true }]}>
             <Input />
           </Form.Item>
         </Col>
-        <Col span={8}>
+        <Col span={3}>
           <Form.Item
             label="Αριθός"
             name="streetnumber"
@@ -25,12 +25,12 @@ export const AddressForm = ({ data, formName }: AddressFormProps) => {
             <Input />
           </Form.Item>
         </Col>
-        <Col span={16}>
+        <Col span={8}>
           <Form.Item label="Περιοχή" name="area" rules={[{ required: true }]}>
             <Input />
           </Form.Item>
         </Col>
-        <Col span={8}>
+        <Col span={3}>
           <Form.Item
             label="Τ.Κ."
             name="postalCode"

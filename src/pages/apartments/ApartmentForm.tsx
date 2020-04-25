@@ -143,16 +143,22 @@ export const ApartmentForm = () => {
           </Row>
         </Form>
 
-        <Row>
+        <Row gutter={[8, 0]}>
           <Col span={12}>
-            <Card title="Ιδιοκτήτης" bordered={false}>
-              <PersonForm formName="ownerForm" data={data?.owner} />
-            </Card>
+            <h4>Ιδιοκτήτης</h4>
           </Col>
           <Col span={12}>
-            <Card title="Ένοικος" bordered={false}>
-              <PersonForm formName="residentForm" data={data?.resident} />
-            </Card>
+            <h4>Ένοικος</h4>
+          </Col>
+          <Col span={12}>
+            {/* <Card title="Ιδιοκτήτης" bordered={false}> */}
+            <PersonForm formName="ownerForm" data={data?.owner} />
+            {/* </Card> */}
+          </Col>
+          <Col span={12}>
+            {/* <Card title="Ένοικος" bordered={false}> */}
+            <PersonForm formName="residentForm" data={data?.resident} />
+            {/* </Card> */}
           </Col>
         </Row>
       </Form.Provider>

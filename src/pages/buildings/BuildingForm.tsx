@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useQuery, useMutation, queryCache } from "react-query";
 import axios from "axios";
-import { Skeleton, notification, Breadcrumb, Form, Divider } from "antd";
+import { Skeleton, notification, Breadcrumb, Form } from "antd";
 
 import UserContext from "../../UserContext";
 import { AddressForm } from "../../components/AddressForm";
@@ -94,7 +94,6 @@ export const BuildingForm = () => {
           </Breadcrumb.Item>
         </ActionsForm>
         <AddressForm formName="addressForm" data={data?.address} />
-        <Divider></Divider>
         <AppartmentList data={data}></AppartmentList>
       </Form.Provider>
     </Skeleton>

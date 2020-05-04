@@ -19,3 +19,11 @@ export const NewPerson = (): Person => {
 export const PersonTitle = (value: Person): string => {
   return `${value.lastName} ${value.firstName}`;
 };
+
+export const PersonTitleWithMobile = (value: Person): string => {
+  if (value) {
+    return `${value.lastName} ${value.firstName} (${value.mobile})`;
+  } else {
+    return "";
+  }
+};

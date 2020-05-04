@@ -126,16 +126,7 @@ export const DataTable = ({ entity, columns, filterFn }: DataTableProps) => {
   const { status, data, isFetching } = useQuery<
     any,
     [string, number, number, string[], {}]
-  >([entity, page, rows, sort, filter], fetchData, {
-    retry: false,
-    refetchOnWindowFocus: false,
-    onError: (error: any) =>
-      notification["error"]({
-        message: "Σφάλμα !!!",
-        description: error.message,
-        duration: 10,
-      }),
-  });
+  >([entity, page, rows, sort, filter], fetchData);
 
   const handleTableChange = (pagination: any, _: any, sorting: any) => {
     setPage(pagination.current);

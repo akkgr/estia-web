@@ -14,14 +14,14 @@ import {
 } from "antd";
 
 import UserContext from "../../UserContext";
-import { PersonForm } from "../../components/PersonForm";
 import { ActionsForm } from "../../components/ActionsForm";
+import { PersonTitleWithMobile } from "../../models/Person";
+import { PersonForm } from "../../components/PersonForm";
 
 const uri = process.env.REACT_APP_API_URL + "/api";
 const entity = "apartments";
 
 export const ApartmentForm = () => {
-  const [form] = Form.useForm();
   const manager = useContext(UserContext);
   let { id1, id2 } = useParams();
 
@@ -59,25 +59,10 @@ export const ApartmentForm = () => {
   const { status, data, isFetching } = useQuery<
     any,
     [string, string | undefined]
-  >([entity, id2], fetchData, {
-    retry: false,
-    refetchOnWindowFocus: false,
-    onError: (error: any) =>
-      notification["error"]({
-        message: "Σφάλμα !!!",
-        description: error.message,
-        duration: 10,
-      }),
-  });
+  >([entity, id2], fetchData);
 
   const [mutate] = useMutation(updateData, {
     onSuccess: (data) => queryCache.setQueryData([entity, id2], data),
-    onError: (error: any) =>
-      notification["error"]({
-        message: "Σφάλμα !!!",
-        description: error.message,
-        duration: 10,
-      }),
   });
 
   const update = (input: any) => {
@@ -114,12 +99,7 @@ export const ApartmentForm = () => {
           <Breadcrumb.Item>{`${data?.title}`}</Breadcrumb.Item>
         </ActionsForm>
 
-        <Form
-          form={form}
-          name="appartmentForm"
-          layout={"vertical"}
-          initialValues={data}
-        >
+        <Form name="appartmentForm" layout={"vertical"} initialValues={data}>
           <Row gutter={[8, 0]}>
             <Col span={6}>
               <Form.Item
@@ -141,7 +121,6 @@ export const ApartmentForm = () => {
             </Col>
           </Row>
         </Form>
-
         <Row gutter={[8, 0]}>
           <Col span={12}>
             <h4>Ιδιοκτήτης</h4>

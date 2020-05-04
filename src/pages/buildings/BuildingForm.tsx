@@ -51,25 +51,10 @@ export const BuildingForm = () => {
   const { status, data, isFetching } = useQuery<
     any,
     [string, string | undefined]
-  >([entity, id], fetchData, {
-    retry: false,
-    refetchOnWindowFocus: false,
-    onError: (error: any) =>
-      notification["error"]({
-        message: "Σφάλμα !!!",
-        description: error.message,
-        duration: 10,
-      }),
-  });
+  >([entity, id], fetchData);
 
   const [mutate] = useMutation(updateData, {
     onSuccess: (data) => queryCache.setQueryData([entity, id], data),
-    onError: (error: any) =>
-      notification["error"]({
-        message: "Σφάλμα !!!",
-        description: error.message,
-        duration: 10,
-      }),
   });
 
   const updateAddress = (input: any) => {

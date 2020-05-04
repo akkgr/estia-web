@@ -1,33 +1,29 @@
 import React, { useState, useContext, useEffect, useCallback } from "react";
+import { ReactQueryConfigProvider } from "react-query";
 import "./App.css";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect,
-} from "react-router-dom";
-import { Layout, Menu } from "antd";
-import {
-  UserOutlined,
-  MenuUnfoldOutlined,
-  MenuFoldOutlined,
-  LogoutOutlined,
-  LoginOutlined,
-} from "@ant-design/icons";
+import { BrowserRouter as Router } from "react-router-dom";
+import { Layout, notification } from "antd";
 
 import UserContext from "./UserContext";
 import MainMenu from "./components/MainMenu";
-import Callback from "./pages/Callback";
-import { BuildingList } from "./pages/buildings/BuildingList";
-import { Dashboard } from "./pages/Dashboard";
-import { BuildingForm } from "./pages/buildings/BuildingForm";
-import Silent from "./pages/Silent";
-import { NewBuilding } from "./pages/buildings/NewBuilding";
-import { ApartmentForm } from "./pages/apartments/ApartmentForm";
-import { NewApartment } from "./pages/apartments/NewApartment";
+import MainHeader from "./components/MainHeader";
+import Routes from "./Routes";
 
-const { Content, Footer, Sider, Header } = Layout;
-const { SubMenu } = Menu;
+const { Content, Footer, Sider } = Layout;
+
+const queryConfig = {
+  // Global
+  suspense: false,
+  refetchOnWindowFocus: false,
+  onError: (error: any) =>
+    notification["error"]({
+      message: "Σφάλμα !!!",
+      description: error.message,
+      duration: 10,
+    }),
+  // useQuery
+  retry: false,
+};
 
 function App() {
   const [collapsed, setCollapsed] = useState(false);
@@ -63,88 +59,34 @@ function App() {
   };
 
   return (
-    <Router>
-      <Layout style={{ minHeight: "100vh" }}>
-        <Sider trigger={null} collapsible collapsed={collapsed}>
-          <MainMenu></MainMenu>
-        </Sider>
-        <Layout className="site-layout">
-          <Header className="site-layout-background" style={{ padding: 0 }}>
-            {React.createElement(
-              collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
-              {
-                className: "trigger",
-                onClick: () => setCollapsed(!collapsed),
-              }
-            )}
-            <Menu mode="horizontal" onClick={menuClick}>
-              <SubMenu
-                style={{ float: "right" }}
-                key="user"
-                title={
-                  <span>
-                    {" "}
-                    <UserOutlined />
-                    <span>{user?.profile.name}</span>
-                  </span>
-                }
-              >
-                {user ? (
-                  <Menu.Item key="logout">
-                    <LogoutOutlined />
-                    <span>Έξοδος</span>
-                  </Menu.Item>
-                ) : (
-                  <Menu.Item key="login">
-                    <LoginOutlined />
-                    <span>Είσοδος</span>
-                  </Menu.Item>
-                )}
-              </SubMenu>
-            </Menu>
-          </Header>
-          <Content
-            className="site-layout-background"
-            style={{
-              margin: "24px 16px",
-              padding: 24,
-              minHeight: 280,
-            }}
-          >
-            <Switch>
-              <Route exact path="/">
-                <Redirect to="/dashboard" />
-              </Route>
-              <Route exact path="/dashboard">
-                <Dashboard changeUser={changeUser} />
-              </Route>
-              <Route exact path="/buildings">
-                <BuildingList></BuildingList>
-              </Route>
-              <Route exact path="/buildings/new">
-                <NewBuilding></NewBuilding>
-              </Route>
-              <Route exact path="/buildings/:id">
-                <BuildingForm></BuildingForm>
-              </Route>
-              <Route exact path="/buildings/:id/apartments/new">
-                <NewApartment></NewApartment>
-              </Route>
-              <Route exact path="/buildings/:id1/apartments/:id2">
-                <ApartmentForm></ApartmentForm>
-              </Route>
-              <Route exact path="/callback">
-                <Callback></Callback>
-              </Route>
-              <Route exact path="/callback">
-                <Silent></Silent>
-              </Route>
-            </Switch>
-          </Content>
-          <Footer style={{ textAlign: "center" }}>Cinnamon ©2020</Footer>
+    <ReactQueryConfigProvider config={queryConfig}>
+      <Router>
+        <Layout style={{ minHeight: "100vh" }}>
+          <Sider trigger={null} collapsible collapsed={collapsed}>
+            <MainMenu></MainMenu>
+          </Sider>
+          <Layout className="site-layout">
+            <MainHeader
+              collapsed={collapsed}
+              menuClick={menuClick}
+              setCollapsed={setCollapsed}
+              user={user}
+            />
+            <Content
+              className="site-layout-background"
+              style={{
+                margin: "24px 16px",
+                padding: 24,
+                minHeight: 280,
+              }}
+            >
+              <Routes changeUser={changeUser} />
+            </Content>
+            <Footer style={{ textAlign: "center" }}>Cinnamon ©2020</Footer>
+          </Layout>
         </Layout>
-      </Layout>
-    </Router>
+      </Router>
+    </ReactQueryConfigProvider>
   );
 }
 

@@ -44,16 +44,7 @@ export const NewApartment = () => {
   const { status, data, isFetching } = useQuery<
     any,
     [string, string | undefined]
-  >([parentEntity, id], fetchData, {
-    retry: false,
-    refetchOnWindowFocus: false,
-    onError: (error: any) =>
-      notification["error"]({
-        message: "Σφάλμα !!!",
-        description: error.message,
-        duration: 10,
-      }),
-  });
+  >([parentEntity, id], fetchData);
 
   const updateData = async (input: any) => {
     const user = await manager.getUser();
@@ -78,12 +69,6 @@ export const NewApartment = () => {
       queryCache.setQueryData([parentEntity, data.id], data);
       history.push(`/buildings/${data.buildingId}/apartments/${data.id}`);
     },
-    onError: (error: any) =>
-      notification["error"]({
-        message: "Σφάλμα !!!",
-        description: error.message,
-        duration: 10,
-      }),
   });
 
   const update = (input: any) => {

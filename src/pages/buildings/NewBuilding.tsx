@@ -38,12 +38,6 @@ export const NewBuilding = () => {
       queryCache.setQueryData([entity, data.id], data);
       history.push(`/buildings/${data.id}`);
     },
-    onError: (error: any) =>
-      notification["error"]({
-        message: "Σφάλμα !!!",
-        description: error.message,
-        duration: 10,
-      }),
   });
 
   const updateAddress = (input: any) => {

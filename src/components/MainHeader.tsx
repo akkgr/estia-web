@@ -29,7 +29,7 @@ function MainHeader(props: any) {
           title={
             <span>
               {" "}
-              <UserOutlined />
+              <i className="fas fa-user"></i>
               <span>{props.user?.profile.name}</span>
             </span>
           }

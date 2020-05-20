@@ -10,6 +10,8 @@ interface AddressFormProps {
 export const AddressForm = ({ data, formName }: AddressFormProps) => {
   return (
     <Form name={formName} layout={"vertical"} initialValues={data}>
+      <div>{JSON.stringify(data)}</div>
+      <div>{JSON.stringify(formName)}</div>
       <Row gutter={[8, 0]}>
         <Col span={10}>
           <Form.Item label="Οδός" name="street" rules={[{ required: true }]}>
@@ -39,6 +41,7 @@ export const AddressForm = ({ data, formName }: AddressFormProps) => {
             <Input />
           </Form.Item>
         </Col>
+        <button className="btn btn-primary" type="submit">Πληροφορίες Κτηρίου</button>
       </Row>
     </Form>
   );

@@ -11,6 +11,7 @@ import Callback from "pages/Callback";
 import Silent from "pages/Silent";
 import { BuildingInfo } from "pages/buildings/BuildingInfo";
 import { Ratings } from "pages/buildings/Ratings";
+import BuildingList1 from "components/Admin/BuildingList1";
 
 function Routes(props: any) {
   return (
@@ -32,6 +33,7 @@ function Routes(props: any) {
 
       <Route exact path="/buildings/:id/info" component={BuildingInfo} />
 
+      <Route exact path="/buildings/:id/try" component={BuildingList1} />
       <Route
         exact
         path="/buildings/:id/apartments/new"

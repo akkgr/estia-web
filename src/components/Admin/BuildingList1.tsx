@@ -4,24 +4,45 @@ import UserContext from "../../UserContext";
 const uri = process.env.REACT_APP_API_URL + "/api";
 const BuildingList1 = () => {
   const manager = useContext(UserContext);
-  // const fetchData = async (
-  //   ) => {
-  //     const user = await manager.getUser();
-  //     if (!user || user?.expired) {
-  //       manager.signinRedirect();
-  //     }
-  //     const { data } = await axios.get(
-  //       `${uri}/${key}?sort=${s}&page=[${page},${rows}]&filter=${f}`,
-  //       {
-  //         headers: {
-  //           Authorization: `Bearer ${user?.access_token}`,
-  //         },
-  //       }
-  //     );
-  //     console.log("data.data:" + data.data);
-  //     setTotal(data.count);
-  //     return data.data;
-  //   };
+  const sort = (
+    ascending: boolean,
+    columnClassName: string,
+    tableId?: string
+  ) => {
+    var tbody = document
+      .getElementById(tableId)
+      .getElementsByTagName("tbody")[0];
+    var rows = tbody.getElementsByTagName("tr");
+
+    var unsorted = true;
+
+    while (unsorted) {
+      unsorted = false;
+
+      for (var r = 0; r < rows.length - 1; r++) {
+        var row = rows[r];
+        var nextRow = rows[r + 1];
+
+        var value = row.getElementsByClassName(columnClassName)[0].innerHTML;
+        var nextValue = nextRow.getElementsByClassName(columnClassName)[0]
+          .innerHTML;
+
+        value = value.replace(",", ""); // in case a comma is used in float number
+        nextValue = nextValue.replace(",", "");
+
+        if (!isNaN(value)) {
+          value = parseFloat(value);
+          nextValue = parseFloat(nextValue);
+        }
+
+        if (ascending ? value > nextValue : value < nextValue) {
+          tbody.insertBefore(nextRow, row);
+          unsorted = true;
+        }
+      }
+    }
+  };
+
   console.log("has run");
   const dummyData = [
     {
@@ -45,9 +66,9 @@ const BuildingList1 = () => {
     return dummyData.map(function (dummy) {
       return (
         <tr key={dummy.id}>
-          <td>{dummy.address.street}</td>
-          <td>{dummy.address.streetnumber}</td>
-          <td>{dummy.address.area}</td>
+          <td className="street">{dummy.address.street}</td>
+          <td className="number">{dummy.address.streetnumber}</td>
+          <td className="area">{dummy.address.area}</td>
         </tr>
       );
     });
@@ -55,15 +76,39 @@ const BuildingList1 = () => {
 
   return (
     <div className="table-responsive">
-      <table className="table table-bordered table-hover" id="dataTable">
+      <table className="table table-bordered" id="content-table">
         <thead>
           <tr>
-            <th scope="col">Οδός</th>
-            <th scope="col">Αριθμός</th>
-            <th scope="col">Περιοχή</th>
+            <th scope="col" className="street">
+              Οδός
+              <button onClick={() => sort(true, "street", "content-table")}>
+                asc
+              </button>
+              <button onClick={() => sort(false, "street", "content-table")}>
+                desc
+              </button>
+            </th>
+            <th scope="col" className="number">
+              Αριθμός{" "}
+              <button onClick={() => sort(true, "number", "content-table")}>
+                asc
+              </button>
+              <button onClick={() => sort(false, "number", "content-table")}>
+                desc
+              </button>
+            </th>
+            <th scope="col" className="area">
+              Περιοχή
+              <button onClick={() => sort(true, "area", "content-table")}>
+                asc
+              </button>
+              <button onClick={() => sort(false, "area", "content-table")}>
+                desc
+              </button>
+            </th>
           </tr>
-          <tbody>{renderrow()}</tbody>
         </thead>
+        <tbody>{renderrow()}</tbody>
       </table>
     </div>
   );

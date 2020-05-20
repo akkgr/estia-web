@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { useHistory, Link } from "react-router-dom";
 import { useMutation, queryCache } from "react-query";
 import axios from "axios";
-import { Form, Breadcrumb, notification } from "antd";
+import { Form,  notification } from "antd";
 import UserContext from "../../UserContext";
 import { AddressForm } from "../../components/AddressForm";
 import { NewAddress } from "../../models/Address";
@@ -52,10 +52,8 @@ export const NewBuilding = () => {
       }}
     >
       <ActionsForm returnUrl="/buildings">
-        <Breadcrumb.Item>
-          <Link to="/buildings">Κτίρια</Link>
-        </Breadcrumb.Item>
-        <Breadcrumb.Item>Νέο Κτίριο</Breadcrumb.Item>
+        <li className="breadcrumb-item active" aria-current="page"><Link to="/buildings">Κτίρια</Link></li>
+        <li className="breadcrumb-item active" aria-current="page">Νέο Κτίριο</li>
       </ActionsForm>
       <AddressForm formName="addressForm" data={NewAddress()} />
     </Form.Provider>

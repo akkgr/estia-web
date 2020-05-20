@@ -5,13 +5,9 @@ import axios from "axios";
 import {
   Form,
   Input,
-  Breadcrumb,
   notification,
-  Row,
-  Col,
   InputNumber,
   Skeleton,
-  Card,
 } from "antd";
 import UserContext from "../../UserContext";
 import { PersonForm } from "../../components/PersonForm";
@@ -96,20 +92,28 @@ export const NewApartment = () => {
         }}
       >
         <ActionsForm returnUrl={`/buildings/${id}`}>
-          <Breadcrumb.Item>
-            <Link to="/buildings">Κτίρια</Link>
-          </Breadcrumb.Item>
-          <Breadcrumb.Item>
-            <Link to={`/buildings/${id}`}>
+        <li className="breadcrumb-item " aria-current="page"> 
+        <Link to="/buildings">Κτίρια</Link>
+        </li>
+        <li className="breadcrumb-item " aria-current="page"> 
+        <Link to={`/buildings/${id}`}>
               {data ? AddressTitle(data.address) : ""}
-            </Link>
-          </Breadcrumb.Item>
-          <Breadcrumb.Item>Νέο Διαμέρισμα</Breadcrumb.Item>
+            </Link></li>
+            <li className="breadcrumb-item " aria-current="page"> 
+            Νέο Διαμέρισμα
+        </li>
         </ActionsForm>
 
-        <Form form={form} name="appartmentForm" layout={"vertical"}>
-          <Row gutter={[8, 0]}>
-            <Col span={6}>
+        <div className="row slideanim">
+        <div className="col-lg">
+          <div className="card shadow mb-4">
+            <div className="card-header py-3" style={{backgroundColor: '#3aafa9'}}>
+              <h6 className="m-0 font-weight-bold " style={{color: '#17252a'}}>Γενικές πληροφορίες</h6>
+            </div>
+            <div className="card-body" style={{backgroundColor: '#def2f1'}}>
+            <Form form={form} name="appartmentForm" layout={"horizontal"}>
+              <div className="row ">   
+              <div className="col-2">
               <Form.Item
                 label="Α/Α"
                 name="position"
@@ -117,31 +121,49 @@ export const NewApartment = () => {
               >
                 <InputNumber />
               </Form.Item>
-            </Col>
-            <Col span={18}>
-              <Form.Item
+                  </div> 
+                  <div className="col">
+                  <Form.Item
                 label="Διαμέρισμα"
                 name="title"
                 rules={[{ required: true }]}
               >
                 <Input />
               </Form.Item>
-            </Col>
-          </Row>
-        </Form>
+               </div>
+                </div>
+                </Form>
+              </div>
+            </div>
+          
 
-        <Row>
-          <Col span={12}>
-            <Card title="Ιδιοκτήτης" bordered={false}>
-              <PersonForm formName="ownerForm" data={data?.owner} />
-            </Card>
-          </Col>
-          <Col span={12}>
-            <Card title="Ένοικος" bordered={false}>
-              <PersonForm formName="residentForm" data={data?.resident} />
-            </Card>
-          </Col>
-        </Row>
+        </div>
+        </div>
+        <div className="row slideanim">
+
+        <div className="col-lg-6">
+          <div className="card shadow mb-4">
+            <div className="card-header py-3" style={{backgroundColor: '#3aafa9'}}>
+              <h6 className="m-0 font-weight-bold " style={{color: '#17252a'}}>Ιδιοκτήτης</h6>
+            </div>
+            <div className="card-body" style={{backgroundColor: '#def2f1'}}>
+            <PersonForm formName="ownerForm" data={data?.owner} />
+            </div>
+          </div>
+
+        </div>
+
+        <div className="col-lg-6">
+          <div className="card shadow mb-4" >
+          <div className="card-header py-3" style={{backgroundColor: '#3aafa9'}}>
+              <h6 className="m-0 font-weight-bold " style={{color: '#17252a'}}>Ένοικος</h6>
+            </div>
+            <div className="card-body" style={{backgroundColor: '#def2f1'}}>
+            <PersonForm formName="residentForm" data={data?.resident} />
+            </div>
+          </div>
+        </div>
+        </div>
       </Form.Provider>
     </Skeleton>
   );

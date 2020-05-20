@@ -71,12 +71,8 @@ export const BuildingForm = () => {
         }}
       >
         <ActionsForm returnUrl="/buildings">
-          <Breadcrumb.Item>
-            <Link to="/buildings">Κτίρια</Link>
-          </Breadcrumb.Item>
-          <Breadcrumb.Item>
-            {data ? AddressTitle(data.address) : ""}
-          </Breadcrumb.Item>
+            <li className="breadcrumb-item active" aria-current="page"><Link to="/buildings">Κτίρια</Link></li>
+            <li className="breadcrumb-item active" aria-current="page">{data ? AddressTitle(data.address) : ""}</li>
         </ActionsForm>
         <AddressForm formName="addressForm" data={data?.address} />
           <Link to={`${id}/ratings`}>Ποσοστά </Link>

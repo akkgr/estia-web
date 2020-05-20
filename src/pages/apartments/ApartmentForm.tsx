@@ -5,10 +5,7 @@ import axios from "axios";
 import {
   Form,
   Input,
-  Breadcrumb,
   notification,
-  Row,
-  Col,
   InputNumber,
   Skeleton,
 } from "antd";
@@ -90,57 +87,10 @@ export const ApartmentForm = () => {
         }}
       >
         <ActionsForm returnUrl={`/buildings/${id1}`}>
-          <Breadcrumb.Item>
-            <Link to="/buildings">Κτίρια</Link>
-          </Breadcrumb.Item>
-          <Breadcrumb.Item>
-            <Link to={`/buildings/${id1}`}>{`${data?.buildingTitle}`}</Link>
-          </Breadcrumb.Item>
-          <Breadcrumb.Item>{`${data?.title}`}</Breadcrumb.Item>
+            <li className="breadcrumb-item " aria-current="page"> <Link to="/buildings">Κτίρια</Link></li>
+            <li className="breadcrumb-item " aria-current="page"> <Link to={`/buildings/${id1}`}>{`${data?.buildingTitle}`}</Link></li>
+            <li className="breadcrumb-item " aria-current="page"> {`${data?.title}`}</li>
         </ActionsForm>
-
-        {/* <Form name="appartmentForm" layout={"vertical"} initialValues={data}>
-          <Row gutter={[8, 0]}>
-            <Col span={6}>
-              <Form.Item
-                label="Α/Α"
-                name="position"
-                rules={[{ required: true }]}
-              >
-                <InputNumber />
-              </Form.Item>
-            </Col>
-            <Col span={18}>
-              <Form.Item
-                label="Διαμέρισμα"
-                name="title"
-                rules={[{ required: true }]}
-              >
-                <Input />
-              </Form.Item>
-            </Col>
-          </Row>
-        </Form> */}
-        {/* <Row gutter={[8, 0]}> */}
-          {/* <Col span={12}>
-            <h4>Ιδιοκτήτης</h4>
-          </Col> */}
-          {/* <Col span={12}>
-            <h4>Ένοικος</h4>
-          </Col> */}
-          {/* <Col span={12}> */}
-            {/* <Card title="Ιδιοκτήτης" bordered={false}> */}
-            {/* <PersonForm formName="ownerForm" data={data?.owner} /> */}
-            {/* </Card>
-          // </Col> */}
-          {/* <Col span={12}> */}
-            {/* <Card title="Ένοικος" bordered={false}> */}
-            {/* <PersonForm formName="residentForm" data={data?.resident} /> */}
-            {/* </Card> */}
-          {/* </Col> */}
-        {/* </Row> */}
-
-
         <div className="row slideanim">
         <div className="col-lg">
           <div className="card shadow mb-4">

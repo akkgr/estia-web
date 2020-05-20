@@ -37,7 +37,7 @@ export const ApartmentForm = () => {
     });
     return data;
   };
-
+  
   const updateData = async (input: any) => {
     const user = await manager.getUser();
     if (!user || user?.expired) {
@@ -99,7 +99,7 @@ export const ApartmentForm = () => {
           <Breadcrumb.Item>{`${data?.title}`}</Breadcrumb.Item>
         </ActionsForm>
 
-        <Form name="appartmentForm" layout={"vertical"} initialValues={data}>
+        {/* <Form name="appartmentForm" layout={"vertical"} initialValues={data}>
           <Row gutter={[8, 0]}>
             <Col span={6}>
               <Form.Item
@@ -120,25 +120,277 @@ export const ApartmentForm = () => {
               </Form.Item>
             </Col>
           </Row>
-        </Form>
-        <Row gutter={[8, 0]}>
-          <Col span={12}>
+        </Form> */}
+        {/* <Row gutter={[8, 0]}> */}
+          {/* <Col span={12}>
             <h4>Ιδιοκτήτης</h4>
-          </Col>
-          <Col span={12}>
+          </Col> */}
+          {/* <Col span={12}>
             <h4>Ένοικος</h4>
-          </Col>
-          <Col span={12}>
+          </Col> */}
+          {/* <Col span={12}> */}
             {/* <Card title="Ιδιοκτήτης" bordered={false}> */}
-            <PersonForm formName="ownerForm" data={data?.owner} />
-            {/* </Card> */}
-          </Col>
-          <Col span={12}>
+            {/* <PersonForm formName="ownerForm" data={data?.owner} /> */}
+            {/* </Card>
+          // </Col> */}
+          {/* <Col span={12}> */}
             {/* <Card title="Ένοικος" bordered={false}> */}
-            <PersonForm formName="residentForm" data={data?.resident} />
+            {/* <PersonForm formName="residentForm" data={data?.resident} /> */}
             {/* </Card> */}
-          </Col>
-        </Row>
+          {/* </Col> */}
+        {/* </Row> */}
+
+
+        <div className="row slideanim">
+        <div className="col-lg">
+          <div className="card shadow mb-4">
+            <div className="card-header py-3" style={{backgroundColor: '#3aafa9'}}>
+              <h6 className="m-0 font-weight-bold " style={{color: '#17252a'}}>Γενικές πληροφορίες</h6>
+            </div>
+            <div className="card-body" style={{backgroundColor: '#def2f1'}}>
+            {/* <div className="row "> */}
+            <Form name="appartmentForm" layout={"horizontal"} initialValues={data}>
+              <div className="col-lg-6">
+                <Form.Item
+                label="Α/Α"
+                name="position"
+                rules={[{ required: true }]}
+              >
+                <InputNumber />
+              </Form.Item>
+                  </div> 
+                  <div className="col-lg-6">
+                  <Form.Item
+                label="Διαμέρισμα"
+                name="title"
+                rules={[{ required: true }]}
+              >
+                <Input />
+              </Form.Item>
+               </div>
+              </Form>
+                {/* </div> */}
+                
+
+              </div>
+            </div>
+          
+
+        </div>
+        </div>
+        <div className="row slideanim">
+
+        <div className="col-lg-6">
+          <div className="card shadow mb-4">
+            <div className="card-header py-3" style={{backgroundColor: '#3aafa9'}}>
+              <h6 className="m-0 font-weight-bold " style={{color: '#17252a'}}>Ιδιοκτήτης</h6>
+            </div>
+            <div className="card-body" style={{backgroundColor: '#def2f1'}}>
+            <PersonForm formName="ownerForm" data={data?.owner} />
+            </div>
+          </div>
+
+        </div>
+
+        <div className="col-lg-6">
+
+          <div className="card shadow mb-4" >
+          <div className="card-header py-3" style={{backgroundColor: '#3aafa9'}}>
+              <h6 className="m-0 font-weight-bold " style={{color: '#17252a'}}>Ένοικος</h6>
+            </div>
+            <div className="card-body" style={{backgroundColor: '#def2f1'}}>
+            <PersonForm formName="residentForm" data={data?.resident} />
+            </div>
+          </div>
+
+
+        </div>
+
+        </div>
+        <div className="row">
+
+            <div className="col-sm">
+              <div className="card border-primary shadow h-100 py-2">
+                <div className="card-body">
+                  <div className="row align-items-center">
+                    <div className="col mr-2">
+                      <div className="text-xs font-weight-bold text-primary mb-1">Κοινόχρηστα</div>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col">
+                      <div className="text-xs">Χιλιοστά:</div>
+                      <form className="user">                 
+                       <input type="text" className="form-control form-control-user" id="exampleRepeatPassword" placeholder="Χιλιοστά..."></input>
+                        </form>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col">
+                      <div className="text-xs ">Ποσοστά:</div>
+                      <form className="user">                 
+                       <input type="text" className="form-control form-control-user" id="exampleRepeatPassword" placeholder="Ποσοστά.."></input>
+                        </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="col-sm">
+              <div className="card border-primary shadow h-100 py-2">
+                <div className="card-body">
+                  <div className="row align-items-center">
+                    <div className="col mr-2">
+                      <div className="text-xs font-weight-bold text-primary mb-1">Ασανσέρ</div>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col">
+                      <div className="text-xs">Χιλιοστά:</div>
+                      <form className="user">                 
+                       <input type="text" className="form-control form-control-user" id="exampleRepeatPassword" placeholder="Χιλιοστά..."></input>
+                        </form>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col">
+                      <div className="text-xs ">Ποσοστά:</div>
+                      <form className="user">                 
+                       <input type="text" className="form-control form-control-user" id="exampleRepeatPassword" placeholder="Ποσοστά.."></input>
+                        </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="col-sm">
+              <div className="card border-primary shadow h-100 py-2">
+                <div className="card-body">
+                  <div className="row align-items-center">
+                    <div className="col mr-2">
+                      <div className="text-xs font-weight-bold text-primary mb-1">Ιδιοκτήτες</div>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col">
+                      <div className="text-xs">Χιλιοστά:</div>
+                      <form className="user">                 
+                       <input type="text" className="form-control form-control-user" id="exampleRepeatPassword" placeholder="Χιλιοστά..."></input>
+                        </form>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col">
+                      <div className="text-xs ">Ποσοστά:</div>
+                      <form className="user">                 
+                       <input type="text" className="form-control form-control-user" id="exampleRepeatPassword" placeholder="Ποσοστά.."></input>
+                        </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+             
+            </div>
+            <br />
+            <div className="row">
+            <div className="col-sm">
+              <div className="card border-primary shadow h-100 py-2">
+                <div className="card-body">
+                  <div className="row align-items-center">
+                    <div className="col mr-2">
+                      <div className="text-xs font-weight-bold text-primary mb-1">Boiler</div>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col">
+                      <div className="text-xs">Χιλιοστά:</div>
+                      <form className="user">                 
+                       <input type="text" className="form-control form-control-user" id="exampleRepeatPassword" placeholder="Χιλιοστά..."></input>
+                        </form>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col">
+                      <div className="text-xs ">Ποσοστά:</div>
+                      <form className="user">                 
+                       <input type="text" className="form-control form-control-user" id="exampleRepeatPassword" placeholder="Ποσοστά.."></input>
+                        </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="col-sm">
+              <div className="card border-primary shadow h-100 py-2">
+                <div className="card-body">
+                  <div className="row align-items-center">
+                    <div className="col mr-2">
+                      <div className="text-xs font-weight-bold text-primary mb-1">Θέρμανση</div>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col">
+                      <div className="text-xs">Χιλιοστά:</div>
+                      <form className="user">                 
+                       <input type="text" className="form-control form-control-user" id="exampleRepeatPassword" placeholder="Χιλιοστά..."></input>
+                        </form>
+                    </div>
+                    <div className="col">
+                      <div className="text-xs ">Ποσοστά:</div>
+                      <form className="user">                 
+                       <input type="text" className="form-control form-control-user" id="exampleRepeatPassword" placeholder="Ποσοστά.."></input>
+                        </form>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col">
+                      <div className="text-xs">E1:</div>
+                      <form className="user">                 
+                       <input type="text" className="form-control form-control-user" id="exampleRepeatPassword" placeholder="E1..."></input>
+                        </form>
+                    </div>
+                    <div className="col">
+                      <div className="text-xs ">F1:</div>
+                      <form className="user">                 
+                       <input type="text" className="form-control form-control-user" id="exampleRepeatPassword" placeholder="F1.."></input>
+                        </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div className="col-sm">
+              <div className="card border-primary shadow h-100 py-2">
+                <div className="card-body">
+                  <div className="row align-items-center">
+                    <div className="col mr-2">
+                      <div className="text-xs font-weight-bold text-primary mb-1">Άλλα έξοδα</div>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col">
+                      <div className="text-xs">Χιλιοστά:</div>
+                      <form className="user">                 
+                       <input type="text" className="form-control form-control-user" id="exampleRepeatPassword" placeholder="Χιλιοστά..."></input>
+                        </form>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col">
+                      <div className="text-xs ">Ποσοστά:</div>
+                      <form className="user">                 
+                       <input type="text" className="form-control form-control-user" id="exampleRepeatPassword" placeholder="Ποσοστά.."></input>
+                        </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            
+          </div>
       </Form.Provider>
     </Skeleton>
   );

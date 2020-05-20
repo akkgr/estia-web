@@ -3,10 +3,10 @@ import { useHistory, Link } from "react-router-dom";
 import { useMutation, queryCache } from "react-query";
 import axios from "axios";
 import { Form, notification } from "antd";
-import UserContext from "../../UserContext";
-import { AddressForm } from "../../components/AddressForm";
-import { NewAddress } from "../../app/models/Address";
-import { ActionsForm } from "../../components/ActionsForm";
+import UserContext from "UserContext";
+import { AddressForm } from "components/AddressForm";
+import { NewAddress } from "app/models/Address";
+import { ActionsForm } from "components/ActionsForm";
 
 const uri = process.env.REACT_APP_API_URL + "/api";
 const entity = "buildings";

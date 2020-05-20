@@ -4,11 +4,11 @@ import { useQuery, useMutation, queryCache } from "react-query";
 import axios from "axios";
 import { Skeleton, notification, Form } from "antd";
 
-import UserContext from "../../UserContext";
-import { AddressForm } from "../../components/AddressForm";
-import { AppartmentList } from "../../components/AppartmentList";
-import { AddressTitle } from "../../app/models/Address";
-import { ActionsForm } from "../../components/ActionsForm";
+import UserContext from "UserContext";
+import { AddressForm } from "components/AddressForm";
+import { AppartmentList } from "components/AppartmentList";
+import { AddressTitle } from "app/models/Address";
+import { ActionsForm } from "components/ActionsForm";
 
 const uri = process.env.REACT_APP_API_URL + "/api";
 const entity = "buildings";

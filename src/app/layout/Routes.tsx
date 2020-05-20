@@ -1,16 +1,16 @@
 import PropTypes from "prop-types";
 import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
-import { Dashboard } from "../../pages/Dashboard";
-import { BuildingList } from "../../pages/buildings/BuildingList";
-import { NewBuilding } from "../../pages/buildings/NewBuilding";
-import { BuildingForm } from "../../pages/buildings/BuildingForm";
-import { NewApartment } from "../../pages/apartments/NewApartment";
-import { ApartmentForm } from "../../pages/apartments/ApartmentForm";
-import Callback from "../../pages/Callback";
-import Silent from "../../pages/Silent";
-import { BuildingInfo } from "../../pages/buildings/BuildingInfo";
-import { Ratings } from "../../pages/buildings/Ratings";
+import { Dashboard } from "pages/Dashboard";
+import { BuildingList } from "pages/buildings/BuildingList";
+import { NewBuilding } from "pages/buildings/NewBuilding";
+import { BuildingForm } from "pages/buildings/BuildingForm";
+import { NewApartment } from "pages/apartments/NewApartment";
+import { ApartmentForm } from "pages/apartments/ApartmentForm";
+import Callback from "pages/Callback";
+import Silent from "pages/Silent";
+import { BuildingInfo } from "pages/buildings/BuildingInfo";
+import { Ratings } from "pages/buildings/Ratings";
 
 function Routes(props: any) {
   return (

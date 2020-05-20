@@ -1,5 +1,5 @@
-import { Person } from "./Person";
-import { Entity } from "./Entity";
+import { Person } from "app/models/Person";
+import { Entity } from "app/models/Entity";
 
 export interface Apartment extends Entity {
   buildingId: string;

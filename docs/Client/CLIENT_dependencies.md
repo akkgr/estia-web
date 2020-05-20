@@ -11,3 +11,12 @@
 ## React Bootstrap
 
     Bootstrap is a framework to help you design websites faster and easier. It includes HTML and CSS based design templates for typography, forms, buttons, tables, navigation, modals, image carousels, etc. ... Here are some additional reasons to use Bootstrap: Bootstrap's responsive CSS adjusts to phones, tablets, and desktops.
+
+## Import full Path etc /components/admin/Buildings.tsx instead of ../../admin/Buildings.tsx
+
+    To do this only need to import in tsconfig.json inside the
+     {
+    "compilerOptions": {
+        "baseUrl": "src"
+         }
+    }

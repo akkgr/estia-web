@@ -4,10 +4,10 @@ import { useQuery, useMutation, queryCache } from "react-query";
 import axios from "axios";
 import { Form, Input, notification, InputNumber, Skeleton } from "antd";
 
-import UserContext from "../../UserContext";
-import { ActionsForm } from "../../components/ActionsForm";
-import { PersonTitleWithMobile } from "../../app/models/Person";
-import { PersonForm } from "../../components/PersonForm";
+import UserContext from "UserContext";
+import { ActionsForm } from "components/ActionsForm";
+import { PersonTitleWithMobile } from "app/models/Person";
+import { PersonForm } from "components/PersonForm";
 
 const uri = process.env.REACT_APP_API_U;
 const entity = "apartments";

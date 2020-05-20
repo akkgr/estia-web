@@ -55,16 +55,16 @@ const BuildingList1 = () => {
 
   return (
     <div className="table-responsive">
-    <table className="table table-bordered table-hover" id="dataTable" >
-      <thead>
-        <tr>
-          <th scope="col">Οδός</th>
-          <th scope="col">Αριθμός</th>
-          <th scope="col">Περιοχή</th>
-        </tr>
-        <tbody>{renderrow()}</tbody>
-      </thead>
-    </table>
+      <table className="table table-bordered table-hover" id="dataTable">
+        <thead>
+          <tr>
+            <th scope="col">Οδός</th>
+            <th scope="col">Αριθμός</th>
+            <th scope="col">Περιοχή</th>
+          </tr>
+          <tbody>{renderrow()}</tbody>
+        </thead>
+      </table>
     </div>
   );
 };

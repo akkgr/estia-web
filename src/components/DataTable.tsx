@@ -119,6 +119,7 @@ export const DataTable = ({ entity, columns, filterFn }: DataTableProps) => {
         },
       }
     );
+    console.log("data.data:" + JSON.stringify(data.data));
     setTotal(data.count);
     return data.data;
   };

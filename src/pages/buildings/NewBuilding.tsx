@@ -2,10 +2,10 @@ import React, { useContext } from "react";
 import { useHistory, Link } from "react-router-dom";
 import { useMutation, queryCache } from "react-query";
 import axios from "axios";
-import { Form,  notification } from "antd";
+import { Form, notification } from "antd";
 import UserContext from "../../UserContext";
 import { AddressForm } from "../../components/AddressForm";
-import { NewAddress } from "../../models/Address";
+import { NewAddress } from "../../app/models/Address";
 import { ActionsForm } from "../../components/ActionsForm";
 
 const uri = process.env.REACT_APP_API_URL + "/api";
@@ -52,8 +52,12 @@ export const NewBuilding = () => {
       }}
     >
       <ActionsForm returnUrl="/buildings">
-        <li className="breadcrumb-item active" aria-current="page"><Link to="/buildings">Κτίρια</Link></li>
-        <li className="breadcrumb-item active" aria-current="page">Νέο Κτίριο</li>
+        <li className="breadcrumb-item active" aria-current="page">
+          <Link to="/buildings">Κτίρια</Link>
+        </li>
+        <li className="breadcrumb-item active" aria-current="page">
+          Νέο Κτίριο
+        </li>
       </ActionsForm>
       <AddressForm formName="addressForm" data={NewAddress()} />
     </Form.Provider>

@@ -1,6 +1,6 @@
 import React from "react";
 import { Form, Input } from "antd";
-import { Person } from "../models/Person";
+import { Person } from "../app/models/Person";
 
 interface PersonFormProps {
   formName: string;

@@ -7,7 +7,7 @@ import { Layout, notification } from "antd";
 import UserContext from "./UserContext";
 import MainMenu from "./components/MainMenu";
 import MainHeader from "./components/MainHeader";
-import Routes from "./Routes";
+import Routes from "./app/layout/Routes";
 
 const { Content, Footer, Sider } = Layout;
 

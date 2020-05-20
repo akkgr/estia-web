@@ -5,7 +5,7 @@ import axios from "axios";
 import { Skeleton, notification, Breadcrumb, Form } from "antd";
 
 import UserContext from "../../UserContext";
-import { AddressTitle } from "../../models/Address";
+import { AddressTitle } from "../../app/models/Address";
 import { ActionsForm } from "../../components/ActionsForm";
 import { RatingsList } from "../../components/RatingsList";
 
@@ -70,9 +70,15 @@ export const Ratings = () => {
         }}
       >
         <ActionsForm returnUrl="/buildings">
-            <li className="breadcrumb-item active" aria-current="page"><Link to="/buildings">Κτίρια</Link></li>
-            <li className="breadcrumb-item active" aria-current="page">{data ? AddressTitle(data.address) : ""}</li>
-            <li className="breadcrumb-item active" aria-current="page">Ποσοστά</li>
+          <li className="breadcrumb-item active" aria-current="page">
+            <Link to="/buildings">Κτίρια</Link>
+          </li>
+          <li className="breadcrumb-item active" aria-current="page">
+            {data ? AddressTitle(data.address) : ""}
+          </li>
+          <li className="breadcrumb-item active" aria-current="page">
+            Ποσοστά
+          </li>
         </ActionsForm>
         <RatingsList data={data}></RatingsList>
       </Form.Provider>

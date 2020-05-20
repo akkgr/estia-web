@@ -2,7 +2,6 @@ import PropTypes from "prop-types";
 import React from "react";
 import { Layout, Menu } from "antd";
 import {
-  UserOutlined,
   MenuUnfoldOutlined,
   MenuFoldOutlined,
   LogoutOutlined,

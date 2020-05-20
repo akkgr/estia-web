@@ -1,13 +1,13 @@
 import React, { useContext } from "react";
-import { useParams, Link, NavLink } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useQuery, useMutation, queryCache } from "react-query";
 import axios from "axios";
-import { Skeleton, notification, Breadcrumb, Form, Button } from "antd";
+import { Skeleton, notification, Form } from "antd";
 
 import UserContext from "../../UserContext";
 import { AddressForm } from "../../components/AddressForm";
 import { AppartmentList } from "../../components/AppartmentList";
-import { AddressTitle } from "../../models/Address";
+import { AddressTitle } from "../../app/models/Address";
 import { ActionsForm } from "../../components/ActionsForm";
 
 const uri = process.env.REACT_APP_API_URL + "/api";
@@ -71,11 +71,15 @@ export const BuildingForm = () => {
         }}
       >
         <ActionsForm returnUrl="/buildings">
-            <li className="breadcrumb-item active" aria-current="page"><Link to="/buildings">Κτίρια</Link></li>
-            <li className="breadcrumb-item active" aria-current="page">{data ? AddressTitle(data.address) : ""}</li>
+          <li className="breadcrumb-item active" aria-current="page">
+            <Link to="/buildings">Κτίρια</Link>
+          </li>
+          <li className="breadcrumb-item active" aria-current="page">
+            {data ? AddressTitle(data.address) : ""}
+          </li>
         </ActionsForm>
         <AddressForm formName="addressForm" data={data?.address} />
-          <Link to={`${id}/ratings`}>Ποσοστά </Link>
+        <Link to={`${id}/ratings`}>Ποσοστά </Link>
         <AppartmentList data={data}></AppartmentList>
       </Form.Provider>
     </Skeleton>

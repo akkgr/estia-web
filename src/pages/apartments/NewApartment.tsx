@@ -2,16 +2,10 @@ import React, { useContext } from "react";
 import { useHistory, Link, useParams } from "react-router-dom";
 import { useMutation, queryCache, useQuery } from "react-query";
 import axios from "axios";
-import {
-  Form,
-  Input,
-  notification,
-  InputNumber,
-  Skeleton,
-} from "antd";
+import { Form, Input, notification, InputNumber, Skeleton } from "antd";
 import UserContext from "../../UserContext";
 import { PersonForm } from "../../components/PersonForm";
-import { AddressTitle } from "../../models/Address";
+import { AddressTitle } from "../../app/models/Address";
 import { ActionsForm } from "../../components/ActionsForm";
 
 const uri = process.env.REACT_APP_API_URL + "/api";
@@ -92,77 +86,98 @@ export const NewApartment = () => {
         }}
       >
         <ActionsForm returnUrl={`/buildings/${id}`}>
-        <li className="breadcrumb-item " aria-current="page"> 
-        <Link to="/buildings">Κτίρια</Link>
-        </li>
-        <li className="breadcrumb-item " aria-current="page"> 
-        <Link to={`/buildings/${id}`}>
+          <li className="breadcrumb-item " aria-current="page">
+            <Link to="/buildings">Κτίρια</Link>
+          </li>
+          <li className="breadcrumb-item " aria-current="page">
+            <Link to={`/buildings/${id}`}>
               {data ? AddressTitle(data.address) : ""}
-            </Link></li>
-            <li className="breadcrumb-item " aria-current="page"> 
+            </Link>
+          </li>
+          <li className="breadcrumb-item " aria-current="page">
             Νέο Διαμέρισμα
-        </li>
+          </li>
         </ActionsForm>
 
         <div className="row slideanim">
-        <div className="col-lg">
-          <div className="card shadow mb-4">
-            <div className="card-header py-3" style={{backgroundColor: '#3aafa9'}}>
-              <h6 className="m-0 font-weight-bold " style={{color: '#17252a'}}>Γενικές πληροφορίες</h6>
-            </div>
-            <div className="card-body" style={{backgroundColor: '#def2f1'}}>
-            <Form form={form} name="appartmentForm" layout={"horizontal"}>
-              <div className="row ">   
-              <div className="col-2">
-              <Form.Item
-                label="Α/Α"
-                name="position"
-                rules={[{ required: true }]}
+          <div className="col-lg">
+            <div className="card shadow mb-4">
+              <div
+                className="card-header py-3"
+                style={{ backgroundColor: "#3aafa9" }}
               >
-                <InputNumber />
-              </Form.Item>
-                  </div> 
-                  <div className="col">
-                  <Form.Item
-                label="Διαμέρισμα"
-                name="title"
-                rules={[{ required: true }]}
-              >
-                <Input />
-              </Form.Item>
-               </div>
-                </div>
+                <h6
+                  className="m-0 font-weight-bold "
+                  style={{ color: "#17252a" }}
+                >
+                  Γενικές πληροφορίες
+                </h6>
+              </div>
+              <div className="card-body" style={{ backgroundColor: "#def2f1" }}>
+                <Form form={form} name="appartmentForm" layout={"horizontal"}>
+                  <div className="row ">
+                    <div className="col-2">
+                      <Form.Item
+                        label="Α/Α"
+                        name="position"
+                        rules={[{ required: true }]}
+                      >
+                        <InputNumber />
+                      </Form.Item>
+                    </div>
+                    <div className="col">
+                      <Form.Item
+                        label="Διαμέρισμα"
+                        name="title"
+                        rules={[{ required: true }]}
+                      >
+                        <Input />
+                      </Form.Item>
+                    </div>
+                  </div>
                 </Form>
               </div>
             </div>
-          
-
-        </div>
+          </div>
         </div>
         <div className="row slideanim">
-
-        <div className="col-lg-6">
-          <div className="card shadow mb-4">
-            <div className="card-header py-3" style={{backgroundColor: '#3aafa9'}}>
-              <h6 className="m-0 font-weight-bold " style={{color: '#17252a'}}>Ιδιοκτήτης</h6>
-            </div>
-            <div className="card-body" style={{backgroundColor: '#def2f1'}}>
-            <PersonForm formName="ownerForm" data={data?.owner} />
-            </div>
-          </div>
-
-        </div>
-
-        <div className="col-lg-6">
-          <div className="card shadow mb-4" >
-          <div className="card-header py-3" style={{backgroundColor: '#3aafa9'}}>
-              <h6 className="m-0 font-weight-bold " style={{color: '#17252a'}}>Ένοικος</h6>
-            </div>
-            <div className="card-body" style={{backgroundColor: '#def2f1'}}>
-            <PersonForm formName="residentForm" data={data?.resident} />
+          <div className="col-lg-6">
+            <div className="card shadow mb-4">
+              <div
+                className="card-header py-3"
+                style={{ backgroundColor: "#3aafa9" }}
+              >
+                <h6
+                  className="m-0 font-weight-bold "
+                  style={{ color: "#17252a" }}
+                >
+                  Ιδιοκτήτης
+                </h6>
+              </div>
+              <div className="card-body" style={{ backgroundColor: "#def2f1" }}>
+                <PersonForm formName="ownerForm" data={data?.owner} />
+              </div>
             </div>
           </div>
-        </div>
+
+          <div className="col-lg-6">
+            <div className="card shadow mb-4">
+              <div
+                className="card-header py-3"
+                style={{ backgroundColor: "#3aafa9" }}
+              >
+                <h6
+                  className="m-0 font-weight-bold "
+                  style={{ color: "#17252a" }}
+                >
+                  Ένοικος
+                </h6>
+              </div>
+              <div className="card-body" style={{ backgroundColor: "#def2f1" }}>
+                <PersonForm formName="residentForm" data={data?.resident} />
+              </div>
+            </div>
+          </div>
         </div>
       </Form.Provider>
     </Skeleton>

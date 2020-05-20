@@ -10,6 +10,7 @@ import { ApartmentForm } from "./pages/apartments/ApartmentForm";
 import Callback from "./pages/Callback";
 import Silent from "./pages/Silent";
 import { PersonForm } from "./components/PersonForm";
+import { BuildingInfo } from "./pages/buildings/BuildingInfo";
 
 function Routes(props: any) {
   return (
@@ -23,11 +24,15 @@ function Routes(props: any) {
       <Route exact path="/buildings">
         <BuildingList></BuildingList>
       </Route>
+      
       <Route exact path="/buildings/new">
         <NewBuilding></NewBuilding>
       </Route>
       <Route exact path="/buildings/:id">
         <BuildingForm></BuildingForm>
+      </Route>
+      <Route exact path="/buildings/:id/info">
+        <BuildingInfo></BuildingInfo>
       </Route>
       <Route exact path="/buildings/:id/apartments/new">
         <NewApartment></NewApartment>

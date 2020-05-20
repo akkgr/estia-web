@@ -193,7 +193,6 @@ export const ApartmentForm = () => {
         </div>
 
         <div className="col-lg-6">
-
           <div className="card shadow mb-4" >
           <div className="card-header py-3" style={{backgroundColor: '#3aafa9'}}>
               <h6 className="m-0 font-weight-bold " style={{color: '#17252a'}}>Ένοικος</h6>
@@ -202,13 +201,9 @@ export const ApartmentForm = () => {
             <PersonForm formName="residentForm" data={data?.resident} />
             </div>
           </div>
-
-
         </div>
-
         </div>
         <div className="row">
-
             <div className="col-sm">
               <div className="card border-primary shadow h-100 py-2">
                 <div className="card-body">
@@ -290,7 +285,6 @@ export const ApartmentForm = () => {
                 </div>
               </div>
             </div>
-             
             </div>
             <br />
             <div className="row">
@@ -360,7 +354,6 @@ export const ApartmentForm = () => {
                 </div>
               </div>
             </div>
-            
             <div className="col-sm">
               <div className="card border-primary shadow h-100 py-2">
                 <div className="card-body">
@@ -388,8 +381,6 @@ export const ApartmentForm = () => {
                 </div>
               </div>
             </div>
-
-            
           </div>
       </Form.Provider>
     </Skeleton>

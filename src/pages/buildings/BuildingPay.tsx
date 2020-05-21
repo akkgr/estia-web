@@ -6,14 +6,15 @@ import { Skeleton, notification, Form } from "antd";
 
 import UserContext from "UserContext";
 import { AddressForm } from "components/AddressForm";
-import { AppartmentList } from "components/AppartmentList";
 import { AddressTitle } from "app/models/Address";
 import { ActionsForm } from "components/ActionsForm";
+import { BuildingPaymentList } from "components/BuildingPaymentList";
+import Cards from "app/common/views/Cards";
 
 const uri = process.env.REACT_APP_API_URL + "/api";
 const entity = "buildings";
 
-export const BuildingForm = () => {
+export const BuildingPay = () => {
   const manager = useContext(UserContext);
   let { id } = useParams();
 
@@ -78,10 +79,7 @@ export const BuildingForm = () => {
             {data ? AddressTitle(data.address) : ""}
           </li>
         </ActionsForm>
-        <AddressForm formName="addressForm" data={data?.address} id={id}/>
-        <Link to={`${id}/ratings`}>Ποσοστά </Link>
-        <Link to={`${id}/payments`}>Πληρωμές </Link>
-        <AppartmentList data={data}></AppartmentList>
+        <BuildingPaymentList data={data}></BuildingPaymentList>
       </Form.Provider>
     </Skeleton>
   );

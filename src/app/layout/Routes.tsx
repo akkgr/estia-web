@@ -12,6 +12,7 @@ import Silent from "pages/Silent";
 import { BuildingInfo } from "pages/buildings/BuildingInfo";
 import { Ratings } from "pages/buildings/Ratings";
 import BuildingList1 from "components/Admin/BuildingList1";
+import { BuildingPay } from "pages/buildings/BuildingPay";
 
 function Routes(props: any) {
   return (
@@ -32,6 +33,7 @@ function Routes(props: any) {
       <Route exact path="/buildings/:id/ratings" component={Ratings} />
 
       <Route exact path="/buildings/:id/info" component={BuildingInfo} />
+      <Route exact path="/buildings/:id/payments" component={BuildingPay} />
 
       <Route exact path="/buildings/:id/try" component={BuildingList1} />
       <Route

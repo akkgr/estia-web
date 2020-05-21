@@ -22,9 +22,9 @@ const RadioInput: React.FC<RadioParams> = ({
     <React.Fragment>
       <div className="custom-control custom-radio ">
         <label>{label}</label>
-        {choices.map((choice) => {
+        {choices.map((choice, index) => {
           return (
-            <div>
+            <div key={index}>
               <input
                 type={type}
                 className="custom-control-input"

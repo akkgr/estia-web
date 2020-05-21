@@ -1,9 +1,5 @@
-import React, { useState, useEffect, useContext, useCallback } from "react";
-import axios from "axios";
-import UserContext from "../../UserContext";
-const uri = process.env.REACT_APP_API_URL + "/api";
+import React from "react";
 const BuildingList1 = () => {
-  const manager = useContext(UserContext);
   // const sort = (
   //   ascending: boolean,
   //   columnClassName: string,

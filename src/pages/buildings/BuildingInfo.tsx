@@ -1,6 +1,6 @@
-import React, { useState, useRef } from "react";
+import React from "react";
 import BuildingData from "./buildingInfo/BuildingData";
-import CustomPageΗeader from "app/common/headers/CustomPageHeader";
+// import CustomPageΗeader from "app/common/headers/CustomPageHeader";
 import BuildingStatus from "./buildingInfo/BuildingStatus";
 import BuildingPower from "./buildingInfo/BuildingPower";
 import BuildingGas from "./buildingInfo/BuildingGas";
@@ -8,13 +8,6 @@ import BuildingWater from "./buildingInfo/BuildingWater";
 import TextInput from "app/common/form/TextInput";
 
 export const BuildingInfo: React.FC = () => {
-  const [startDate, setStartDate] = useState(new Date());
-
-  const handleChangeHandler = (date: Date) => {
-    console.log("date" + date);
-    setStartDate(date);
-  };
-
   const handleSubmit = (event: any) => {
     event.preventDefault();
     const form = event.target.elements.test.value;
@@ -121,8 +114,8 @@ export const BuildingInfo: React.FC = () => {
                 </li>
               </ul>
 
-              <div className="tab-content clearfix">
-                <div className="tab-pane active" id="1a">
+              <div className="tab-content">
+                <div className="tab-pane  active" id="1a">
                   <BuildingData />
                 </div>
                 <div className="tab-pane" id="2a">

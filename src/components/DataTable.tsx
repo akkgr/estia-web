@@ -2,15 +2,7 @@ import React, { useState, useEffect, useContext, useCallback } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import { useQuery, queryCache } from "react-query";
-import {
-  Table,
-  notification,
-  Form,
-  Input,
-  Space,
-  Button,
-  Popconfirm,
-} from "antd";
+import { Table, Form, Input, Space, Button, Popconfirm } from "antd";
 import {
   EditOutlined,
   PlusCircleOutlined,
@@ -20,8 +12,8 @@ import {
 
 import UserContext from "../UserContext";
 
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const { Search } = Input;
 
@@ -46,13 +38,15 @@ export const DataTable = ({ entity, columns, filterFn }: DataTableProps) => {
 
   const notify = (text: any) =>
     toast.error(
-    <div>
-      <p>Σφάλμα !</p>
-      <p>{text}</p>
-    </div>, {
-    position: "top-right",
-    autoClose: 6000
-  });
+      <div>
+        <p>Σφάλμα !</p>
+        <p>{text}</p>
+      </div>,
+      {
+        position: "top-right",
+        autoClose: 6000,
+      }
+    );
 
   const memoizedCallback = useCallback(
     async (id: string) => {
@@ -70,7 +64,7 @@ export const DataTable = ({ entity, columns, filterFn }: DataTableProps) => {
         //   description: error.message,
         //   duration: 10,
         // });
-        notify(error.message)
+        notify(error.message);
       }
     },
     [entity, filter, manager, page, rows, sort]
@@ -178,7 +172,7 @@ export const DataTable = ({ entity, columns, filterFn }: DataTableProps) => {
           />
         </Form.Item>
       </Form>
-      <ToastContainer/>
+      <ToastContainer />
       <Table
         size="small"
         columns={columnsWithActions}

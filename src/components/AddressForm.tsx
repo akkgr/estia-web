@@ -1,7 +1,6 @@
 import React from "react";
 import { Form, Input } from "antd";
 import { Address } from "../app/models/Address";
-import { Link } from "react-router-dom";
 import Cards from "app/common/views/Cards";
 
 interface AddressFormProps {
@@ -16,7 +15,7 @@ export const AddressForm = ({ id, data, formName }: AddressFormProps) => {
       <Form name={formName} layout={"horizontal"} initialValues={data}>
         <div className="row">
           <div className="col">
-            <Cards 
+            <Cards
               header={"Γενικές πληροφορίες κτιρίου"}
               body={
                 <div className="row">
@@ -57,9 +56,8 @@ export const AddressForm = ({ id, data, formName }: AddressFormProps) => {
                     </Form.Item>
                   </div>
                 </div>
-               
               }
-            />  
+            />
           </div>
         </div>
       </Form>

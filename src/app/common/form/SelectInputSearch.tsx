@@ -30,7 +30,11 @@ const SelectInputSearch: React.FC<SelectParams> = ({
       >
         {options.map((option) => {
           return (
-            <option data-tokens={option.value} value={option.id}>
+            <option
+              data-tokens={option.value}
+              value={option.id}
+              key={option.id}
+            >
               {option.value}
             </option>
           );

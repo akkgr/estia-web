@@ -5,11 +5,9 @@ import axios from "axios";
 import { Skeleton, notification, Form } from "antd";
 
 import UserContext from "UserContext";
-import { AddressForm } from "components/AddressForm";
 import { AddressTitle } from "app/models/Address";
 import { ActionsForm } from "components/ActionsForm";
 import { BuildingPaymentList } from "components/BuildingPaymentList";
-import Cards from "app/common/views/Cards";
 
 const uri = process.env.REACT_APP_API_URL + "/api";
 const entity = "buildings";

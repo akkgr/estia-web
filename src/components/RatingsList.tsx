@@ -1,69 +1,69 @@
 import React from "react";
-import { DataTable } from "./DataTable";
+// import { DataTable } from "./DataTable";
 
-const columns = [
-  {
-    key: "position",
-    title: "A/A",
-    dataIndex: "position",
-    sorter: (a: any, b: any) => a.position - b.position,
-  },
-  {
-    key: "title",
-    title: "Διαμέρισμα",
-    dataIndex: "title",
-    sorter: (a: any, b: any) => ("" + a.title).localeCompare(b.title),
-  },
-  {
-    key: "owner",
-    title: "Ιδιοκτήτης",
-    sorter: (a: any, b: any) =>
-      `${a.owner?.lastname || ""} ${a.owner?.firstname || ""}`.localeCompare(
-        `${b.owner?.lastName || ""} ${b.owner?.firstName || ""}`
-      ),
-    render: (record: any) =>
-      `${record.owner?.lastName || ""} ${record.owner?.firstName || ""}`,
-  },
-  {
-    key: "resident",
-    title: "Ένοικος",
-    sorter: (a: any, b: any) =>
-      `${a.resident?.lastname || ""} ${
-        a.resident?.firstname || ""
-      }`.localeCompare(
-        `${b.resident?.lastName || ""} ${b.resident?.firstName || ""}`
-      ),
-    render: (record: any) =>
-      `${record.resident?.lastName || ""} ${record.resident?.firstName || ""}`,
-  },
-];
+// const columns = [
+//   {
+//     key: "position",
+//     title: "A/A",
+//     dataIndex: "position",
+//     sorter: (a: any, b: any) => a.position - b.position,
+//   },
+//   {
+//     key: "title",
+//     title: "Διαμέρισμα",
+//     dataIndex: "title",
+//     sorter: (a: any, b: any) => ("" + a.title).localeCompare(b.title),
+//   },
+//   {
+//     key: "owner",
+//     title: "Ιδιοκτήτης",
+//     sorter: (a: any, b: any) =>
+//       `${a.owner?.lastname || ""} ${a.owner?.firstname || ""}`.localeCompare(
+//         `${b.owner?.lastName || ""} ${b.owner?.firstName || ""}`
+//       ),
+//     render: (record: any) =>
+//       `${record.owner?.lastName || ""} ${record.owner?.firstName || ""}`,
+//   },
+//   {
+//     key: "resident",
+//     title: "Ένοικος",
+//     sorter: (a: any, b: any) =>
+//       `${a.resident?.lastname || ""} ${
+//         a.resident?.firstname || ""
+//       }`.localeCompare(
+//         `${b.resident?.lastName || ""} ${b.resident?.firstName || ""}`
+//       ),
+//     render: (record: any) =>
+//       `${record.resident?.lastName || ""} ${record.resident?.firstName || ""}`,
+//   },
+// ];
 
-const filterFn = (value: any) => {
-  return {
-    $or: [
-      { "address.street": { $regex: `${value}`, $options: "i" } },
-      {
-        "address.streetnumber": {
-          $regex: `${value}`,
-          $options: "i",
-        },
-      },
-      { "address.area": { $regex: `${value}`, $options: "i" } },
-    ],
-  };
-};
+// const filterFn = (value: any) => {
+//   return {
+//     $or: [
+//       { "address.street": { $regex: `${value}`, $options: "i" } },
+//       {
+//         "address.streetnumber": {
+//           $regex: `${value}`,
+//           $options: "i",
+//         },
+//       },
+//       { "address.area": { $regex: `${value}`, $options: "i" } },
+//     ],
+//   };
+// };
 
 export const RatingsList = (props: any) => {
   return (
     <div>
-       {/* <DataTable
+      {/* <DataTable
         entity={`buildings/${props.data.id}/apartments`}
         columns={columns}
         filterFn={filterFn}
       /> */}
-    
+
       <div className="table-responsive">
-        <table className="table table-bordered table-hover" id="dataTable" >
+        <table className="table table-bordered table-hover" id="dataTable">
           <thead>
             <tr>
               <th>Διαμέρισμα</th>
@@ -76,7 +76,7 @@ export const RatingsList = (props: any) => {
             </tr>
           </thead>
           <tfoot>
-          <tr>
+            <tr>
               <th>Σύνολο</th>
               <th>1000</th>
               <th>1000</th>
@@ -86,7 +86,7 @@ export const RatingsList = (props: any) => {
               <th>1000</th>
             </tr>
           </tfoot>
-          <tbody >
+          <tbody>
             <tr>
               <td>A1</td>
               <td>107.00</td>
@@ -118,8 +118,5 @@ export const RatingsList = (props: any) => {
         </table>
       </div>
     </div>
- 
-   
-    
   );
 };

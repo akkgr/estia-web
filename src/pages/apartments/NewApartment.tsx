@@ -2,13 +2,13 @@ import React, { useContext } from "react";
 import { useHistory, Link, useParams } from "react-router-dom";
 import { useMutation, queryCache, useQuery } from "react-query";
 import axios from "axios";
-import { Form, Input, notification, InputNumber, Skeleton } from "antd";
+import { Form, Input, InputNumber, Skeleton } from "antd";
 import UserContext from "UserContext";
 import { PersonForm } from "components/PersonForm";
 import { AddressTitle } from "app/models/Address";
 import { ActionsForm } from "components/ActionsForm";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Cards from "app/common/views/Cards";
 import TextArea from "antd/lib/input/TextArea";
 
@@ -42,13 +42,15 @@ export const NewApartment = () => {
 
   const notify = (text: any) =>
     toast.error(
-    <div>
-      <p>Σφάλμα !</p>
-      <p>{text}</p>
-    </div>, {
-    position: "top-right",
-    autoClose: 6000
-  });
+      <div>
+        <p>Σφάλμα !</p>
+        <p>{text}</p>
+      </div>,
+      {
+        position: "top-right",
+        autoClose: 6000,
+      }
+    );
 
   const updateData = async (input: any) => {
     const user = await manager.getUser();
@@ -59,7 +61,9 @@ export const NewApartment = () => {
       //     "Η σύνδεση σας έχει λήξει. Παρακαλώ ξανά συνδεθείτε για να συνεχίσετε.",
       //   duration: 10,
       // });
-      notify("Η σύνδεση σας έχει λήξει. Παρακαλώ ξανά συνδεθείτε για να συνεχίσετε.")
+      notify(
+        "Η σύνδεση σας έχει λήξει. Παρακαλώ ξανά συνδεθείτε για να συνεχίσετε."
+      );
     }
     const { data } = await axios.post(`${uri}/${entity}`, input, {
       headers: {
@@ -113,40 +117,38 @@ export const NewApartment = () => {
             Νέο Διαμέρισμα
           </li>
         </ActionsForm>
-        <ToastContainer/>
+        <ToastContainer />
         <div className="row slideanim">
           <div className="col-lg">
-            <Cards 
+            <Cards
               header={"Γενικές πληροφορίες"}
               body={
-              <Form form={form} name="appartmentForm" layout={"horizontal"}>
+                <Form form={form} name="appartmentForm" layout={"horizontal"}>
                   <div className="row">
                     <div className="col">
                       <div className="row">
                         <div className="col">
-                           <Form.Item
-                        label="Α/Α"
-                        name="position"
-                        rules={[{ required: true }]}
-                      >
-                        <InputNumber />
-                      </Form.Item>
+                          <Form.Item
+                            label="Α/Α"
+                            name="position"
+                            rules={[{ required: true }]}
+                          >
+                            <InputNumber />
+                          </Form.Item>
                         </div>
-                          <div className="col">
-                      <Form.Item
-                        label="Διαμέρισμα"
-                        name="title"
-                        rules={[{ required: true }]}
-                      >
-                        <Input />
-                      </Form.Item>
-                  </div>
-
+                        <div className="col">
+                          <Form.Item
+                            label="Διαμέρισμα"
+                            name="title"
+                            rules={[{ required: true }]}
+                          >
+                            <Input />
+                          </Form.Item>
+                        </div>
                       </div>
-                     
                     </div>
-                   
-                  <div className="col">
+
+                    <div className="col">
                       <Form.Item
                         label="Kλειστό"
                         name="title"
@@ -154,7 +156,7 @@ export const NewApartment = () => {
                       >
                         <Input />
                       </Form.Item>
-                  </div>
+                    </div>
                   </div>
                   <div className="row">
                     <div className="col">
@@ -174,7 +176,7 @@ export const NewApartment = () => {
                       >
                         <Input />
                       </Form.Item>
-                  </div>
+                    </div>
                   </div>
                   <div className="row">
                     <div className="col">
@@ -186,28 +188,28 @@ export const NewApartment = () => {
                         <TextArea />
                       </Form.Item>
                     </div>
-                   
                   </div>
                 </Form>
-            }
+              }
             />
-              </div>
-              </div>
-            
-        
+          </div>
+        </div>
+
         <div className="row slideanim">
           <div className="col-lg-6">
-          <Cards 
+            <Cards
               header={"Ιδιοκτήτης"}
               body={<PersonForm formName="ownerForm" data={data?.owner} />}
             />
           </div>
 
           <div className="col-lg-6">
-            <Cards 
+            <Cards
               header={"Ένοικος"}
-              body={<PersonForm formName="residentForm" data={data?.resident} />}
-              />
+              body={
+                <PersonForm formName="residentForm" data={data?.resident} />
+              }
+            />
           </div>
         </div>
       </Form.Provider>

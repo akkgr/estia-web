@@ -2,15 +2,14 @@ import React, { useContext } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useQuery, useMutation, queryCache } from "react-query";
 import axios from "axios";
-import { Form, Input, notification, InputNumber, Skeleton } from "antd";
+import { Form, Input, InputNumber, Skeleton } from "antd";
 
 import UserContext from "UserContext";
 import { ActionsForm } from "components/ActionsForm";
-import { PersonTitleWithMobile } from "app/models/Person";
 import { PersonForm } from "components/PersonForm";
 
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import TextArea from "antd/lib/input/TextArea";
 import Cards from "app/common/views/Cards";
 
@@ -23,14 +22,15 @@ export const ApartmentForm = () => {
 
   const notify = (text: any) =>
     toast.error(
-    <div>
-      <p>Σφάλμα !</p>
-      <p>{text}</p>
-    </div>, {
-    position: "top-right",
-    autoClose: 6000
-  });
-
+      <div>
+        <p>Σφάλμα !</p>
+        <p>{text}</p>
+      </div>,
+      {
+        position: "top-right",
+        autoClose: 6000,
+      }
+    );
 
   const fetchData = async (key: string, id: string | undefined) => {
     const user = await manager.getUser();
@@ -54,7 +54,9 @@ export const ApartmentForm = () => {
       //     "Η σύνδεση σας έχει λήξει. Παρακαλώ ξανά συνδεθείτε για να συνεχίσετε.",
       //   duration: 10,
       // });
-      notify("Η σύνδεση σας έχει λήξει. Παρακαλώ ξανά συνδεθείτε για να συνεχίσετε.")
+      notify(
+        "Η σύνδεση σας έχει λήξει. Παρακαλώ ξανά συνδεθείτε για να συνεχίσετε."
+      );
     }
     const { data } = await axios.put(`${uri}/${entity}/${id2}`, input, {
       headers: {
@@ -97,7 +99,7 @@ export const ApartmentForm = () => {
           } catch {}
         }}
       >
-        <ToastContainer/>
+        <ToastContainer />
         <ActionsForm returnUrl={`/buildings/${id1}`}>
           <li className="breadcrumb-item " aria-current="page">
             {" "}
@@ -114,8 +116,8 @@ export const ApartmentForm = () => {
         </ActionsForm>
         <div className="row slideanim">
           <div className="col-lg">
-            <Cards 
-              header={'Γενικές πληροφορίες'}
+            <Cards
+              header={"Γενικές πληροφορίες"}
               body={
                 <Form
                   name="appartmentForm"
@@ -126,29 +128,27 @@ export const ApartmentForm = () => {
                     <div className="col">
                       <div className="row">
                         <div className="col">
-                           <Form.Item
-                        label="Α/Α"
-                        name="position"
-                        rules={[{ required: true }]}
-                      >
-                        <InputNumber />
-                      </Form.Item>
+                          <Form.Item
+                            label="Α/Α"
+                            name="position"
+                            rules={[{ required: true }]}
+                          >
+                            <InputNumber />
+                          </Form.Item>
                         </div>
-                          <div className="col">
-                      <Form.Item
-                        label="Διαμέρισμα"
-                        name="title"
-                        rules={[{ required: true }]}
-                      >
-                        <Input />
-                      </Form.Item>
-                  </div>
-
+                        <div className="col">
+                          <Form.Item
+                            label="Διαμέρισμα"
+                            name="title"
+                            rules={[{ required: true }]}
+                          >
+                            <Input />
+                          </Form.Item>
+                        </div>
                       </div>
-                     
                     </div>
-                   
-                  <div className="col">
+
+                    <div className="col">
                       <Form.Item
                         label="Kλειστό"
                         name="title"
@@ -156,7 +156,7 @@ export const ApartmentForm = () => {
                       >
                         <Input />
                       </Form.Item>
-                  </div>
+                    </div>
                   </div>
                   <div className="row">
                     <div className="col">
@@ -176,7 +176,7 @@ export const ApartmentForm = () => {
                       >
                         <Input />
                       </Form.Item>
-                  </div>
+                    </div>
                   </div>
                   <div className="row">
                     <div className="col">
@@ -188,9 +188,7 @@ export const ApartmentForm = () => {
                         <TextArea />
                       </Form.Item>
                     </div>
-                   
                   </div>
-                  
                 </Form>
               }
             />
@@ -198,16 +196,18 @@ export const ApartmentForm = () => {
         </div>
         <div className="row slideanim">
           <div className="col-lg-6">
-            <Cards 
+            <Cards
               header={"Ιδιοκτήτης"}
               body={<PersonForm formName="ownerForm" data={data?.owner} />}
             />
           </div>
           <div className="col-lg-6">
-            <Cards 
+            <Cards
               header={"Ένοικος"}
-              body={<PersonForm formName="residentForm" data={data?.resident} />}
-              />
+              body={
+                <PersonForm formName="residentForm" data={data?.resident} />
+              }
+            />
           </div>
         </div>
 

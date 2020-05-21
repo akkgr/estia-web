@@ -7,7 +7,7 @@ const BuildingPower = () => {
   return (
     <React.Fragment>
       <div className="row mt-3">
-        <div className="col-md-2 mb-3">
+        <div className="col-md-3 mb-3">
           <TextInput
             label="Αριθμός Μετρητή :"
             name="counter"
@@ -21,7 +21,7 @@ const BuildingPower = () => {
           </div>
         </div>
 
-        <div className="col-md-2 mb-3">
+        <div className="col-md-3 mb-3">
           <TextInput
             label="Κωδικός Ηλεκτρ. Πληρωμής : "
             name="code"
@@ -35,7 +35,7 @@ const BuildingPower = () => {
           </div>
         </div>
 
-        <div className="col-md-2 mb-3">
+        <div className="col-md-3 mb-3">
           <TextInput
             label="Αριθμός Παροχής :"
             name="receiver"

@@ -18,7 +18,7 @@ const BuildingStatus = () => {
       </div>
 
       <div className="row mt-3">
-        <div className="col-md-2 mb-3">
+        <div className="col-md-3 mb-3">
           <TextInput
             label="Ημερομηνία Παραλαβής :"
             name="startDate"
@@ -34,9 +34,9 @@ const BuildingStatus = () => {
       </div>
 
       <div className="row mt-3">
-        <div className="col-md-2 mb-3">
+        <div className="col-md-3 mb-3">
           <TextInput
-            label="Ημερομηνία Παράδοσης"
+            label="Ημερομηνία Παράδοσης :"
             name="endDate"
             value="22/05/2020"
             placeholder="Ημερομηνία Παράδοσης..."

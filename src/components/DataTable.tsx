@@ -20,6 +20,9 @@ import {
 
 import UserContext from "../UserContext";
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const { Search } = Input;
 
 const uri = process.env.REACT_APP_API_URL + "/api";
@@ -41,6 +44,16 @@ export const DataTable = ({ entity, columns, filterFn }: DataTableProps) => {
   const [columnsWithActions, setColumnsWithActions] = useState<any[]>([]);
   const manager = useContext(UserContext);
 
+  const notify = (text: any) =>
+    toast.error(
+    <div>
+      <p>Σφάλμα !</p>
+      <p>{text}</p>
+    </div>, {
+    position: "top-right",
+    autoClose: 6000
+  });
+
   const memoizedCallback = useCallback(
     async (id: string) => {
       try {
@@ -52,11 +65,12 @@ export const DataTable = ({ entity, columns, filterFn }: DataTableProps) => {
         });
         queryCache.refetchQueries([entity, page, rows, sort, filter]);
       } catch (error) {
-        notification["error"]({
-          message: "Σφάλμα !!!",
-          description: error.message,
-          duration: 10,
-        });
+        // notification["error"]({
+        //   message: "Σφάλμα !!!",
+        //   description: error.message,
+        //   duration: 10,
+        // });
+        notify(error.message)
       }
     },
     [entity, filter, manager, page, rows, sort]
@@ -164,6 +178,7 @@ export const DataTable = ({ entity, columns, filterFn }: DataTableProps) => {
           />
         </Form.Item>
       </Form>
+      <ToastContainer/>
       <Table
         size="small"
         columns={columnsWithActions}

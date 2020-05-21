@@ -7,6 +7,8 @@ import UserContext from "UserContext";
 import { PersonForm } from "components/PersonForm";
 import { AddressTitle } from "app/models/Address";
 import { ActionsForm } from "components/ActionsForm";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const uri = process.env.REACT_APP_API_URL + "/api";
 const parentEntity = "buildings";
@@ -36,15 +38,26 @@ export const NewApartment = () => {
     [string, string | undefined]
   >([parentEntity, id], fetchData);
 
+  const notify = (text: any) =>
+    toast.error(
+    <div>
+      <p>Σφάλμα !</p>
+      <p>{text}</p>
+    </div>, {
+    position: "top-right",
+    autoClose: 6000
+  });
+
   const updateData = async (input: any) => {
     const user = await manager.getUser();
     if (!user || user?.expired) {
-      notification["error"]({
-        message: "Σφάλμα !!!",
-        description:
-          "Η σύνδεση σας έχει λήξει. Παρακαλώ ξανά συνδεθείτε για να συνεχίσετε.",
-        duration: 10,
-      });
+      // notification["error"]({
+      //   message: "Σφάλμα !!!",
+      //   description:
+      //     "Η σύνδεση σας έχει λήξει. Παρακαλώ ξανά συνδεθείτε για να συνεχίσετε.",
+      //   duration: 10,
+      // });
+      notify("Η σύνδεση σας έχει λήξει. Παρακαλώ ξανά συνδεθείτε για να συνεχίσετε.")
     }
     const { data } = await axios.post(`${uri}/${entity}`, input, {
       headers: {
@@ -98,7 +111,7 @@ export const NewApartment = () => {
             Νέο Διαμέρισμα
           </li>
         </ActionsForm>
-
+        <ToastContainer/>
         <div className="row slideanim">
           <div className="col-lg">
             <div className="card shadow mb-4">

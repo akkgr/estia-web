@@ -9,12 +9,27 @@ import { ActionsForm } from "components/ActionsForm";
 import { PersonTitleWithMobile } from "app/models/Person";
 import { PersonForm } from "components/PersonForm";
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import TextArea from "antd/lib/input/TextArea";
+
 const uri = process.env.REACT_APP_API_U;
 const entity = "apartments";
 
 export const ApartmentForm = () => {
   const manager = useContext(UserContext);
   let { id1, id2 } = useParams();
+
+  const notify = (text: any) =>
+    toast.error(
+    <div>
+      <p>Σφάλμα !</p>
+      <p>{text}</p>
+    </div>, {
+    position: "top-right",
+    autoClose: 6000
+  });
+
 
   const fetchData = async (key: string, id: string | undefined) => {
     const user = await manager.getUser();
@@ -32,12 +47,13 @@ export const ApartmentForm = () => {
   const updateData = async (input: any) => {
     const user = await manager.getUser();
     if (!user || user?.expired) {
-      notification["error"]({
-        message: "Σφάλμα !!!",
-        description:
-          "Η σύνδεση σας έχει λήξει. Παρακαλώ ξανά συνδεθείτε για να συνεχίσετε.",
-        duration: 10,
-      });
+      // notification["error"]({
+      //   message: "Σφάλμα !!!",
+      //   description:
+      //     "Η σύνδεση σας έχει λήξει. Παρακαλώ ξανά συνδεθείτε για να συνεχίσετε.",
+      //   duration: 10,
+      // });
+      notify("Η σύνδεση σας έχει λήξει. Παρακαλώ ξανά συνδεθείτε για να συνεχίσετε.")
     }
     const { data } = await axios.put(`${uri}/${entity}/${id2}`, input, {
       headers: {
@@ -80,6 +96,7 @@ export const ApartmentForm = () => {
           } catch {}
         }}
       >
+        <ToastContainer/>
         <ActionsForm returnUrl={`/buildings/${id1}`}>
           <li className="breadcrumb-item " aria-current="page">
             {" "}
@@ -115,24 +132,74 @@ export const ApartmentForm = () => {
                   layout={"horizontal"}
                   initialValues={data}
                 >
-                  <div className="col-lg-6">
-                    <Form.Item
-                      label="Α/Α"
-                      name="position"
-                      rules={[{ required: true }]}
-                    >
-                      <InputNumber />
-                    </Form.Item>
+                  <div className="row">
+                    <div className="col">
+                      <div className="row">
+                        <div className="col">
+                          <Form.Item
+                            label="Α/Α"
+                            name="position"
+                            rules={[{ required: true }]}
+                          >
+                            <InputNumber />
+                          </Form.Item>
+                        </div>
+                        <div className="col">
+                      <Form.Item
+                        label="Διαμέρισμα"
+                        name="title"
+                        rules={[{ required: true }]}
+                      >
+                        <Input />
+                      </Form.Item>
                   </div>
-                  <div className="col-lg-6">
-                    <Form.Item
-                      label="Διαμέρισμα"
-                      name="title"
-                      rules={[{ required: true }]}
-                    >
-                      <Input />
-                    </Form.Item>
+                      </div>
+                      
+                    </div>
+                    
+                  <div className="col">
+                      <Form.Item
+                        label="Kλειστό"
+                        name="title"
+                        rules={[{ required: true }]}
+                      >
+                        <Input />
+                      </Form.Item>
                   </div>
+                  </div>
+                  <div className="row">
+                    <div className="col">
+                      <Form.Item
+                        label="Τρόπος επικοινωνίας"
+                        name="position"
+                        rules={[{ required: true }]}
+                      >
+                        <Input />
+                      </Form.Item>
+                    </div>
+                    <div className="col">
+                      <Form.Item
+                        label="Υπεύθυνος"
+                        name="title"
+                        rules={[{ required: true }]}
+                      >
+                        <Input />
+                      </Form.Item>
+                  </div>
+                  </div>
+                  <div className="row">
+                    <div className="col">
+                      <Form.Item
+                        label="Σχόλια"
+                        name="position"
+                        rules={[{ required: true }]}
+                      >
+                        <TextArea />
+                      </Form.Item>
+                    </div>
+                   
+                  </div>
+                  
                 </Form>
                 {/* </div> */}
               </div>
@@ -178,7 +245,8 @@ export const ApartmentForm = () => {
             </div>
           </div>
         </div>
-        <div className="row">
+
+        {/* <div className="row">
           <div className="col-sm">
             <div className="card border-primary shadow h-100 py-2">
               <div className="card-body">
@@ -218,227 +286,7 @@ export const ApartmentForm = () => {
               </div>
             </div>
           </div>
-          <div className="col-sm">
-            <div className="card border-primary shadow h-100 py-2">
-              <div className="card-body">
-                <div className="row align-items-center">
-                  <div className="col mr-2">
-                    <div className="text-xs font-weight-bold text-primary mb-1">
-                      Ασανσέρ
-                    </div>
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="col">
-                    <div className="text-xs">Χιλιοστά:</div>
-                    <form className="user">
-                      <input
-                        type="text"
-                        className="form-control form-control-user"
-                        id="exampleRepeatPassword"
-                        placeholder="Χιλιοστά..."
-                      ></input>
-                    </form>
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="col">
-                    <div className="text-xs ">Ποσοστά:</div>
-                    <form className="user">
-                      <input
-                        type="text"
-                        className="form-control form-control-user"
-                        id="exampleRepeatPassword"
-                        placeholder="Ποσοστά.."
-                      ></input>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="col-sm">
-            <div className="card border-primary shadow h-100 py-2">
-              <div className="card-body">
-                <div className="row align-items-center">
-                  <div className="col mr-2">
-                    <div className="text-xs font-weight-bold text-primary mb-1">
-                      Ιδιοκτήτες
-                    </div>
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="col">
-                    <div className="text-xs">Χιλιοστά:</div>
-                    <form className="user">
-                      <input
-                        type="text"
-                        className="form-control form-control-user"
-                        id="exampleRepeatPassword"
-                        placeholder="Χιλιοστά..."
-                      ></input>
-                    </form>
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="col">
-                    <div className="text-xs ">Ποσοστά:</div>
-                    <form className="user">
-                      <input
-                        type="text"
-                        className="form-control form-control-user"
-                        id="exampleRepeatPassword"
-                        placeholder="Ποσοστά.."
-                      ></input>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <br />
-        <div className="row">
-          <div className="col-sm">
-            <div className="card border-primary shadow h-100 py-2">
-              <div className="card-body">
-                <div className="row align-items-center">
-                  <div className="col mr-2">
-                    <div className="text-xs font-weight-bold text-primary mb-1">
-                      Boiler
-                    </div>
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="col">
-                    <div className="text-xs">Χιλιοστά:</div>
-                    <form className="user">
-                      <input
-                        type="text"
-                        className="form-control form-control-user"
-                        id="exampleRepeatPassword"
-                        placeholder="Χιλιοστά..."
-                      ></input>
-                    </form>
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="col">
-                    <div className="text-xs ">Ποσοστά:</div>
-                    <form className="user">
-                      <input
-                        type="text"
-                        className="form-control form-control-user"
-                        id="exampleRepeatPassword"
-                        placeholder="Ποσοστά.."
-                      ></input>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="col-sm">
-            <div className="card border-primary shadow h-100 py-2">
-              <div className="card-body">
-                <div className="row align-items-center">
-                  <div className="col mr-2">
-                    <div className="text-xs font-weight-bold text-primary mb-1">
-                      Θέρμανση
-                    </div>
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="col">
-                    <div className="text-xs">Χιλιοστά:</div>
-                    <form className="user">
-                      <input
-                        type="text"
-                        className="form-control form-control-user"
-                        id="exampleRepeatPassword"
-                        placeholder="Χιλιοστά..."
-                      ></input>
-                    </form>
-                  </div>
-                  <div className="col">
-                    <div className="text-xs ">Ποσοστά:</div>
-                    <form className="user">
-                      <input
-                        type="text"
-                        className="form-control form-control-user"
-                        id="exampleRepeatPassword"
-                        placeholder="Ποσοστά.."
-                      ></input>
-                    </form>
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="col">
-                    <div className="text-xs">E1:</div>
-                    <form className="user">
-                      <input
-                        type="text"
-                        className="form-control form-control-user"
-                        id="exampleRepeatPassword"
-                        placeholder="E1..."
-                      ></input>
-                    </form>
-                  </div>
-                  <div className="col">
-                    <div className="text-xs ">F1:</div>
-                    <form className="user">
-                      <input
-                        type="text"
-                        className="form-control form-control-user"
-                        id="exampleRepeatPassword"
-                        placeholder="F1.."
-                      ></input>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="col-sm">
-            <div className="card border-primary shadow h-100 py-2">
-              <div className="card-body">
-                <div className="row align-items-center">
-                  <div className="col mr-2">
-                    <div className="text-xs font-weight-bold text-primary mb-1">
-                      Άλλα έξοδα
-                    </div>
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="col">
-                    <div className="text-xs">Χιλιοστά:</div>
-                    <form className="user">
-                      <input
-                        type="text"
-                        className="form-control form-control-user"
-                        id="exampleRepeatPassword"
-                        placeholder="Χιλιοστά..."
-                      ></input>
-                    </form>
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="col">
-                    <div className="text-xs ">Ποσοστά:</div>
-                    <form className="user">
-                      <input
-                        type="text"
-                        className="form-control form-control-user"
-                        id="exampleRepeatPassword"
-                        placeholder="Ποσοστά.."
-                      ></input>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        </div> */}
       </Form.Provider>
     </Skeleton>
   );

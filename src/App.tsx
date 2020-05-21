@@ -3,6 +3,8 @@ import { ReactQueryConfigProvider } from "react-query";
 import "./App.css";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Layout, notification } from "antd";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import UserContext from "UserContext";
 import MainMenu from "components/MainMenu";
@@ -11,16 +13,28 @@ import Routes from "app/layout/Routes";
 
 const { Content, Footer, Sider } = Layout;
 
+
+const notify = (text: any) =>
+  toast.error(
+  <div>
+    <p>Σφάλμα !</p>
+    <p>{text}</p>
+  </div>, {
+  position: "top-right",
+  autoClose: 6000
+  }); 
+
 const queryConfig = {
   // Global
   suspense: false,
   refetchOnWindowFocus: false,
   onError: (error: any) =>
-    notification["error"]({
-      message: "Σφάλμα !!!",
-      description: error.message,
-      duration: 10,
-    }),
+    // notification["error"]({
+    //   message: "Σφάλμα !!!",
+    //   description: error.message,
+    //   duration: 10,
+    // }),
+    notify(error.message),
   // useQuery
   retry: false,
 };
@@ -29,7 +43,7 @@ function App() {
   const [collapsed, setCollapsed] = useState(false);
   const manager = useContext(UserContext);
   const [user, setUser] = useState<Oidc.User | null>(null);
-
+  
   const changeUser = useCallback(() => {
     manager.getUser().then((u) => {
       if (u) {
@@ -80,6 +94,7 @@ function App() {
                 minHeight: 280,
               }}
             >
+              <ToastContainer/>
               <Routes changeUser={changeUser} />
             </Content>
             <Footer style={{ textAlign: "center" }}>Cinnamon ©2020</Footer>

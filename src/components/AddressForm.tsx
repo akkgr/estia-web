@@ -13,10 +13,7 @@ interface AddressFormProps {
 export const AddressForm = ({ id, data, formName }: AddressFormProps) => {
   return (
     <React.Fragment>
-      <Form name={formName} layout={"vertical"} initialValues={data}>
-        <div>{JSON.stringify(data)}</div>
-        <div>{JSON.stringify(formName)}</div>
-
+      <Form name={formName} layout={"horizontal"} initialValues={data}>
         <div className="row">
           <div className="col">
             <Cards 
@@ -62,16 +59,7 @@ export const AddressForm = ({ id, data, formName }: AddressFormProps) => {
                 </div>
                
               }
-            />
-             {id === undefined ? (
-                  <div/>
-                ) : (
-                  <Link to={`/buildings/${id}/info`}>
-                    <button className="btn btn-primary">
-                      <span>Πληροφορίες Κτηρίου</span>
-                    </button>
-                  </Link>
-                )}           
+            />  
           </div>
         </div>
       </Form>

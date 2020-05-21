@@ -7,9 +7,8 @@ interface CardParams {
 const Cards: React.FC<CardParams> = ({ header, body, }) => {
   return (
       <React.Fragment>
-    <div className="card shadow mb-4">
-        <div className="card-header py-3" style={{ backgroundColor: "#3aafa9" }}
-              >
+        <div className="card shadow mb-4">
+          <div className="card-header py-3" style={{ backgroundColor: "#def2f1" , borderColor: '#3aafa9' }}>
                 <h6
                   className="m-0 font-weight-bold "
                   style={{ color: "#17252a" }}
@@ -17,7 +16,7 @@ const Cards: React.FC<CardParams> = ({ header, body, }) => {
                   {header}
                 </h6>
               </div>
-              <div className="card-body" style={{ backgroundColor: "#def2f1" }}>
+              <div className="card-body">
                 {body}
               </div>
             </div>

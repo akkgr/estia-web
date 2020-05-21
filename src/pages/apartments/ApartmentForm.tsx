@@ -12,6 +12,7 @@ import { PersonForm } from "components/PersonForm";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import TextArea from "antd/lib/input/TextArea";
+import Cards from "app/common/views/Cards";
 
 const uri = process.env.REACT_APP_API_U;
 const entity = "apartments";
@@ -113,20 +114,9 @@ export const ApartmentForm = () => {
         </ActionsForm>
         <div className="row slideanim">
           <div className="col-lg">
-            <div className="card shadow mb-4">
-              <div
-                className="card-header py-3"
-                style={{ backgroundColor: "#3aafa9" }}
-              >
-                <h6
-                  className="m-0 font-weight-bold "
-                  style={{ color: "#17252a" }}
-                >
-                  Γενικές πληροφορίες
-                </h6>
-              </div>
-              <div className="card-body" style={{ backgroundColor: "#def2f1" }}>
-                {/* <div className="row "> */}
+            <Cards 
+              header={'Γενικές πληροφορίες'}
+              body={
                 <Form
                   name="appartmentForm"
                   layout={"horizontal"}
@@ -136,15 +126,15 @@ export const ApartmentForm = () => {
                     <div className="col">
                       <div className="row">
                         <div className="col">
-                          <Form.Item
-                            label="Α/Α"
-                            name="position"
-                            rules={[{ required: true }]}
-                          >
-                            <InputNumber />
-                          </Form.Item>
+                           <Form.Item
+                        label="Α/Α"
+                        name="position"
+                        rules={[{ required: true }]}
+                      >
+                        <InputNumber />
+                      </Form.Item>
                         </div>
-                        <div className="col">
+                          <div className="col">
                       <Form.Item
                         label="Διαμέρισμα"
                         name="title"
@@ -153,10 +143,11 @@ export const ApartmentForm = () => {
                         <Input />
                       </Form.Item>
                   </div>
+
                       </div>
-                      
+                     
                     </div>
-                    
+                   
                   <div className="col">
                       <Form.Item
                         label="Kλειστό"
@@ -201,48 +192,22 @@ export const ApartmentForm = () => {
                   </div>
                   
                 </Form>
-                {/* </div> */}
-              </div>
-            </div>
+              }
+            />
           </div>
         </div>
         <div className="row slideanim">
           <div className="col-lg-6">
-            <div className="card shadow mb-4">
-              <div
-                className="card-header py-3"
-                style={{ backgroundColor: "#3aafa9" }}
-              >
-                <h6
-                  className="m-0 font-weight-bold "
-                  style={{ color: "#17252a" }}
-                >
-                  Ιδιοκτήτης
-                </h6>
-              </div>
-              <div className="card-body" style={{ backgroundColor: "#def2f1" }}>
-                <PersonForm formName="ownerForm" data={data?.owner} />
-              </div>
-            </div>
+            <Cards 
+              header={"Ιδιοκτήτης"}
+              body={<PersonForm formName="ownerForm" data={data?.owner} />}
+            />
           </div>
-
           <div className="col-lg-6">
-            <div className="card shadow mb-4">
-              <div
-                className="card-header py-3"
-                style={{ backgroundColor: "#3aafa9" }}
-              >
-                <h6
-                  className="m-0 font-weight-bold "
-                  style={{ color: "#17252a" }}
-                >
-                  Ένοικος
-                </h6>
-              </div>
-              <div className="card-body" style={{ backgroundColor: "#def2f1" }}>
-                <PersonForm formName="residentForm" data={data?.resident} />
-              </div>
-            </div>
+            <Cards 
+              header={"Ένοικος"}
+              body={<PersonForm formName="residentForm" data={data?.resident} />}
+              />
           </div>
         </div>
 

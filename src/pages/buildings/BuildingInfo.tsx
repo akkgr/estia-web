@@ -4,6 +4,7 @@ import SelectInputSearch from "app/common/form/SelectInputSearch";
 import RadioInput from "app/common/form/RadioInput";
 import TextArea from "app/common/form/TextArea";
 import Checkbox from "app/common/form/Checkbox";
+
 export const Cities = [
   {
     id: 1,

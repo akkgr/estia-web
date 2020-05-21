@@ -5,9 +5,9 @@ import RadioInput from "app/common/form/RadioInput";
 import TextArea from "app/common/form/TextArea";
 import Checkbox from "app/common/form/Checkbox";
 
-import DatePicker from "react-datepicker";
+// import DatePicker from "react-datepicker";
 
-import "react-datepicker/dist/react-datepicker.css";
+// import "react-datepicker/dist/react-datepicker.css";
 
 export const Cities = [
   {

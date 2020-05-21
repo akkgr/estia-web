@@ -2,7 +2,7 @@ import React from "react";
 interface InputParams {
   label: string;
   name: string;
-  value: string;
+  value?: string;
   props?: any;
   idElement?: string;
   placeholder?: string;

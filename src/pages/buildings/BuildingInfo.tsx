@@ -1,26 +1,13 @@
 import React, { useState, useRef } from "react";
+import BuildingData from "./buildingInfo/BuildingData";
+import CustomPageΗeader from "app/common/headers/CustomPageHeader";
+import BuildingStatus from "./buildingInfo/BuildingStatus";
+import BuildingPower from "./buildingInfo/BuildingPower";
+import BuildingGas from "./buildingInfo/BuildingGas";
+import BuildingWater from "./buildingInfo/BuildingWater";
 import TextInput from "app/common/form/TextInput";
-import SelectInputSearch from "app/common/form/SelectInputSearch";
-import RadioInput from "app/common/form/RadioInput";
-import TextArea from "app/common/form/TextArea";
-import Checkbox from "app/common/form/Checkbox";
-
-export const Cities = [
-  {
-    id: 1,
-    value: "Παγκράτι",
-  },
-  {
-    id: 2,
-    value: "Μαρούσι",
-  },
-  { id: 3, value: "Πανόρμου" },
-];
-
-export const trype_heading = ["ΚΕΝΤΡΙΚΗ", "ΦΥΣΙΚΟ ΑΕΡΙΟ", "ΑΥΤΟΝΟΜΗ"];
 
 export const BuildingInfo: React.FC = () => {
-  const [name, setName] = useState("ΑΓ. ΦΑΝΟΥΡΙΟΥ 15A Παγκράτι");
   const [startDate, setStartDate] = useState(new Date());
 
   const handleChangeHandler = (date: Date) => {
@@ -35,9 +22,132 @@ export const BuildingInfo: React.FC = () => {
   };
   return (
     <React.Fragment>
-      <h1>Πληροφορίες Κτηρίου</h1>
       <form className="needs-validation" noValidate onSubmit={handleSubmit}>
-        <div className="form-row">
+        <div className="card">
+          <div className="card-header text-center">
+            <div className="row mt-3">
+              <div className="col-md-4 mb-3">
+                <TextInput
+                  label="Στοιχεία Κτηρίου :"
+                  name="test"
+                  value="ΑΓ. ΦΑΝΟΥΡΙΟΥ 15A Παγκράτι"
+                  idElement="validationCustom01"
+                  placeholder="Something"
+                  required={true}
+                />
+              </div>
+
+              <div className="col-md-4 mb-3">
+                <TextInput
+                  label="Στοιχεία Διαχειριστή  :"
+                  name="admin"
+                  value="Βαγγέλης Χαυλής"
+                  placeholder="Στοιχεία Διαχειριστή..."
+                  required={true}
+                  readOnly={true}
+                  disable={true}
+                />
+              </div>
+              <div className="col-md-4 mb-3">
+                <TextInput
+                  label="Στοιχεία Παραλαμβάνοντος :"
+                  name="reciever"
+                  value="Τζιβράς Τζέρι"
+                  placeholder="Στοιχεία Παραλαμβάνοντος..."
+                  required={true}
+                  readOnly={true}
+                  disable={true}
+                />
+              </div>
+            </div>
+          </div>
+          <div className="card-body">
+            <div id="exTab1">
+              <ul className="nav nav-pills">
+                <li className="active">
+                  <a
+                    style={{ margin: "20px" }}
+                    className="btn btn-primary"
+                    role="button"
+                    href="#1a"
+                    data-toggle="tab"
+                  >
+                    Βασικά Στοιχεία Κτηρίου
+                  </a>
+                </li>
+                <li>
+                  <a
+                    style={{ margin: "20px" }}
+                    className="btn btn-primary"
+                    role="button"
+                    href="#2a"
+                    data-toggle="tab"
+                  >
+                    Κατάσταση
+                  </a>
+                </li>
+                <li>
+                  <a
+                    style={{ margin: "20px" }}
+                    className="btn btn-primary"
+                    role="button"
+                    href="#3a"
+                    data-toggle="tab"
+                  >
+                    ΔΕΗ
+                  </a>
+                </li>
+                <li>
+                  <a
+                    style={{ margin: "20px" }}
+                    className="btn btn-primary"
+                    role="button"
+                    href="#4a"
+                    data-toggle="tab"
+                  >
+                    Φυσικό Αέριο
+                  </a>
+                </li>
+                <li>
+                  <a
+                    style={{ margin: "20px" }}
+                    className="btn btn-primary"
+                    role="button"
+                    href="#5a"
+                    data-toggle="tab"
+                  >
+                    ΕΥΔΑΠ
+                  </a>
+                </li>
+              </ul>
+
+              <div className="tab-content clearfix">
+                <div className="tab-pane active" id="1a">
+                  <BuildingData />
+                </div>
+                <div className="tab-pane" id="2a">
+                  <BuildingStatus />
+                </div>
+                <div className="tab-pane" id="3a">
+                  <BuildingPower />
+                </div>
+                <div className="tab-pane" id="4a">
+                  <BuildingGas />
+                </div>
+                <div className="tab-pane" id="5a">
+                  <BuildingWater />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="card-footer text-center">
+            <button className="btn btn-primary" type="submit">
+              Υποβολή
+            </button>
+          </div>
+        </div>
+
+        {/* <div className="form-row">
           <div className="col-md-4 mb-3">
             <TextInput
               label="Στοιχεία Κτηρίου"
@@ -71,72 +181,13 @@ export const BuildingInfo: React.FC = () => {
               disable={true}
             />
           </div>
-        </div>
+        </div> */}
 
-        <h2>Βασικά στοιχεία κτηρίου</h2>
-        <div className="form-row">
-          <div className="col-md-4 mb-3">
-            <SelectInputSearch
-              label="Περιοχή"
-              className="custom-select"
-              options={Cities}
-            />
-            <div className="invalid-feedback">Please provide a valid city.</div>
-          </div>
+        {/* <BuildingData />
 
-          <div className="col-md-3 mb-3">
-            <TextInput
-              label="Οδός"
-              name="state"
-              value="Αγ.Φανουρίου"
-              placeholder="Οδός..."
-              idElement="validationCustom03"
-              required={true}
-            />
-            <div className="invalid-feedback">
-              Παρακαλώ εισάγετε μια έγκυρη διεύθυνση
-            </div>
-          </div>
-          <div className="col-md-2 mb-3">
-            <TextInput
-              label="Αριθμός"
-              name="number"
-              value="15A"
-              placeholder="Αριθμός"
-              idElement="validationCustom04"
-              required={true}
-            />
-            <div className="invalid-feedback">
-              Παρακαλώ εισάγετε έγκυρο Αριθμό
-            </div>
-          </div>
-          <div className="col-md-2 mb-3">
-            <TextInput
-              label="ΤΚ"
-              name="zip"
-              value="11528"
-              placeholder="ΤΚ"
-              idElement="validationCustom05"
-              required={true}
-            />
-            <div className="invalid-feedback">Παρακαλώ εισάγετε έγκυρο ΤΚ</div>
-          </div>
-          <div className="col-md-2 mb-3">
-            <TextInput
-              label="Αποθεματικό"
-              name="reserve"
-              value="1000$"
-              placeholder="Αποθεματικό..."
-              idElement="validationCustom04"
-              required={true}
-            />
-            <div className="invalid-feedback">
-              Παρακαλώ εισάγετε έγκυρο Αποθεματικό
-            </div>
-          </div>
-        </div>
+        <BuildingStatus /> */}
 
-        <div className="form-row">
+        {/* <div className="form-row">
           <div className="col-md-4 mb-3">
             <RadioInput
               label="Είδος Θέρμανσης"
@@ -158,9 +209,6 @@ export const BuildingInfo: React.FC = () => {
             rows={3}
             placeholder="Εδώ μπορείτε να προσθέσετε σχόλια"
           />
-          <div className="col-md-6 mb-3">
-            <Checkbox label="Παραλαβή λογ. στο γραφείο" required={true} />
-          </div>
         </div>
 
         <h2>Κατάσταση</h2>
@@ -190,6 +238,64 @@ export const BuildingInfo: React.FC = () => {
           </div>
         </div>
 
+        <h2>ΔΕΗ</h2>
+        <div className="form-row">
+          <div className="col-md-2 mb-3">
+            <TextInput
+              label="Αριθμός Μετρητή"
+              name="counter"
+              value="999999999"
+              placeholder="Αριθμός Μετρητή..."
+              idElement="validationCustom05"
+              required={true}
+            />
+            <div className="invalid-feedback">
+              Παρακαλώ εισάγετε έγκυρο Αριθμό Μετρητή
+            </div>
+          </div>
+
+          <div className="col-md-1 mb-3">
+            <TextArea label="Επωνυμία" rows={3} placeholder="Επωνυμία..." />
+          </div>
+
+          <div className="col-md-2 mb-3">
+            <TextInput
+              label="Αριθμός Παροχής"
+              name="receiver"
+              value="999999999"
+              placeholder="Αριθμός Παροχής..."
+              idElement="validationCustom06"
+              required={true}
+            />
+            <div className="invalid-feedback">
+              Παρακαλώ εισάγετε έγκυρο Αριθμό Παροχής
+            </div>
+
+            <div className="col-md-2 mb-3">
+              <TextInput
+                label="Κωδικος Ηλεκτρ. Παροχής"
+                name="code"
+                value="999999999"
+                placeholder="Κωδικός Ηλεκτρ. Παροχής..."
+                idElement="validationCustom07"
+                required={true}
+              />
+              <div className="invalid-feedback">
+                Παρακαλώ εισάγετε έγκυρο Αριθμό Κωδικό Ηλεκτρ. Παροχής
+              </div>
+            </div>
+
+            <div className="col-md-6 mb-3">
+              <Checkbox label="Παραλαβή λογ. στο γραφείο" required={true} />
+            </div>
+          </div>
+        </div>
+
+        <h2>ΕΥΔΑΠ</h2>
+        <div className="form-row">
+
+        </div> */}
+
         {/* <div className="form-row">
           <div className="col-md-2 mb-3">
             <DatePicker
@@ -202,10 +308,6 @@ export const BuildingInfo: React.FC = () => {
             </div>
           </div>
         </div> */}
-
-        <button className="btn btn-primary" type="submit">
-          Submit form
-        </button>
       </form>
     </React.Fragment>
   );

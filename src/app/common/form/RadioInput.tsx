@@ -9,7 +9,7 @@ interface RadioParams {
   props?: any; //any other prop
 }
 //IF WE NEED TO USE IN COLUMN THE RADIO INPUTS(NOT INLINE) only let className="form-check"
-const SelectInputSearch: React.FC<RadioParams> = ({
+const RadioInput: React.FC<RadioParams> = ({
   label,
   choices,
   type,
@@ -46,4 +46,4 @@ const SelectInputSearch: React.FC<RadioParams> = ({
   );
 };
 
-export default SelectInputSearch;
+export default RadioInput;

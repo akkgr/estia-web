@@ -4,11 +4,6 @@ import SelectInputSearch from "app/common/form/SelectInputSearch";
 import RadioInput from "app/common/form/RadioInput";
 import TextArea from "app/common/form/TextArea";
 import Checkbox from "app/common/form/Checkbox";
-
-import DatePicker from "react-datepicker";
-
-import "react-datepicker/dist/react-datepicker.css";
-
 export const Cities = [
   {
     id: 1,
@@ -26,6 +21,11 @@ export const trype_heading = ["ΚΕΝΤΡΙΚΗ", "ΦΥΣΙΚΟ ΑΕΡΙΟ", "Α
 export const BuildingInfo: React.FC = () => {
   const [name, setName] = useState("ΑΓ. ΦΑΝΟΥΡΙΟΥ 15A Παγκράτι");
   const [startDate, setStartDate] = useState(new Date());
+
+  const handleChangeHandler = (date: Date) => {
+    console.log("date" + date);
+    setStartDate(date);
+  };
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
@@ -188,6 +188,19 @@ export const BuildingInfo: React.FC = () => {
             </div>
           </div>
         </div>
+
+        {/* <div className="form-row">
+          <div className="col-md-2 mb-3">
+            <DatePicker
+              dateFormat="dd/MM/yyyy"
+              startDate={startDate}
+              onChange={handleChangeHandler}
+            />
+            <div className="invalid-feedback">
+              Παρακαλώ εισάγετε έγκυρο Αποθεματικό
+            </div>
+          </div>
+        </div> */}
 
         <button className="btn btn-primary" type="submit">
           Submit form

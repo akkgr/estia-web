@@ -4,7 +4,7 @@ interface TextAreaParams {
   rows: number;
   placeholder?: string;
 }
-const TextInput: React.FC<TextAreaParams> = ({ label, rows, placeholder }) => {
+const TextArea: React.FC<TextAreaParams> = ({ label, rows, placeholder }) => {
   return (
     <div className="form-group">
       <label htmlFor="FormControlTextarea1">{label}</label>
@@ -18,4 +18,4 @@ const TextInput: React.FC<TextAreaParams> = ({ label, rows, placeholder }) => {
   );
 };
 
-export default TextInput;
+export default TextArea;

@@ -4,7 +4,7 @@ interface CheckboxParams {
   required: boolean;
   props?: any;
 }
-const TextInput: React.FC<CheckboxParams> = ({ label, required, props }) => {
+const Checkbox: React.FC<CheckboxParams> = ({ label, required, props }) => {
   return (
     <div className="custom-control custom-checkbox">
       <input
@@ -21,4 +21,4 @@ const TextInput: React.FC<CheckboxParams> = ({ label, required, props }) => {
   );
 };
 
-export default TextInput;
+export default Checkbox;

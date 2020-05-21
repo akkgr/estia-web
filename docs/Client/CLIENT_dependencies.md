@@ -20,3 +20,7 @@
         "baseUrl": "src"
          }
     }
+
+## @types/react-datepicker , date-fns , popper.js
+
+    DatePicker

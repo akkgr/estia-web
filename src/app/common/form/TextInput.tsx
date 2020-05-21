@@ -8,6 +8,7 @@ interface InputParams {
   placeholder?: string;
   required: boolean;
   readOnly?: boolean;
+  disable?: boolean;
 }
 const TextInput: React.FC<InputParams> = ({
   label,
@@ -18,6 +19,7 @@ const TextInput: React.FC<InputParams> = ({
   idElement,
   required,
   readOnly,
+  disable
 }) => {
   return (
     <React.Fragment>
@@ -33,6 +35,7 @@ const TextInput: React.FC<InputParams> = ({
         required={required}
         id={idElement}
         readOnly={readOnly}
+        disabled={disable}
         {...props}
       />
     </React.Fragment>

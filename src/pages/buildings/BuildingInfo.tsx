@@ -4,6 +4,11 @@ import SelectInputSearch from "app/common/form/SelectInputSearch";
 import RadioInput from "app/common/form/RadioInput";
 import TextArea from "app/common/form/TextArea";
 import Checkbox from "app/common/form/Checkbox";
+
+import DatePicker from "react-datepicker";
+
+import "react-datepicker/dist/react-datepicker.css";
+
 export const Cities = [
   {
     id: 1,
@@ -20,8 +25,7 @@ export const trype_heading = ["ΚΕΝΤΡΙΚΗ", "ΦΥΣΙΚΟ ΑΕΡΙΟ", "Α
 
 export const BuildingInfo: React.FC = () => {
   const [name, setName] = useState("ΑΓ. ΦΑΝΟΥΡΙΟΥ 15A Παγκράτι");
-
-  // const inputRef = useRef<HTMLInputElement>(null);
+  const [startDate, setStartDate] = useState(new Date());
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
@@ -52,6 +56,7 @@ export const BuildingInfo: React.FC = () => {
               placeholder="Στοιχεία Διαχειριστή..."
               required={true}
               readOnly={true}
+              disable={true}
             />
           </div>
           <div className="col-md-4 mb-3">
@@ -62,9 +67,12 @@ export const BuildingInfo: React.FC = () => {
               placeholder="Στοιχεία Παραλαμβάνοντος..."
               required={true}
               readOnly={true}
+              disable={true}
             />
           </div>
         </div>
+
+        <h2>Βασικά στοιχεία κτηρίου</h2>
         <div className="form-row">
           <div className="col-md-4 mb-3">
             <SelectInputSearch
@@ -74,6 +82,7 @@ export const BuildingInfo: React.FC = () => {
             />
             <div className="invalid-feedback">Please provide a valid city.</div>
           </div>
+
           <div className="col-md-3 mb-3">
             <TextInput
               label="Οδός"
@@ -111,7 +120,21 @@ export const BuildingInfo: React.FC = () => {
             />
             <div className="invalid-feedback">Παρακαλώ εισάγετε έγκυρο ΤΚ</div>
           </div>
+          <div className="col-md-2 mb-3">
+            <TextInput
+              label="Αποθεματικό"
+              name="reserve"
+              value="1000$"
+              placeholder="Αποθεματικό..."
+              idElement="validationCustom04"
+              required={true}
+            />
+            <div className="invalid-feedback">
+              Παρακαλώ εισάγετε έγκυρο Αποθεματικό
+            </div>
+          </div>
         </div>
+
         <div className="form-row">
           <div className="col-md-4 mb-3">
             <RadioInput
@@ -125,6 +148,9 @@ export const BuildingInfo: React.FC = () => {
               Παρακαλώ επιλέξτε είδος θέρμανσης
             </div>
           </div>
+          <div className="col-md-4 mb-3">
+            <Checkbox label="Θερμοώρες" required={false} />
+          </div>
           <div className="col-md-1 mb-3"></div>
           <TextArea
             label="Σχόλια"
@@ -133,6 +159,33 @@ export const BuildingInfo: React.FC = () => {
           />
           <div className="col-md-6 mb-3">
             <Checkbox label="Παραλαβή λογ. στο γραφείο" required={true} />
+          </div>
+        </div>
+
+        <h2>Κατάσταση</h2>
+        <div className="form-row">
+          <div className="col-md-4 mb-3">
+            <Checkbox label="Διαχείρηση" required={false} />
+          </div>
+          <div className="col-md-4 mb-3">
+            <Checkbox label="Ενεργή" required={false} />
+          </div>
+        </div>
+
+        <h2>Τράπεζα/Αιτιολογία</h2>
+        <div className="form-row">
+          <div className="col-md-2 mb-3">
+            <TextInput
+              label="Τράπεζα/Αιτιολογία"
+              name="bank"
+              value="ESTIACITYSERVICES"
+              placeholder="Τράπεζα/Αιτιολογία..."
+              idElement="validationCustom05"
+              required={true}
+            />
+            <div className="invalid-feedback">
+              Παρακαλώ εισάγετε έγκυρο Αποθεματικό
+            </div>
           </div>
         </div>
 

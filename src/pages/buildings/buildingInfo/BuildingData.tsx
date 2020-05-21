@@ -44,7 +44,7 @@ const BuildingData = () => {
           </div>
         </div>
 
-        <div className="col-md-1 mb-1">
+        <div className="col-md-2 mb-1">
           <TextInput
             label="Αριθμός :"
             name="number"
@@ -58,7 +58,7 @@ const BuildingData = () => {
           </div>
         </div>
 
-        <div className="col-md-1 mb-3">
+        <div className="col-md-2 mb-3">
           <TextInput
             label="ΤΚ :"
             name="zip"
@@ -86,7 +86,7 @@ const BuildingData = () => {
           </div>
         </div>
 
-        <div className="col-md-2 mb-3">
+        <div className="col-md-3 mb-3">
           <TextInput
             label="Συμμετοχή Κλειστών :"
             name="closed"
@@ -96,7 +96,7 @@ const BuildingData = () => {
           />
         </div>
 
-        <div className="col-md-2 mb-3">
+        <div className="col-md-3 mb-3">
           <TextInput
             label="Πετρέλαιο Δεξαμενής :"
             name="oil"
@@ -106,7 +106,7 @@ const BuildingData = () => {
           />
         </div>
 
-        <div className="col-md-2 mb-3">
+        <div className="col-md-3 mb-3">
           <TextInput
             label="Λίτρα Πετρ. ανά cm :"
             name="oil"

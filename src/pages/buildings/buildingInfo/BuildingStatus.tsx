@@ -26,16 +26,13 @@ const BuildingStatus = () => {
             showMonthDropdown={true}
             useShortMonthInDropdown={true}
           />
-          <div className="invalid-feedback">
-            Παρακαλώ εισάγετε έγκυρη Ημερομηνία Παραλαβή
-          </div>
         </div>
       </div>
 
       <div className="row mt-3">
-        <div className="col-md-2 mb-3">
+        <div className="col-md-3 mb-3">
           <TextInput
-            label="Ημερομηνία Παράδοσης"
+            label="Ημερομηνία Παράδοσης :"
             name="endDate"
             value="22/05/2020"
             placeholder="Ημερομηνία Παράδοσης..."

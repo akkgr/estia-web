@@ -1,15 +1,17 @@
 import React from "react";
 import { Form, Input } from "antd";
 import { Address } from "../app/models/Address";
+import { Link } from "react-router-dom";
 
 interface AddressFormProps {
   formName: string;
   data: Address;
+  id: string | undefined;
 }
 
-export const AddressForm = ({ data, formName }: AddressFormProps) => {
+export const AddressForm = ({ id, data, formName }: AddressFormProps) => {
   return (
-    <>
+    <React.Fragment>
       <Form name={formName} layout={"vertical"} initialValues={data}>
         <div>{JSON.stringify(data)}</div>
         <div>{JSON.stringify(formName)}</div>
@@ -67,14 +69,20 @@ export const AddressForm = ({ data, formName }: AddressFormProps) => {
                     </Form.Item>
                   </div>
                 </div>
-                <button className="btn btn-primary" type="submit">
-                  Πληροφορίες Κτηρίου
-                </button>
+                {id === undefined ? (
+                  <div/>
+                ) : (
+                  <Link to={`/buildings/${id}/info`}>
+                    <button className="btn btn-primary">
+                      <span>Πληροφορίες Κτηρίου</span>
+                    </button>
+                  </Link>
+                )}
               </div>
             </div>
           </div>
         </div>
       </Form>
-    </>
+    </React.Fragment>
   );
 };

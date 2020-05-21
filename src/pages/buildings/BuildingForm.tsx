@@ -78,7 +78,7 @@ export const BuildingForm = () => {
             {data ? AddressTitle(data.address) : ""}
           </li>
         </ActionsForm>
-        <AddressForm formName="addressForm" data={data?.address} />
+        <AddressForm formName="addressForm" data={data?.address} id={id}/>
         <Link to={`${id}/ratings`}>Ποσοστά </Link>
         <AppartmentList data={data}></AppartmentList>
       </Form.Provider>

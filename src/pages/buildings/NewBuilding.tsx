@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useHistory, Link } from "react-router-dom";
 import { useMutation, queryCache } from "react-query";
 import axios from "axios";
@@ -12,6 +12,7 @@ const uri = process.env.REACT_APP_API_URL + "/api";
 const entity = "buildings";
 
 export const NewBuilding = () => {
+  const [id, setId] = useState<string | undefined>()
   const history = useHistory();
   const manager = useContext(UserContext);
 
@@ -36,6 +37,7 @@ export const NewBuilding = () => {
   const [mutate] = useMutation(updateData, {
     onSuccess: (data) => {
       queryCache.setQueryData([entity, data.id], data);
+      setId(data.id)
       history.push(`/buildings/${data.id}`);
     },
   });
@@ -59,7 +61,7 @@ export const NewBuilding = () => {
           Νέο Κτίριο
         </li>
       </ActionsForm>
-      <AddressForm formName="addressForm" data={NewAddress()} />
+      <AddressForm formName="addressForm" data={NewAddress()} id={id} />
     </Form.Provider>
   );
 };

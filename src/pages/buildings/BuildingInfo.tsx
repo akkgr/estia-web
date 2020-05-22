@@ -16,13 +16,12 @@ import UserContext from "UserContext";
 const entity = "buildings";
 const uri = process.env.REACT_APP_API_URL + "/api";
 
-export const BuildingInfo: React.FC = () => {
+export const BuildingInfo = () => {
 
   const [address, setAddress] = useState<any>({});
   const [admin, setAdmin] = useState<string>("");
   const [startDate, setStartDate] = useState(new Date())
   const [endDate, setEndDate] = useState(new Date())
-
 
   const manager = useContext(UserContext);
   let { id } = useParams();
@@ -59,8 +58,8 @@ export const BuildingInfo: React.FC = () => {
   return (
     <React.Fragment>
       <form className="needs-validation" noValidate onSubmit={handleSubmit}>
-        <div>{JSON.stringify(id)}</div>
-        <div>{JSON.stringify(data)}</div>
+        {/* <div>{JSON.stringify(id)}</div>
+        <div>{JSON.stringify(data)}</div> */}
         <ActionsForm returnUrl="/buildings">
           <li className="breadcrumb-item active" aria-current="page">
             <Link to="/buildings">Κτίρια</Link>

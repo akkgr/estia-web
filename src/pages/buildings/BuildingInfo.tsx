@@ -1,41 +1,82 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import BuildingData from "./buildingInfo/BuildingData";
-// import CustomPageΗeader from "app/common/headers/CustomPageHeader";
 import BuildingStatus from "./buildingInfo/BuildingStatus";
 import BuildingPower from "./buildingInfo/BuildingPower";
 import BuildingGas from "./buildingInfo/BuildingGas";
 import BuildingWater from "./buildingInfo/BuildingWater";
 import TextInput from "app/common/form/TextInput";
 import BuildingBank from "./buildingInfo/BuildingBank";
+import ButtonTab from "app/common/buttons/ButtonTab";
+import axios from "axios";
+import { ActionsForm } from "components/ActionsForm";
+import { useParams, Link } from "react-router-dom";
+import { useQuery } from "react-query";
+import UserContext from "UserContext";
+
+const entity = "buildings";
+const uri = process.env.REACT_APP_API_URL + "/api";
 
 export const BuildingInfo: React.FC = () => {
+
+  const [address, setAddress] = useState<any>({});
+  const [admin, setAdmin] = useState<string>("");
+  const [startDate, setStartDate] = useState(new Date())
+  const [endDate, setEndDate] = useState(new Date())
+
+
+  const manager = useContext(UserContext);
+  let { id } = useParams();
+
+  const fetchData = async (key: string, id: string | undefined) => {
+    const user = await manager.getUser();
+    if (!user || user?.expired) {
+      manager.signinRedirect();
+    }
+    const { data } = await axios.get(`${uri}/${key}/${id}`, {
+      headers: {
+        Authorization: `Bearer ${user?.access_token}`,
+      },
+    });
+    setAddress(data.address)
+    setAdmin(data.createdBy)
+    setStartDate(data.createdOn)
+    setEndDate(data.updatedOn)
+    return data;
+  };
+
+  const { data } = useQuery<
+    any,
+    [string, string | undefined]
+  >([entity, id], fetchData);
+
+
   const handleSubmit = (event: any) => {
     event.preventDefault();
     const form = event.target.elements.test.value;
     console.log(form);
   };
+
   return (
     <React.Fragment>
       <form className="needs-validation" noValidate onSubmit={handleSubmit}>
+        <div>{JSON.stringify(id)}</div>
+        <div>{JSON.stringify(data)}</div>
+        <ActionsForm returnUrl="/buildings">
+          <li className="breadcrumb-item active" aria-current="page">
+            <Link to="/buildings">Κτίρια</Link>
+          </li>
+          <li className="breadcrumb-item active" aria-current="page">
+            {address.street} {address.streetnumber}, {address.area}
+          </li>
+        </ActionsForm>
         <div className="card">
           <div className="card-header text-center">
             <div className="row mt-3">
               <div className="col-md-4 mb-3">
                 <TextInput
-                  label="Στοιχεία Κτηρίου :"
-                  name="test"
-                  value="ΑΓ. ΦΑΝΟΥΡΙΟΥ 15A Παγκράτι"
-                  idElement="validationCustom01"
-                  placeholder="Something"
-                  required={true}
-                />
-              </div>
-
-              <div className="col-md-4 mb-3">
-                <TextInput
                   label="Στοιχεία Διαχειριστή  :"
                   name="admin"
-                  value="Βαγγέλης Χαυλής"
+                  value={admin}
                   placeholder="Στοιχεία Διαχειριστή..."
                   required={true}
                   readOnly={true}
@@ -59,79 +100,31 @@ export const BuildingInfo: React.FC = () => {
             <div id="exTab1">
               <ul className="nav nav-pills">
                 <li className="active">
-                  <a
-                    style={{ margin: "20px" }}
-                    className="btn btn-primary"
-                    role="button"
-                    href="#1a"
-                    data-toggle="tab"
-                  >
-                    Βασικά Στοιχεία Κτηρίου
-                  </a>
+                  <ButtonTab href="#1a" message="Βασικά Στοιχεία Κτηρίου" />
                 </li>
                 <li>
-                  <a
-                    style={{ margin: "20px" }}
-                    className="btn btn-primary"
-                    role="button"
-                    href="#2a"
-                    data-toggle="tab"
-                  >
-                    Κατάσταση
-                  </a>
+                  <ButtonTab href="#2a" message="Κατάσταση" />
                 </li>
                 <li>
-                  <a
-                    style={{ margin: "20px" }}
-                    className="btn btn-primary"
-                    role="button"
-                    href="#3a"
-                    data-toggle="tab"
-                  >
-                    ΔΕΗ
-                  </a>
+                  <ButtonTab href="#3a" message="ΔΕΗ" />
                 </li>
                 <li>
-                  <a
-                    style={{ margin: "20px" }}
-                    className="btn btn-primary"
-                    role="button"
-                    href="#4a"
-                    data-toggle="tab"
-                  >
-                    Φυσικό Αέριο
-                  </a>
+                  <ButtonTab href="#4a" message="Φυσικό Αέριο" />
                 </li>
                 <li>
-                  <a
-                    style={{ margin: "20px" }}
-                    className="btn btn-primary"
-                    role="button"
-                    href="#5a"
-                    data-toggle="tab"
-                  >
-                    ΕΥΔΑΠ
-                  </a>
+                  <ButtonTab href="#5a" message="ΕΥΔΑΠ" />
                 </li>
                 <li>
-                  <a
-                    style={{ margin: "20px" }}
-                    className="btn btn-primary"
-                    role="button"
-                    href="#6a"
-                    data-toggle="tab"
-                  >
-                    Τράπεζα/Αιτιολογία
-                  </a>
+                  <ButtonTab href="#6a" message="Τράπεζα/Αιτιολογία" />
                 </li>
               </ul>
 
               <div className="tab-content">
                 <div className="tab-pane  active" id="1a">
-                  <BuildingData />
+                  <BuildingData address={address}/>
                 </div>
                 <div className="tab-pane" id="2a">
-                  <BuildingStatus />
+                  <BuildingStatus startDate={startDate} endDate={endDate}/>
                 </div>
                 <div className="tab-pane" id="3a">
                   <BuildingPower />
@@ -145,21 +138,6 @@ export const BuildingInfo: React.FC = () => {
                 <div className="tab-pane" id="6a">
                   <BuildingBank />
                 </div>
-              </div>
-            </div>
-          </div>
-          <div className="card-footer">
-            <div className="row">
-              <div className="col-md-8 mb-3">
-                <button type="button" className="btn btn-warning">
-                  Ακύρωση
-                </button>
-              </div>
-
-              <div className="col-md-4 mb-3">
-                <button className="btn btn-primary" type="submit">
-                  Υποβολή
-                </button>
               </div>
             </div>
           </div>

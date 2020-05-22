@@ -14,11 +14,17 @@ export const Cities = [
     value: "Μαρούσι",
   },
   { id: 3, value: "Πανόρμου" },
+  { id: 4, value: "Αθήνα" },
 ];
 
 export const trype_heading = ["ΚΕΝΤΡΙΚΗ", "ΦΥΣΙΚΟ ΑΕΡΙΟ", "ΑΥΤΟΝΟΜΗ"];
 
-const BuildingData = () => {
+interface IBuildingData {
+  address: any
+}
+
+
+const BuildingData: React.FC<IBuildingData> = ({address}) => {
   return (
     <React.Fragment>
       <div className="row">
@@ -34,7 +40,7 @@ const BuildingData = () => {
           <TextInput
             label="Οδός :"
             name="state"
-            value="Αγ.Φανουρίου"
+            value={address.street}
             placeholder="Οδός..."
             idElement="validationCustom03"
             required={true}
@@ -48,7 +54,7 @@ const BuildingData = () => {
           <TextInput
             label="Αριθμός :"
             name="number"
-            value="15A"
+            value={address.streetnumber}
             placeholder="Αριθμός"
             idElement="validationCustom04"
             required={true}
@@ -62,7 +68,7 @@ const BuildingData = () => {
           <TextInput
             label="ΤΚ :"
             name="zip"
-            value="11528"
+            value={address.postalCode}
             placeholder="ΤΚ"
             idElement="validationCustom05"
             required={true}
@@ -119,7 +125,7 @@ const BuildingData = () => {
 
       <div className="row mt-3">
         <div className="col-md-5 mb-3">
-          <Checkbox label="Θερμοώρες" required={false} />
+          <Checkbox id="energy" label="Θερμοώρες" required={false} />
         </div>
       </div>
 

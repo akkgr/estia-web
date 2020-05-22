@@ -58,7 +58,7 @@ const BuildingPower = () => {
 
       <div className="row mt-3">
         <div className="col-md-6 mb-3">
-          <Checkbox label="Παραλαβή λογ. στο γραφείο" required={true} />
+          <Checkbox id="receivePower" label="Παραλαβή λογ. στο γραφείο" required={true} />
         </div>
       </div>
     </React.Fragment>

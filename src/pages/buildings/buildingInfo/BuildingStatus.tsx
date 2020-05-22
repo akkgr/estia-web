@@ -1,29 +1,38 @@
 import React, { useState } from "react";
 import Checkbox from "app/common/form/Checkbox";
-import TextInput from "app/common/form/TextInput";
 import { DateTimePicker } from "app/common/form/DateTimePicker";
-const BuildingStatus = () => {
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
+
+interface IDates {
+  startDate: Date;
+  endDate: Date;
+}
+
+const BuildingStatus: React.FC<IDates> = ({ startDate, endDate }) => {
+  const [newStartDate, setStartDate] = useState(startDate);
+  const [newEndDate, setEndDate] = useState(endDate);
+
   return (
     <React.Fragment>
       <div className="row mt-3">
         <div className="col-md-4 mb-3">
-          <Checkbox label="Διαχείρηση" required={false} />
+          <Checkbox id="manage" label="Διαχείρηση" required={false} />
         </div>
       </div>
 
       <div className="row mt-3">
         <div className="col-md-4 mb-3">
-          <Checkbox label="Ενεργή" required={false} />
+          <Checkbox id="active" label="Ενεργή" required={false} />
         </div>
       </div>
 
+      {/* <div>{JSON.stringify(startDate)}</div>
+      <div>{JSON.stringify(endDate)}</div> */}
       <div className="row mt-3">
         <div className="col-md-2 mb-3">
           <DateTimePicker
             label="Ημερομηνία Παραλαβής :"
-            startDate={startDate}
+            startDate={newStartDate}
+            selected={newStartDate}
             setStartDate={setStartDate}
             showMonthDropdown={true}
             useShortMonthInDropdown={true}
@@ -38,7 +47,7 @@ const BuildingStatus = () => {
         <div className="col-md-3 mb-3">
           <DateTimePicker
             label="Ημερομηνία Παράδοσης :"
-            startDate={endDate}
+            startDate={newEndDate}
             setStartDate={setEndDate}
             showMonthDropdown={true}
             useShortMonthInDropdown={true}

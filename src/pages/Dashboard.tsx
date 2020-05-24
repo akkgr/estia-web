@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-export const Dashboard = (props: any) => {
+const Dashboard = (props: any) => {
   const { changeUser } = props;
 
   useEffect(() => {
@@ -9,3 +9,5 @@ export const Dashboard = (props: any) => {
 
   return <h1>Dashboard</h1>;
 };
+
+export default Dashboard;

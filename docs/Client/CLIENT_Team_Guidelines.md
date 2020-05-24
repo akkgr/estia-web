@@ -11,4 +11,15 @@
 7. IN EVERY GIT PULL MAKE NPM INSTALL BECAUSE OF WE INSTALL NEW DEPENDENCIES ALL MEMBERS MUST KNOW ABOUT THIS
 8. ALL CSS MUST BE WITH FLEXBOX FOR BETTER RESPONSIVENESS
 9. We will use axios for fetch data and cleanup method to manage XHR requests for making cleanup
-   ??? WE MUST DECIDE IF WE WILL USE MOBX FOR STATE MANAGMENT
+10. We all use interface IProps and in component :React.FC<IProps>=({destruction}) in all components as TextInput.tsx
+11. We export default in components
+    ??? WE MUST DECIDE IF WE WILL USE MOBX FOR STATE MANAGMENT
+
+## IF YOU WANT TO MAKE REACT.LAZY FOR IMPORT AN export const (NO DEFAULT ) you must use//
+
+etc.
+const BuildingPay = lazy(() =>
+import("pages/buildings/BuildingPay").then(({ BuildingPay }) => ({
+default: BuildingPay,
+}))
+);

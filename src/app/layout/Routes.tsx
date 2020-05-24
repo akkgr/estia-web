@@ -1,18 +1,23 @@
 import PropTypes from "prop-types";
-import React from "react";
+import React, { lazy } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
-import { Dashboard } from "pages/Dashboard";
-import { BuildingList } from "pages/buildings/BuildingList";
-import { NewBuilding } from "pages/buildings/NewBuilding";
-import { BuildingForm } from "pages/buildings/BuildingForm";
-import { NewApartment } from "pages/apartments/NewApartment";
-import { ApartmentForm } from "pages/apartments/ApartmentForm";
-import Callback from "pages/Callback";
-import Silent from "pages/Silent";
-import { BuildingInfo } from "pages/buildings/BuildingInfo";
-import { Ratings } from "pages/buildings/Ratings";
-import BuildingList1 from "components/Admin/BuildingList1";
-import { BuildingPay } from "pages/buildings/BuildingPay";
+
+const Dashboard = lazy(() => import("pages/Dashboard"));
+const BuildingList = lazy(() => import("pages/buildings/BuildingList"));
+const NewBuilding = lazy(() => import("pages/buildings/NewBuilding"));
+const BuildingForm = lazy(() => import("pages/buildings/BuildingForm"));
+const Ratings = lazy(() => import("pages/buildings/Ratings"));
+const BuildingInfo = lazy(() => import("pages/buildings/BuildingInfo"));
+
+const NewApartment = lazy(() => import("pages/apartments/NewApartment"));
+
+const ApartmentForm = lazy(() => import("pages/apartments/ApartmentForm"));
+
+const Callback = lazy(() => import("pages/Callback"));
+const BuildingList1 = lazy(() => import("components/Admin/BuildingList1"));
+const NotFound = lazy(() => import("app/layout/NotFound"));
+const Silent = lazy(() => import("pages/Silent"));
+const BuildingPay = lazy(() => import("pages/buildings/BuildingPay"));
 
 function Routes(props: any) {
   return (
@@ -51,6 +56,8 @@ function Routes(props: any) {
       <Route exact path="/callback" component={Callback} />
 
       <Route exact path="/callback" component={Silent} />
+
+      <Route component={NotFound} />
     </Switch>
   );
 }

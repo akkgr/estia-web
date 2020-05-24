@@ -14,7 +14,7 @@ import Cards from "app/common/views/Cards";
 const uri = process.env.REACT_APP_API_URL + "/api";
 const entity = "buildings";
 
-export const BuildingForm = () => {
+const BuildingForm = () => {
   const manager = useContext(UserContext);
   let { id } = useParams();
 
@@ -81,39 +81,36 @@ export const BuildingForm = () => {
         </ActionsForm>
         <div className="row">
           <div className="col-8">
-            <AddressForm formName="addressForm" data={data?.address} id={id}/>
-            <br/>
+            <AddressForm formName="addressForm" data={data?.address} id={id} />
+            <br />
           </div>
           <div className="col-4">
-            <Cards 
+            <Cards
               header={"Διαθέσιμες επιλογές"}
               body={
                 <>
-                <div className="row">
-                  <div className="col">
-                     <Link to={`${id}/info`}>
-                      Πληροφορίες</Link>
+                  <div className="row">
+                    <div className="col">
+                      <Link to={`${id}/info`}>Πληροφορίες</Link>
+                    </div>
+                    <div className="col">
+                      <Link to={`${id}/ratings`}>Ποσοστά</Link>
+                    </div>
+                    <div className="col">
+                      <Link to={`${id}/payments`}>Πληρωμές</Link>
+                    </div>
                   </div>
-                  <div className="col">
-                    <Link to={`${id}/ratings`}>
-                      Ποσοστά</Link>
-                  </div>
-                  <div className="col">
-                    <Link to={`${id}/payments`}>
-                    Πληρωμές</Link>
-                  </div>
-                  
-                </div>
-                <br />
+                  <br />
                 </>
               }
             />
           </div>
-
         </div>
-        
+
         <AppartmentList data={data}></AppartmentList>
       </Form.Provider>
     </Skeleton>
   );
 };
+
+export default BuildingForm;

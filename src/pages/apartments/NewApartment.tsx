@@ -16,7 +16,7 @@ const uri = process.env.REACT_APP_API_URL + "/api";
 const parentEntity = "buildings";
 const entity = "apartments";
 
-export const NewApartment = () => {
+const NewApartment = () => {
   const [form] = Form.useForm();
   const history = useHistory();
   const manager = useContext(UserContext);
@@ -216,3 +216,5 @@ export const NewApartment = () => {
     </Skeleton>
   );
 };
+
+export default NewApartment;

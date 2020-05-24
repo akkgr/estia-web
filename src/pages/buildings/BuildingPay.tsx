@@ -12,7 +12,7 @@ import { BuildingPaymentList } from "components/BuildingPaymentList";
 const uri = process.env.REACT_APP_API_URL + "/api";
 const entity = "buildings";
 
-export const BuildingPay = () => {
+const BuildingPay = () => {
   const manager = useContext(UserContext);
   let { id } = useParams();
 
@@ -82,3 +82,5 @@ export const BuildingPay = () => {
     </Skeleton>
   );
 };
+
+export default BuildingPay;

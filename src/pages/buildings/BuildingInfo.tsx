@@ -12,16 +12,16 @@ import { ActionsForm } from "components/ActionsForm";
 import { useParams, Link } from "react-router-dom";
 import { useQuery } from "react-query";
 import UserContext from "UserContext";
+import BuildingInfoHeader from "./buildingInfo/BuildingInfoHeader";
 
 const entity = "buildings";
 const uri = process.env.REACT_APP_API_URL + "/api";
 
-export const BuildingInfo = () => {
-
+const BuildingInfo = () => {
   const [address, setAddress] = useState<any>({});
   const [admin, setAdmin] = useState<string>("");
-  const [startDate, setStartDate] = useState(new Date())
-  const [endDate, setEndDate] = useState(new Date())
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
 
   const manager = useContext(UserContext);
   let { id } = useParams();
@@ -36,18 +36,17 @@ export const BuildingInfo = () => {
         Authorization: `Bearer ${user?.access_token}`,
       },
     });
-    setAddress(data.address)
-    setAdmin(data.createdBy)
-    setStartDate(data.createdOn)
-    setEndDate(data.updatedOn)
+    setAddress(data.address);
+    setAdmin(data.createdBy);
+    setStartDate(data.createdOn);
+    setEndDate(data.updatedOn);
     return data;
   };
 
-  const { data } = useQuery<
-    any,
-    [string, string | undefined]
-  >([entity, id], fetchData);
-
+  const { data } = useQuery<any, [string, string | undefined]>(
+    [entity, id],
+    fetchData
+  );
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
@@ -120,10 +119,10 @@ export const BuildingInfo = () => {
 
               <div className="tab-content">
                 <div className="tab-pane  active" id="1a">
-                  <BuildingData address={address}/>
+                  <BuildingData address={address} />
                 </div>
                 <div className="tab-pane" id="2a">
-                  <BuildingStatus startDate={startDate} endDate={endDate}/>
+                  <BuildingStatus startDate={startDate} endDate={endDate} />
                 </div>
                 <div className="tab-pane" id="3a">
                   <BuildingPower />
@@ -145,3 +144,5 @@ export const BuildingInfo = () => {
     </React.Fragment>
   );
 };
+
+export default BuildingInfo;

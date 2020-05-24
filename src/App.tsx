@@ -1,4 +1,10 @@
-import React, { useState, useContext, useEffect, useCallback } from "react";
+import React, {
+  useState,
+  useContext,
+  useEffect,
+  useCallback,
+  Suspense,
+} from "react";
 import { ReactQueryConfigProvider } from "react-query";
 import "./App.css";
 import { BrowserRouter as Router } from "react-router-dom";
@@ -10,6 +16,7 @@ import UserContext from "UserContext";
 import MainMenu from "components/MainMenu";
 import MainHeader from "components/MainHeader";
 import Routes from "app/layout/Routes";
+import Loading from "app/layout/Loading";
 
 const { Content, Footer, Sider } = Layout;
 
@@ -27,7 +34,7 @@ const notify = (text: any) =>
 
 const queryConfig = {
   // Global
-  suspense: false,
+  suspense: true,
   refetchOnWindowFocus: false,
   onError: (error: any) =>
     // notification["error"]({
@@ -75,33 +82,35 @@ function App() {
 
   return (
     <ReactQueryConfigProvider config={queryConfig}>
-      <Router>
-        <Layout style={{ minHeight: "100vh" }}>
-          <Sider trigger={null} collapsible collapsed={collapsed}>
-            <MainMenu></MainMenu>
-          </Sider>
-          <Layout className="site-layout">
-            <MainHeader
-              collapsed={collapsed}
-              menuClick={menuClick}
-              setCollapsed={setCollapsed}
-              user={user}
-            />
-            <Content
-              className="site-layout-background"
-              style={{
-                margin: "24px 16px",
-                padding: 24,
-                minHeight: 280,
-              }}
-            >
-              <ToastContainer />
-              <Routes changeUser={changeUser} />
-            </Content>
-            <Footer style={{ textAlign: "center" }}>Cinnamon ©2020</Footer>
+      <Suspense fallback={<Loading />}>
+        <Router>
+          <Layout style={{ minHeight: "100vh" }}>
+            <Sider trigger={null} collapsible collapsed={collapsed}>
+              <MainMenu></MainMenu>
+            </Sider>
+            <Layout className="site-layout">
+              <MainHeader
+                collapsed={collapsed}
+                menuClick={menuClick}
+                setCollapsed={setCollapsed}
+                user={user}
+              />
+              <Content
+                className="site-layout-background"
+                style={{
+                  margin: "24px 16px",
+                  padding: 24,
+                  minHeight: 280,
+                }}
+              >
+                <ToastContainer />
+                <Routes changeUser={changeUser} />
+              </Content>
+              <Footer style={{ textAlign: "center" }}>Cinnamon ©2020</Footer>
+            </Layout>
           </Layout>
-        </Layout>
-      </Router>
+        </Router>
+      </Suspense>
     </ReactQueryConfigProvider>
   );
 }

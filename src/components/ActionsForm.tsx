@@ -6,53 +6,55 @@ interface ActionsFormProps {
   returnUrl: string;
 }
 
-export const ActionsForm = ({
+export const ActionsForm: React.FC<ActionsFormProps> = ({
   returnUrl,
   children,
-}: React.PropsWithChildren<ActionsFormProps>) => {
+}) => {
   const history = useHistory();
-  const cancel = () => {
+
+  const cancel = (e: any) => {
+    e.preventDefault();
     history.push(returnUrl);
   };
 
   return (
-    <div className="row">
-      <div className="col-11">
-        <nav>
-          <ol className="breadcrumb" style={{ padding: "6px 15px" }}>
-            <li className="breadcrumb-item active" aria-current="page">
+    <React.Fragment>
+      <div className="row">
+        <div className="col-11">
+          <nav aria-label="breadcrumb">
+            <ol className="breadcrumb" style={{ padding: "6px 15px" }}>
               {children}
-            </li>
-          </ol>
-        </nav>
-      </div>
-      <div className="col ">
-        <div className="row mx-auto">
-          <div className="col">
-            <button
-              className="btn btn-info"
-              type="submit"
-              data-toggle="tooltip"
-              data-placement="bottom"
-              title="Αποθήκευση"
-            >
-              <SaveOutlined />
-            </button>
-          </div>
-          <div className="col">
-            <button
-              className="btn btn-danger"
-              type="button"
-              onClick={cancel}
-              data-toggle="tooltip"
-              data-placement="bottom"
-              title="Ακύρωση"
-            >
-              <UndoOutlined />
-            </button>
+            </ol>
+          </nav>
+        </div>
+        <div className="col ">
+          <div className="row mx-auto">
+            <div className="col">
+              <button
+                className="btn btn-info"
+                type="submit"
+                data-toggle="tooltip"
+                data-placement="bottom"
+                title="Αποθήκευση"
+              >
+                <SaveOutlined />
+              </button>
+            </div>
+            <div className="col">
+              <button
+                className="btn btn-danger"
+                type="button"
+                onClick={(e) => cancel(e)}
+                data-toggle="tooltip"
+                data-placement="bottom"
+                title="Ακύρωση"
+              >
+                <UndoOutlined />
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </React.Fragment>
   );
 };

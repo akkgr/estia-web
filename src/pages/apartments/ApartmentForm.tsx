@@ -16,7 +16,7 @@ import Cards from "app/common/views/Cards";
 const uri = process.env.REACT_APP_API_U;
 const entity = "apartments";
 
-export const ApartmentForm = () => {
+const ApartmentForm = () => {
   const manager = useContext(UserContext);
   let { id1, id2 } = useParams();
 
@@ -256,3 +256,5 @@ export const ApartmentForm = () => {
     </Skeleton>
   );
 };
+
+export default ApartmentForm;

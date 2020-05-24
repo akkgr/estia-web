@@ -19,13 +19,17 @@ const { Search } = Input;
 
 const uri = process.env.REACT_APP_API_URL + "/api";
 
-type DataTableProps = {
+interface DataTableProps {
   entity: string;
   columns: any[];
   filterFn: any;
-};
+}
 
-export const DataTable = ({ entity, columns, filterFn }: DataTableProps) => {
+export const DataTable: React.FC<DataTableProps> = ({
+  entity,
+  columns,
+  filterFn,
+}) => {
   const history = useHistory();
   const [page, setPage] = useState(1);
   const [rows, setRows] = useState(10);
@@ -127,7 +131,6 @@ export const DataTable = ({ entity, columns, filterFn }: DataTableProps) => {
         },
       }
     );
-    console.log("data.data:" + JSON.stringify(data.data));
     setTotal(data.count);
     return data.data;
   };

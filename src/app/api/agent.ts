@@ -2,7 +2,8 @@ import { useContext } from "react";
 import axios, { AxiosResponse } from "axios";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
-import UserContext from "UserContext";
+import UserContext from "../../UserContext";
+import { Building } from "app/models/Building";
 const history = useHistory();
 const manager = useContext(UserContext);
 
@@ -12,7 +13,9 @@ axios.interceptors.request.use(
   async (config) => {
     const user = await manager.getUser();
     const token = user?.access_token;
-    config.headers.Authorization = `Bearer ${token}`;
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
     return config;
   },
   (error) => {
@@ -53,7 +56,9 @@ const requests = {
 };
 
 const Buildings = {
-  list: (key: string, id: string | undefined) => requests.get(`/${key}/${id}`),
+  list: (key: string, id: string | undefined): Promise<Building> =>
+    requests.get(`/${key}/${id}`),
+  delete: (entity: string, id: string) => requests.del(`/${entity}/${id}`),
 };
 
 export default { Buildings };

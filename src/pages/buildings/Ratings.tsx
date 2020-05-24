@@ -14,7 +14,7 @@ import { RatingsList } from "components/RatingsList";
 const uri = process.env.REACT_APP_API_URL + "/api";
 const entity = "buildings";
 
-export const Ratings = () => {
+const Ratings = () => {
   const manager = useContext(UserContext);
   let { id } = useParams();
 
@@ -103,3 +103,5 @@ export const Ratings = () => {
     </Skeleton>
   );
 };
+
+export default Ratings;

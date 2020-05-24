@@ -24,8 +24,6 @@ const columns = [
   },
 ];
 
-
-
 const filterFn = (value: any) => {
   return {
     $or: [
@@ -41,7 +39,7 @@ const filterFn = (value: any) => {
   };
 };
 
-export const BuildingList = () => {
+const BuildingList = () => {
   return (
     <>
       <nav>
@@ -56,3 +54,5 @@ export const BuildingList = () => {
     </>
   );
 };
+
+export default BuildingList;

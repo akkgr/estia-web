@@ -11,8 +11,8 @@ import { ActionsForm } from "components/ActionsForm";
 const uri = process.env.REACT_APP_API_URL + "/api";
 const entity = "buildings";
 
-export const NewBuilding = () => {
-  const [id, setId] = useState<string | undefined>()
+const NewBuilding = () => {
+  const [id, setId] = useState<string | undefined>();
   const history = useHistory();
   const manager = useContext(UserContext);
 
@@ -37,7 +37,7 @@ export const NewBuilding = () => {
   const [mutate] = useMutation(updateData, {
     onSuccess: (data) => {
       queryCache.setQueryData([entity, data.id], data);
-      setId(data.id)
+      setId(data.id);
       history.push(`/buildings/${data.id}`);
     },
   });
@@ -65,3 +65,5 @@ export const NewBuilding = () => {
     </Form.Provider>
   );
 };
+
+export default NewBuilding;

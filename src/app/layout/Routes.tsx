@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import React, { lazy } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 
@@ -14,7 +13,7 @@ const NewApartment = lazy(() => import("pages/apartments/NewApartment"));
 const ApartmentForm = lazy(() => import("pages/apartments/ApartmentForm"));
 
 const Callback = lazy(() => import("pages/Callback"));
-const BuildingList1 = lazy(() => import("components/Admin/BuildingList1"));
+const BuildingList1 = lazy(() => import("components/admin/BuildingList1"));
 const NotFound = lazy(() => import("app/layout/NotFound"));
 const Silent = lazy(() => import("pages/Silent"));
 const BuildingPay = lazy(() => import("pages/buildings/BuildingPay"));
@@ -61,9 +60,5 @@ function Routes(props: any) {
     </Switch>
   );
 }
-
-Routes.propTypes = {
-  changeUser: PropTypes.any,
-};
 
 export default Routes;

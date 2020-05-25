@@ -11,7 +11,7 @@ import {
 } from "@ant-design/icons";
 
 import UserContext from "../UserContext";
-
+import BuildingQueries from "components/admin/BuildingQueries";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -25,11 +25,7 @@ interface DataTableProps {
   filterFn: any;
 }
 
-export const DataTable: React.FC<DataTableProps> = ({
-  entity,
-  columns,
-  filterFn,
-}) => {
+const DataTable: React.FC<DataTableProps> = ({ entity, columns, filterFn }) => {
   const history = useHistory();
   const [page, setPage] = useState(1);
   const [rows, setRows] = useState(10);
@@ -39,6 +35,7 @@ export const DataTable: React.FC<DataTableProps> = ({
   const [form] = Form.useForm();
   const [columnsWithActions, setColumnsWithActions] = useState<any[]>([]);
   const manager = useContext(UserContext);
+  const { fetchBuildings } = BuildingQueries();
 
   const notify = (text: any) =>
     toast.error(
@@ -110,37 +107,13 @@ export const DataTable: React.FC<DataTableProps> = ({
     setColumnsWithActions([...columns, actions]);
   }, [entity, columns, history, memoizedCallback]);
 
-  const fetchData = async (
-    key: string,
-    page: number,
-    rows: number,
-    sort: string[],
-    filter: {}
-  ) => {
-    const s = JSON.stringify(sort);
-    const f = JSON.stringify(filter);
-    const user = await manager.getUser();
-    if (!user || user?.expired) {
-      manager.signinRedirect();
-    }
-    const { data } = await axios.get(
-      `${uri}/${key}?sort=${s}&page=[${page},${rows}]&filter=${f}`,
-      {
-        headers: {
-          Authorization: `Bearer ${user?.access_token}`,
-        },
-      }
-    );
-    setTotal(data.count);
-    return data.data;
-  };
-
   const { status, data, isFetching } = useQuery<
     any,
     [string, number, number, string[], {}]
-  >([entity, page, rows, sort, filter], fetchData);
+  >([entity, page, rows, sort, filter], fetchBuildings);
 
   const handleTableChange = (pagination: any, _: any, sorting: any) => {
+    setTotal(data.count);
     setPage(pagination.current);
     setRows(pagination.pageSize);
     if (!sorting.columnKey) sorting.columnKey = "id";
@@ -195,3 +168,5 @@ export const DataTable: React.FC<DataTableProps> = ({
     </>
   );
 };
+
+export default DataTable;

@@ -20,31 +20,10 @@ import Loading from "app/layout/Loading";
 
 const { Content, Footer, Sider } = Layout;
 
-const notify = (text: any) =>
-  toast.error(
-    <div>
-      <p>Σφάλμα !</p>
-      <p>{text}</p>
-    </div>,
-    {
-      position: "top-right",
-      autoClose: 6000,
-    }
-  );
-
 const queryConfig = {
   // Global
   suspense: true,
   refetchOnWindowFocus: false,
-  onError: (error: any) =>
-    // notification["error"]({
-    //   message: "Σφάλμα !!!",
-    //   description: error.message,
-    //   duration: 10,
-    // }),
-    notify(error.message),
-  // useQuery
-  retry: false,
 };
 
 function App() {
@@ -84,6 +63,7 @@ function App() {
     <ReactQueryConfigProvider config={queryConfig}>
       <Suspense fallback={<Loading />}>
         <Router>
+          <ToastContainer position="bottom-right" />
           <Layout style={{ minHeight: "100vh" }}>
             <Sider trigger={null} collapsible collapsed={collapsed}>
               <MainMenu></MainMenu>
@@ -103,7 +83,6 @@ function App() {
                   minHeight: 280,
                 }}
               >
-                <ToastContainer />
                 <Routes changeUser={changeUser} />
               </Content>
               <Footer style={{ textAlign: "center" }}>Cinnamon ©2020</Footer>

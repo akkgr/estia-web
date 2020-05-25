@@ -1,7 +1,6 @@
 import React from "react";
-import { DataTable } from "./DataTable";
+import DataTable from "./DataTable";
 import SelectInputSearch from "app/common/form/SelectInputSearch";
-
 
 const Year = [
   {
@@ -100,14 +99,13 @@ export const BuildingPaymentList = (props: any) => {
         label="Επιλογή έτους:"
         className="custom-select"
         options={Year}
-     />
-     <br />
-    <DataTable
-      entity={`buildings/${props.data.id}/apartments`}
-      columns={columns}
-      filterFn={filterFn}
-    />
+      />
+      <br />
+      <DataTable
+        entity={`buildings/${props.data.id}/apartments`}
+        columns={columns}
+        filterFn={filterFn}
+      />
     </div>
-    
   );
 };

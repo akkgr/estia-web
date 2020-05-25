@@ -5,7 +5,7 @@ import axios from "axios";
 import { Skeleton, notification, Form } from "antd";
 
 import UserContext from "UserContext";
-import { AddressForm } from "components/AddressForm";
+import AddressForm from "components/AddressForm";
 import { AppartmentList } from "components/AppartmentList";
 import { AddressTitle } from "app/models/Address";
 import { ActionsForm } from "components/ActionsForm";

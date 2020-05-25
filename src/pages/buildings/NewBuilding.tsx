@@ -4,7 +4,7 @@ import { useMutation, queryCache } from "react-query";
 import axios from "axios";
 import { Form, notification } from "antd";
 import UserContext from "UserContext";
-import { AddressForm } from "components/AddressForm";
+import AddressForm from "components/AddressForm";
 import { NewAddress } from "app/models/Address";
 import { ActionsForm } from "components/ActionsForm";
 

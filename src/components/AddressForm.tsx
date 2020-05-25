@@ -9,7 +9,7 @@ interface AddressFormProps {
   id: string | undefined;
 }
 
-export const AddressForm = ({ id, data, formName }: AddressFormProps) => {
+const AddressForm = ({ id, data, formName }: AddressFormProps) => {
   return (
     <React.Fragment>
       <Form name={formName} layout={"horizontal"} initialValues={data}>
@@ -64,3 +64,5 @@ export const AddressForm = ({ id, data, formName }: AddressFormProps) => {
     </React.Fragment>
   );
 };
+
+export default AddressForm

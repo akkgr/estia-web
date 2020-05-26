@@ -13,8 +13,14 @@ const Agent = () => {
     async (config) => {
       const user = await manager.getUser();
       const token = user?.access_token;
-      if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
+      if (!user || user?.expired) {
+        toast.error(
+          "Η σύνδεση σας έχει λήξει. Παρακαλώ ξανά συνδεθείτε για να συνεχίσετε."
+        );
+      } else {
+        if (token) {
+          config.headers.Authorization = `Bearer ${token}`;
+        }
       }
       return config;
     },
@@ -27,12 +33,14 @@ const Agent = () => {
   axios.interceptors.response.use(undefined, (error) => {
     if (error.message === "Network Error" && !error.response) {
       history.push("/dashboard");
-      toast.error("Network error -make sure API is runnning!");
+      return toast.error("Network error -make sure API is runnning!");
     }
+    console.log("error.response:" + JSON.stringify(error.response));
     //redirect to a notfound component
     const { status, data, config } = error.response;
     if (status === 400) {
       history.push("/notfound");
+      return toast.error("Bad request!");
     }
     if (
       status === 400 &&
@@ -40,11 +48,15 @@ const Agent = () => {
       data.errors.hasOwnProperty("id")
     ) {
       history.push("/notfound");
+      return toast.error("Bad request!");
+    }
+    if (status === 404) {
+      return toast.error("The request contained an invalid :path value!");
     }
     if (status === 500) {
-      toast.error("Server error -check the terminal for more info!");
+      return toast.error("Server error -check the terminal for more info!");
     }
-    throw error.response;
+    // throw error.response;
   });
 
   const responseBody = (response: AxiosResponse) => response.data;

@@ -12,8 +12,6 @@ import {
 
 import UserContext from "../UserContext";
 import BuildingQueries from "components/admin/BuildingQueries";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 const { Search } = Input;
 
@@ -35,38 +33,12 @@ const DataTable: React.FC<DataTableProps> = ({ entity, columns, filterFn }) => {
   const [form] = Form.useForm();
   const [columnsWithActions, setColumnsWithActions] = useState<any[]>([]);
   const manager = useContext(UserContext);
-  const { fetchBuildings } = BuildingQueries();
-
-  const notify = (text: any) =>
-    toast.error(
-      <div>
-        <p>Σφάλμα !</p>
-        <p>{text}</p>
-      </div>,
-      {
-        position: "top-right",
-        autoClose: 6000,
-      }
-    );
+  const { fetchBuildings, deleteBuildings } = BuildingQueries(entity);
 
   const memoizedCallback = useCallback(
     async (id: string) => {
-      try {
-        const user = await manager.getUser();
-        await axios.delete(`${uri}/${entity}/${id}`, {
-          headers: {
-            Authorization: `Bearer ${user?.access_token}`,
-          },
-        });
-        queryCache.refetchQueries([entity, page, rows, sort, filter]);
-      } catch (error) {
-        // notification["error"]({
-        //   message: "Σφάλμα !!!",
-        //   description: error.message,
-        //   duration: 10,
-        // });
-        notify(error.message);
-      }
+      await deleteBuildings(id);
+      queryCache.refetchQueries([entity, page, rows, sort, filter]);
     },
     [entity, filter, manager, page, rows, sort]
   );
@@ -148,7 +120,6 @@ const DataTable: React.FC<DataTableProps> = ({ entity, columns, filterFn }) => {
           />
         </Form.Item>
       </Form>
-      <ToastContainer />
       <Table
         size="small"
         columns={columnsWithActions}

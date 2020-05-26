@@ -1,12 +1,11 @@
-import React, { useContext } from "react";
+import { useContext, useCallback } from "react";
 import UserContext from "UserContext";
 import Agent from "app/api/Agent";
 
-const uri = process.env.REACT_APP_API_URL + "/api";
-
-const BuildingQueries = () => {
+const BuildingQueries = (entity: string) => {
   const manager = useContext(UserContext);
   const { Buildings } = Agent();
+
   const fetchBuildings = async (
     key: string,
     page: number,
@@ -25,15 +24,10 @@ const BuildingQueries = () => {
     return data;
   };
 
-  return { fetchBuildings };
+  const deleteBuildings = async (id: string) => {
+    await Buildings.delete(entity, id);
+  };
+
+  return { fetchBuildings, deleteBuildings };
 };
 export default BuildingQueries;
-
-// const { data } = await agent.get(
-//   `${uri}/${key}?sort=${s}&page=[${page},${rows}]&filter=${f}`,
-//   {
-//     headers: {
-//       Authorization: `Bearer ${user?.access_token}`,
-//     },
-//   }
-// );

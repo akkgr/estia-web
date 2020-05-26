@@ -8,8 +8,6 @@ import UserContext from "UserContext";
 import { ActionsForm } from "components/ActionsForm";
 import { PersonForm } from "components/PersonForm";
 
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import TextArea from "antd/lib/input/TextArea";
 import Cards from "app/common/views/Cards";
 
@@ -19,18 +17,6 @@ const entity = "apartments";
 const ApartmentForm = () => {
   const manager = useContext(UserContext);
   let { id1, id2 } = useParams();
-
-  const notify = (text: any) =>
-    toast.error(
-      <div>
-        <p>Σφάλμα !</p>
-        <p>{text}</p>
-      </div>,
-      {
-        position: "top-right",
-        autoClose: 6000,
-      }
-    );
 
   const fetchData = async (key: string, id: string | undefined) => {
     const user = await manager.getUser();
@@ -47,17 +33,6 @@ const ApartmentForm = () => {
 
   const updateData = async (input: any) => {
     const user = await manager.getUser();
-    if (!user || user?.expired) {
-      // notification["error"]({
-      //   message: "Σφάλμα !!!",
-      //   description:
-      //     "Η σύνδεση σας έχει λήξει. Παρακαλώ ξανά συνδεθείτε για να συνεχίσετε.",
-      //   duration: 10,
-      // });
-      notify(
-        "Η σύνδεση σας έχει λήξει. Παρακαλώ ξανά συνδεθείτε για να συνεχίσετε."
-      );
-    }
     const { data } = await axios.put(`${uri}/${entity}/${id2}`, input, {
       headers: {
         Authorization: `Bearer ${user?.access_token}`,
@@ -99,7 +74,6 @@ const ApartmentForm = () => {
           } catch {}
         }}
       >
-        <ToastContainer />
         <ActionsForm returnUrl={`/buildings/${id1}`}>
           <li className="breadcrumb-item " aria-current="page">
             {" "}

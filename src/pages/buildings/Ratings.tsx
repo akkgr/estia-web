@@ -3,8 +3,6 @@ import { useParams, Link } from "react-router-dom";
 import { useQuery, useMutation, queryCache } from "react-query";
 import axios from "axios";
 import { Skeleton, Form } from "antd";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 import UserContext from "UserContext";
 import { AddressTitle } from "app/models/Address";
@@ -17,18 +15,6 @@ const entity = "buildings";
 const Ratings = () => {
   const manager = useContext(UserContext);
   let { id } = useParams();
-
-  const notify = (text: any) =>
-    toast.error(
-      <div>
-        <p>Σφάλμα !</p>
-        <p>{text}</p>
-      </div>,
-      {
-        position: "top-right",
-        autoClose: 6000,
-      }
-    );
 
   const fetchData = async (key: string, id: string | undefined) => {
     const user = await manager.getUser();
@@ -45,17 +31,6 @@ const Ratings = () => {
 
   const updateData = async (input: any) => {
     const user = await manager.getUser();
-    if (!user || user?.expired) {
-      // notification["error"]({
-      //   message: "Σφάλμα !!!",
-      //   description:
-      //     "Η σύνδεση σας έχει λήξει. Παρακαλώ ξανά συνδεθείτε για να συνεχίσετε.",
-      //   duration: 10,
-      // });
-      notify(
-        "Η σύνδεση σας έχει λήξει. Παρακαλώ ξανά συνδεθείτε για να συνεχίσετε."
-      );
-    }
     const { data } = await axios.put(`${uri}/${entity}/${id}`, input, {
       headers: {
         Authorization: `Bearer ${user?.access_token}`,
@@ -97,7 +72,6 @@ const Ratings = () => {
             Ποσοστά
           </li>
         </ActionsForm>
-        <ToastContainer />
         <RatingsList data={data}></RatingsList>
       </Form.Provider>
     </Skeleton>

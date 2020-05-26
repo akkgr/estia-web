@@ -6,9 +6,6 @@ interface ITab {
   tabId?: string;
   content: any;
   tabListItems: any;
-//   items?: [];
-  // refId: string;
-  // tabMessage: string;
   active?: boolean;
   element?: any;
 }
@@ -16,11 +13,7 @@ interface ITab {
 const Tab: React.FC<ITab> = ({
   tabId,
   content,
-  tabListItems,
-  // refId,
-  // tabMessage,
-  active,
-  element
+  tabListItems
 }) => {
   return (
     <React.Fragment>

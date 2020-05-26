@@ -33,9 +33,9 @@ const DataTable: React.FC<DataTableProps> = ({ entity, columns, filterFn }) => {
   const memoizedCallback = useCallback(
     async (id: string) => {
       await deleteBuildings(id);
-      queryCache.refetchQueries([entity, page, rows, sort, filter]);
+      queryCache.refetchQueries([data, entity, page, rows, sort, filter]);
     },
-    [entity, filter, page, rows, sort, deleteBuildings]
+    [entity, filter, page, rows, sort]
   );
 
   useEffect(() => {

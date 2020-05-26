@@ -5,13 +5,8 @@ import Agent from "app/api/Agent";
 const ApartmentsQueries = (id: string) => {
   const entity = "apartments";
   const parentEntity = "buildings";
-  const manager = useContext(UserContext);
   const { Apartments } = Agent();
   const fetchApartments = async (key: string, id1: string | undefined) => {
-    const user = await manager.getUser();
-    if (!user || user?.expired) {
-      manager.signinRedirect();
-    }
     const { data } = await Apartments.data(key, id1);
     return data;
   };

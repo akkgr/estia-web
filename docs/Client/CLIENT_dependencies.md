@@ -25,3 +25,15 @@
 
     The datepicker is tied to a standard form input field. Focus on the input (click, or use the tab key) to open an interactive calendar in a small overlay. Choose a date, click elsewhere on the page (blur the input), or hit the Esc key to close. If a date is chosen, feedback is shown as the input's value.
     Link for informations https://reactdatepicker.com/
+
+## Eslint
+
+    ESLint is a tool for identifying and reporting on patterns found in ECMAScript/JavaScript code, with the goal of making code more consistent and avoiding bugs.Linting is the process of running a program that analyzes your code for programmatic and stylistic errors. A linting tool, or a linter, marks or flags any potential errors in your code such as syntax errors or incorrectly spelled variable names
+
+## prettier eslint-config-prettier
+
+    Prettier, on the other hand, only checks for formatting errors within your code but it does this job much better than ESLint.
+
+## eslint-plugin-react-hooks
+
+    This ESLint plugin enforces the Rules of Hooks.

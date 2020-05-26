@@ -9,19 +9,23 @@ axios.defaults.baseURL = process.env.REACT_APP_API_URL + "/api";
 const Agent = () => {
   const history = useHistory();
   const manager = useContext(UserContext);
+  const CancelToken = axios.CancelToken;
+  const source = CancelToken.source();
+
   axios.interceptors.request.use(
     async (config) => {
       const user = await manager.getUser();
       const token = user?.access_token;
       if (!user || user?.expired) {
-        toast.error(
-          "Η σύνδεση σας έχει λήξει. Παρακαλώ ξανά συνδεθείτε για να συνεχίσετε."
-        );
+        history.push("/notfound");
+        toast.error("Auth Error");
+        manager.signinRedirect();
       } else {
         if (token) {
           config.headers.Authorization = `Bearer ${token}`;
         }
       }
+      // console.info("✉️ ", config);
       return config;
     },
     (error) => {
@@ -33,7 +37,7 @@ const Agent = () => {
   axios.interceptors.response.use(undefined, (error) => {
     if (error.message === "Network Error" && !error.response) {
       history.push("/dashboard");
-      return toast.error("Network error -make sure API is runnning!");
+      return toast.error("Network error -make sure API and Auth is runnning!");
     }
     //redirect to a notfound component
     const { status, data, config } = error.response;
@@ -61,7 +65,8 @@ const Agent = () => {
   const responseBody = (response: AxiosResponse) => response.data;
 
   const requests = {
-    get: (url: string) => axios.get(url).then(responseBody),
+    get: (url: string) =>
+      axios.get(url, { cancelToken: source.token }).then(responseBody),
     post: (url: string, body: {}) => axios.post(url, body).then(responseBody),
     put: (url: string, body: {}) => axios.put(url, body).then(responseBody),
     del: (url: string) => axios.delete(url).then(responseBody),

@@ -24,6 +24,8 @@ const queryConfig = {
   // Global
   suspense: true,
   refetchOnWindowFocus: false,
+  useErrorBoundary: false,
+  throwOnError: false,
 };
 
 function App() {

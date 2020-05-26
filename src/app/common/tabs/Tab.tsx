@@ -1,6 +1,4 @@
 import React from "react";
-import TabItemButton from "./TabItemButton";
-import TabItemContent from "./TabItemContent";
 
 interface ITab {
   tabId?: string;

@@ -13,7 +13,9 @@ const NewApartment = lazy(() => import("pages/apartments/NewApartment"));
 const ApartmentForm = lazy(() => import("pages/apartments/ApartmentForm"));
 
 const Callback = lazy(() => import("pages/Callback"));
-const BuildingList1 = lazy(() => import("components/admin/BuildingList1"));
+const BuildingList1 = lazy(() =>
+  import("components/admin/buildings/BuildingList1")
+);
 const NotFound = lazy(() => import("app/layout/NotFound"));
 const Silent = lazy(() => import("pages/Silent"));
 const BuildingPay = lazy(() => import("pages/buildings/BuildingPay"));

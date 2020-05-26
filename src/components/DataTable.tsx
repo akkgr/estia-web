@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useContext, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useHistory } from "react-router-dom";
-import axios from "axios";
 import { useQuery, queryCache } from "react-query";
 import { Table, Form, Input, Space, Button, Popconfirm } from "antd";
 import {
@@ -10,12 +9,9 @@ import {
   QuestionCircleOutlined,
 } from "@ant-design/icons";
 
-import UserContext from "../UserContext";
-import BuildingQueries from "components/admin/BuildingQueries";
+import BuildingQueries from "components/admin/buildings/BuildingQueries";
 
 const { Search } = Input;
-
-const uri = process.env.REACT_APP_API_URL + "/api";
 
 interface DataTableProps {
   entity: string;
@@ -32,7 +28,6 @@ const DataTable: React.FC<DataTableProps> = ({ entity, columns, filterFn }) => {
   const [filter, setFilter] = useState({});
   const [form] = Form.useForm();
   const [columnsWithActions, setColumnsWithActions] = useState<any[]>([]);
-  const manager = useContext(UserContext);
   const { fetchBuildings, deleteBuildings } = BuildingQueries(entity);
 
   const memoizedCallback = useCallback(
@@ -40,7 +35,7 @@ const DataTable: React.FC<DataTableProps> = ({ entity, columns, filterFn }) => {
       await deleteBuildings(id);
       queryCache.refetchQueries([entity, page, rows, sort, filter]);
     },
-    [entity, filter, manager, page, rows, sort]
+    [entity, filter, page, rows, sort, deleteBuildings]
   );
 
   useEffect(() => {

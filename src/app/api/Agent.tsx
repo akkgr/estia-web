@@ -35,7 +35,6 @@ const Agent = () => {
       history.push("/dashboard");
       return toast.error("Network error -make sure API is runnning!");
     }
-    console.log("error.response:" + JSON.stringify(error.response));
     //redirect to a notfound component
     const { status, data, config } = error.response;
     if (status === 400) {
@@ -56,7 +55,7 @@ const Agent = () => {
     if (status === 500) {
       return toast.error("Server error -check the terminal for more info!");
     }
-    // throw error.response;
+    throw error.response;
   });
 
   const responseBody = (response: AxiosResponse) => response.data;
@@ -82,6 +81,13 @@ const Agent = () => {
     delete: (entity: string, id: string) => requests.del(`/${entity}/${id}`),
   };
 
-  return { Buildings };
+  const Apartments = {
+    data: (key: string, id: string | undefined) =>
+      requests.get(`/${key}/${id}`),
+    update: (key: string, id: string, input: any) =>
+      requests.put(`/${key}/${id}`, input),
+    new_update: (key: string, input: any) => requests.put(`/${key}`, input),
+  };
+  return { Buildings, Apartments };
 };
 export default Agent;

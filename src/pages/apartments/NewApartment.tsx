@@ -1,54 +1,30 @@
-import React, { useContext } from "react";
+import React from "react";
 import { useHistory, Link, useParams } from "react-router-dom";
 import { useMutation, queryCache, useQuery } from "react-query";
-import axios from "axios";
 import { Form, Input, InputNumber, Skeleton } from "antd";
-import UserContext from "UserContext";
 import { PersonForm } from "components/PersonForm";
 import { AddressTitle } from "app/models/Address";
 import { ActionsForm } from "components/ActionsForm";
 import Cards from "app/common/views/Cards";
 import TextArea from "antd/lib/input/TextArea";
-
-const uri = process.env.REACT_APP_API_URL + "/api";
-const parentEntity = "buildings";
-const entity = "apartments";
+import ApartmentsQueries from "components/admin/apartments/ApartmentsQueries";
 
 const NewApartment = () => {
   const [form] = Form.useForm();
   const history = useHistory();
-  const manager = useContext(UserContext);
   let { id } = useParams();
-
-  const fetchData = async (key: string, id: string | undefined) => {
-    const user = await manager.getUser();
-    if (!user || user?.expired) {
-      manager.signinRedirect();
-    }
-    const { data } = await axios.get(`${uri}/${key}/${id}`, {
-      headers: {
-        Authorization: `Bearer ${user?.access_token}`,
-      },
-    });
-    return data;
-  };
+  const {
+    fetchApartments,
+    newudpateApartments,
+    parentEntity,
+  } = ApartmentsQueries(id);
 
   const { status, data, isFetching } = useQuery<
     any,
     [string, string | undefined]
-  >([parentEntity, id], fetchData);
+  >([parentEntity, id], fetchApartments);
 
-  const updateData = async (input: any) => {
-    const user = await manager.getUser();
-    const { data } = await axios.post(`${uri}/${entity}`, input, {
-      headers: {
-        Authorization: `Bearer ${user?.access_token}`,
-      },
-    });
-    return data;
-  };
-
-  const [mutate] = useMutation(updateData, {
+  const [mutate] = useMutation(newudpateApartments, {
     onSuccess: (data) => {
       queryCache.setQueryData([parentEntity, data.id], data);
       history.push(`/buildings/${data.buildingId}/apartments/${data.id}`);

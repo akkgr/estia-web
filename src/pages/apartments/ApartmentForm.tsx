@@ -1,52 +1,24 @@
-import React, { useContext } from "react";
+import React from "react";
 import { useParams, Link } from "react-router-dom";
 import { useQuery, useMutation, queryCache } from "react-query";
-import axios from "axios";
 import { Form, Input, InputNumber, Skeleton } from "antd";
-
-import UserContext from "UserContext";
 import { ActionsForm } from "components/ActionsForm";
 import { PersonForm } from "components/PersonForm";
 
 import TextArea from "antd/lib/input/TextArea";
 import Cards from "app/common/views/Cards";
-
-const uri = process.env.REACT_APP_API_U;
-const entity = "apartments";
+import ApartmentsQueries from "components/admin/apartments/ApartmentsQueries";
 
 const ApartmentForm = () => {
-  const manager = useContext(UserContext);
   let { id1, id2 } = useParams();
-
-  const fetchData = async (key: string, id: string | undefined) => {
-    const user = await manager.getUser();
-    if (!user || user?.expired) {
-      manager.signinRedirect();
-    }
-    const { data } = await axios.get(`${uri}/${key}/${id}`, {
-      headers: {
-        Authorization: `Bearer ${user?.access_token}`,
-      },
-    });
-    return data;
-  };
-
-  const updateData = async (input: any) => {
-    const user = await manager.getUser();
-    const { data } = await axios.put(`${uri}/${entity}/${id2}`, input, {
-      headers: {
-        Authorization: `Bearer ${user?.access_token}`,
-      },
-    });
-    return data;
-  };
+  const { fetchApartments, updateApartments, entity } = ApartmentsQueries(id2);
 
   const { status, data, isFetching } = useQuery<
     any,
     [string, string | undefined]
-  >([entity, id2], fetchData);
+  >([entity, id2], fetchApartments);
 
-  const [mutate] = useMutation(updateData, {
+  const [mutate] = useMutation(updateApartments, {
     onSuccess: (data) => queryCache.setQueryData([entity, id2], data),
   });
 

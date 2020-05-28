@@ -14,14 +14,15 @@ const { SubMenu } = Menu;
 function MainHeader(props: any) {
   return (
     <Header className="site-layout-background" style={{ padding: 0 }}>
-      {React.createElement(
+      {/* {React.createElement(
         props.collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
         {
           className: "trigger",
           onClick: () => props.setCollapsed(!props.collapsed),
         }
-      )}
+      )} */}
       <Menu mode="horizontal" onClick={props.menuClick}>
+   
         <SubMenu
           style={{ float: "right" }}
           key="user"

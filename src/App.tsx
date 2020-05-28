@@ -140,13 +140,16 @@ function App() {
               <div id="routes-content" style={{margin: 15 }}>
                 <Routes changeUser={changeUser} />
               </div>
-            <footer className="bg-light py-5">
-            <div className="small text-center text-muted">Copyright © 2020 - GG noob</div>          
-               </footer>
             </div>
-              
-            </div>
-          
+    </div>
+    <div className="footer">
+        <div className="media-container-row align-center ">
+                <p className="mbr-text mb-0 mbr-fonts-style display-7 text-center bg-dark text-white ">
+                Copyright © 2020 - GG noob
+                </p>
+        </div>
+    </div>
+         
         </Router>
       </Suspense>
     </ReactQueryConfigProvider>

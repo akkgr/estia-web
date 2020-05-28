@@ -17,15 +17,13 @@ const Agent = () => {
       const user = await manager.getUser();
       const token = user?.access_token;
       if (!user || user?.expired) {
-        history.push("/notfound");
-        toast.error("Auth Error");
         manager.signinRedirect();
       } else {
         if (token) {
           config.headers.Authorization = `Bearer ${token}`;
         }
       }
-      // console.info("✉️ ", config);
+        console.info("✉️ ", config);
       return config;
     },
     (error) => {
@@ -81,8 +79,9 @@ const Agent = () => {
       f: string
     ): Promise<any> =>
       requests.get(`/${key}?sort=${s}&page=[${page},${rows}]&filter=${f}`),
-    list: (key: string, id: string | undefined): Promise<Building> =>
+    list_info: (key: string, id: string | undefined): Promise<any> =>
       requests.get(`/${key}/${id}`),
+      update:(key:string,id:string,input:any)=>requests.put(`/${key}/${id}`, input),
     delete: (entity: string, id: string) => requests.del(`/${entity}/${id}`),
   };
 

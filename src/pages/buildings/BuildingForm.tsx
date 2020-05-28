@@ -10,26 +10,27 @@ import { AppartmentList } from "components/AppartmentList";
 import { AddressTitle } from "app/models/Address";
 import { ActionsForm } from "components/ActionsForm";
 import Cards from "app/common/views/Cards";
-
+import BuildingQueries from 'components/admin/buildings/BuildingQueries';
 const uri = process.env.REACT_APP_API_URL + "/api";
 const entity = "buildings";
 
 const BuildingForm = () => {
   const manager = useContext(UserContext);
   let { id } = useParams();
+  const {fetchBuildingData}=BuildingQueries();
 
-  const fetchData = async (key: string, id: string | undefined) => {
-    const user = await manager.getUser();
-    if (!user || user?.expired) {
-      manager.signinRedirect();
-    }
-    const { data } = await axios.get(`${uri}/${key}/${id}`, {
-      headers: {
-        Authorization: `Bearer ${user?.access_token}`,
-      },
-    });
-    return data;
-  };
+  // const fetchData = async (key: string, id: string | undefined) => {
+  //   const user = await manager.getUser();
+  //   if (!user || user?.expired) {
+  //     manager.signinRedirect();
+  //   }
+  //   const { data } = await axios.get(`${uri}/${key}/${id}`, {
+  //     headers: {
+  //       Authorization: `Bearer ${user?.access_token}`,
+  //     },
+  //   }); 
+  //   return data;
+  // };
 
   const updateData = async (input: any) => {
     const user = await manager.getUser();
@@ -52,7 +53,7 @@ const BuildingForm = () => {
   const { status, data, isFetching } = useQuery<
     any,
     [string, string | undefined]
-  >([entity, id], fetchData);
+  >([entity, id], fetchBuildingData);
 
   const [mutate] = useMutation(updateData, {
     onSuccess: (data) => queryCache.setQueryData([entity, id], data),
@@ -112,5 +113,10 @@ const BuildingForm = () => {
     </Skeleton>
   );
 };
+
+// const BuildingFormContainer=()=>{
+//   const hook=BuildingQueries();
+//   return <BuildingForm {...hook}/>;
+// }
 
 export default BuildingForm;

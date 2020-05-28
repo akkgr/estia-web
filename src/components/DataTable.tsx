@@ -28,7 +28,7 @@ const DataTable: React.FC<DataTableProps> = ({ entity, columns, filterFn }) => {
   const [filter, setFilter] = useState({});
   const [form] = Form.useForm();
   const [columnsWithActions, setColumnsWithActions] = useState<any[]>([]);
-  const { fetchBuildings, deleteBuildings } = BuildingQueries(entity);
+  const { fetchBuildings, deleteBuildings } = BuildingQueries();
 
   const memoizedCallback = useCallback(
     async (id: string) => {

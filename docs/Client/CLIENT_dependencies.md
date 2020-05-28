@@ -37,3 +37,7 @@
 ## eslint-plugin-react-hooks
 
     This ESLint plugin enforces the Rules of Hooks.
+
+## react-icons
+
+    Svg react icons of popular icon packs   

@@ -12,6 +12,7 @@ export const DateTimePicker = (props: any) => {
         onChange={(date) => props.setStartDate(date)}
         showMonthDropdown={props.showMonthDropdown}
         useShortMonthInDropdown={props.useShortMonthInDropdown}
+        required={true}
         {...props}
       />
     </React.Fragment>

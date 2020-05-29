@@ -16,6 +16,7 @@ import Card from "app/common/cards/Card";
 import Tab from "app/common/tabs/Tab";
 import TabItemButton from "app/common/tabs/TabItemButton";
 import TabItem from "app/common/tabs/TabItem";
+import BuildingPdf from "./buildingInfo/BuildingPdf";
 
 const entity = "buildings";
 const uri = process.env.REACT_APP_API_URL + "/api";
@@ -51,10 +52,20 @@ const BuildingInfo = () => {
     fetchData
   );
 
-  const handleSubmit = (event: any) => {
-    event.preventDefault();
-    const form = event.target.elements.test.value;
-    console.log(form);
+  const handleSubmit = (e: React.SyntheticEvent) => {
+    e.preventDefault();
+    // const form = event.target.elements.test.value;
+    // console.log(form);
+
+    const target = e.target as typeof e.target & {
+      admin: { value: string };
+      reciever: { value: string };
+    };
+    const admin = target.admin.value;
+    const reciever = target.reciever.value;
+
+    console.log("admin = " + admin);
+    console.log("reciever = " + reciever);
   };
 
   const [tabClassNameData, setTabClassNameData] = useState("nav-link active");
@@ -63,6 +74,8 @@ const BuildingInfo = () => {
   const [tabClassNameGas, setTabClassNameGas] = useState("nav-link");
   const [tabClassNameWater, setTabClassNameWater] = useState("nav-link");
   const [tabClassNameBank, setTabClassNameBank] = useState("nav-link");
+  const [tabClassNamePdf, setTabClassNamePdf] = useState("nav-link");
+
   const tabOnClickData = () => {
     setTabClassNameData("nav-link active");
     setTabClassNameBank("nav-link");
@@ -70,6 +83,7 @@ const BuildingInfo = () => {
     setTabClassNameGas("nav-link");
     setTabClassNameWater("nav-link");
     setTabClassNameStatus("nav-link");
+    setTabClassNamePdf("nav-link");
   };
   const tabOnClickStatus = () => {
     setTabClassNameStatus("nav-link active");
@@ -78,6 +92,7 @@ const BuildingInfo = () => {
     setTabClassNamePower("nav-link");
     setTabClassNameGas("nav-link");
     setTabClassNameWater("nav-link");
+    setTabClassNamePdf("nav-link");
   };
   const tabOnClickBank = () => {
     setTabClassNameBank("nav-link active");
@@ -86,6 +101,7 @@ const BuildingInfo = () => {
     setTabClassNameGas("nav-link");
     setTabClassNameWater("nav-link");
     setTabClassNameStatus("nav-link");
+    setTabClassNamePdf("nav-link");
   };
   const tabOnClickGas = () => {
     setTabClassNameGas("nav-link active");
@@ -94,6 +110,7 @@ const BuildingInfo = () => {
     setTabClassNamePower("nav-link");
     setTabClassNameWater("nav-link");
     setTabClassNameStatus("nav-link");
+    setTabClassNamePdf("nav-link");
   };
   const tabOnClickWater = () => {
     setTabClassNameWater("nav-link active");
@@ -102,9 +119,20 @@ const BuildingInfo = () => {
     setTabClassNameGas("nav-link");
     setTabClassNameData("nav-link");
     setTabClassNameStatus("nav-link");
+    setTabClassNamePdf("nav-link");
   };
   const tabOnClickPower = () => {
     setTabClassNamePower("nav-link active");
+    setTabClassNameBank("nav-link");
+    setTabClassNameWater("nav-link");
+    setTabClassNameGas("nav-link");
+    setTabClassNameData("nav-link");
+    setTabClassNameStatus("nav-link");
+    setTabClassNamePdf("nav-link");
+  };
+  const tabOnClickPdf = () => {
+    setTabClassNamePdf("nav-link active");
+    setTabClassNamePower("nav-link");
     setTabClassNameBank("nav-link");
     setTabClassNameWater("nav-link");
     setTabClassNameGas("nav-link");
@@ -122,117 +150,58 @@ const BuildingInfo = () => {
                 <Link to="/buildings">Κτίρια</Link>
               </li>
               <li className="breadcrumb-item active" aria-current="page">
-                {address.street} {address.streetnumber}, {address.area}
+                {data.address.street} {data.address.streetnumber},
+                {data.address.area}
               </li>
             </ActionsForm>
             <Card
-              cardHeader={
-                <React.Fragment>
-                  <div className="row mt-3">
-                    <div className="col-md-4 mb-3">
-                      <TextInput
-                        label="Στοιχεία Διαχειριστή  :"
-                        name="admin"
-                        value={admin}
-                        placeholder="Στοιχεία Διαχειριστή..."
-                        required={true}
-                        readOnly={true}
-                        disable={true}
-                      />
-                    </div>
-                    <div className="col-md-4 mb-3">
-                      <TextInput
-                        label="Στοιχεία Παραλαμβάνοντος :"
-                        name="reciever"
-                        value="Τζιβράς Τζέρι"
-                        placeholder="Στοιχεία Παραλαμβάνοντος..."
-                        required={true}
-                        readOnly={true}
-                        disable={true}
-                      />
-                    </div>
-                  </div>
-                </React.Fragment>
-              }
               cardBody={
                 <React.Fragment>
                   <Tab
                     tabListItems={
                       <React.Fragment>
-                        {/* <TabItemButton
-                          active={true}
-                          reference="#data"
+                        <TabItemButton
+                          reference="data"
                           message="Βασικά Στοιχεία Κτηρίου"
-                        /> */}
-                        <li className="nav-item">
-                          <a
-                            className={tabClassNameData}
-                            data-toggle="tab"
-                            href="#data"
-                            onClick={() => tabOnClickData()}
-                          >
-                            Βασικά Στοιχεία Κτιρίου
-                          </a>
-                        </li>
-                        <li className="nav-item">
-                          <a
-                            className={tabClassNameStatus}
-                            data-toggle="tab"
-                            href="#status"
-                            onClick={() => tabOnClickStatus()}
-                          >
-                            Κατάσταση
-                          </a>
-                        </li>
-                        <li className="nav-item">
-                          <a
-                            className={tabClassNamePower}
-                            data-toggle="tab"
-                            href="#power"
-                            onClick={() => tabOnClickPower()}
-                          >
-                            ΔΕΗ
-                          </a>
-                        </li>
-                        <li className="nav-item">
-                          <a
-                            className={tabClassNameGas}
-                            data-toggle="tab"
-                            href="#gas"
-                            onClick={() => tabOnClickGas()}
-                          >
-                            Φυσικό Αέριο
-                          </a>
-                        </li>
-                        <li className="nav-item">
-                          <a
-                            className={tabClassNameWater}
-                            data-toggle="tab"
-                            href="#water"
-                            onClick={() => tabOnClickWater()}
-                          >
-                            ΕΥΔΑΠ
-                          </a>
-                        </li>
-                        <li className="nav-item">
-                          <a
-                            className={tabClassNameBank}
-                            data-toggle="tab"
-                            href="#bank"
-                            onClick={() => tabOnClickBank()}
-                          >
-                            Τράπεζα/Αιτιολογία
-                          </a>
-                        </li>
-
-                        {/* <TabItemButton reference="#status" message="Κατάσταση" />
-                        <TabItemButton reference="#power" message="ΔΕΗ" />
-                        <TabItemButton reference="#gas" message="Φυσικό Αέριο" />
-                        <TabItemButton reference="#water" message="ΕΥΔΑΠ" /> */}
-                        {/* <TabItemButton
-                          reference="#bank"
+                          tabClassName={tabClassNameData}
+                          tabOnClick={tabOnClickData}
+                        />
+                        <TabItemButton
+                          reference="status"
+                          message="Κατάσταση"
+                          tabClassName={tabClassNameStatus}
+                          tabOnClick={tabOnClickStatus}
+                        />
+                        <TabItemButton
+                          reference="power"
+                          message="ΔΕΗ"
+                          tabClassName={tabClassNamePower}
+                          tabOnClick={tabOnClickPower}
+                        />
+                        <TabItemButton
+                          reference="gas"
+                          message="Φυσικό Αέριο"
+                          tabClassName={tabClassNameGas}
+                          tabOnClick={tabOnClickGas}
+                        />
+                        <TabItemButton
+                          reference="water"
+                          message="ΕΥΔΑΠ"
+                          tabClassName={tabClassNameWater}
+                          tabOnClick={tabOnClickWater}
+                        />
+                        <TabItemButton
+                          reference="bank"
                           message="Τράπεζα/Αιτιολογία"
-                        /> */}
+                          tabClassName={tabClassNameBank}
+                          tabOnClick={tabOnClickBank}
+                        />
+                        <TabItemButton
+                          reference="pdf"
+                          message="Ιστορικό Αρχείων"
+                          tabClassName={tabClassNamePdf}
+                          tabOnClick={tabOnClickPdf}
+                        />
                       </React.Fragment>
                     }
                     content={
@@ -255,15 +224,20 @@ const BuildingInfo = () => {
                         <TabItem tabId="gas" item={<BuildingGas />} />
                         <TabItem tabId="water" item={<BuildingWater />} />
                         <TabItem tabId="bank" item={<BuildingBank />} /> */}
-                        <div className="tab-pane fade show active" id="data">
+                        <TabItem
+                          active={true}
+                          tabId="data"
+                          item={<BuildingData admin={data.createdBy} address={data.address} />}
+                        />
+                        {/* <div className="tab-pane fade show active" id="data">
                           <br />
-                          <BuildingData address={address} />
-                        </div>
+                          <BuildingData admin={data.createdBy} address={data.address} />
+                        </div> */}
                         <div className="tab-pane fade show " id="status">
                           <br />
                           <BuildingStatus
-                            startDate={startDate}
-                            endDate={endDate}
+                            startDate={new Date()}
+                            endDate={new Date()}
                           />
                         </div>
                         <div className="tab-pane fade show" id="power">
@@ -281,6 +255,10 @@ const BuildingInfo = () => {
                         <div className="tab-pane fade show" id="bank">
                           <br />
                           <BuildingBank />
+                        </div>
+                        <div className="tab-pane fade show" id="pdf">
+                          <br />
+                          <BuildingPdf />
                         </div>
                       </React.Fragment>
                     }

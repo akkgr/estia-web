@@ -5,14 +5,8 @@ import RadioInput from "app/common/form/RadioInput";
 import Checkbox from "app/common/form/Checkbox";
 
 export const Cities = [
-  {
-    id: 1,
-    value: "Παγκράτι",
-  },
-  {
-    id: 2,
-    value: "Μαρούσι",
-  },
+  { id: 1, value: "Παγκράτι" },
+  { id: 2, value: "Μαρούσι" },
   { id: 3, value: "Πανόρμου" },
   { id: 4, value: "Αθήνα" },
 ];
@@ -20,17 +14,43 @@ export const Cities = [
 export const trype_heading = ["ΚΕΝΤΡΙΚΗ", "ΦΥΣΙΚΟ ΑΕΡΙΟ", "ΑΥΤΟΝΟΜΗ"];
 
 interface IBuildingData {
-  address: any
+  address: any;
+  admin?: string
 }
 
-
-const BuildingData: React.FC<IBuildingData> = ({address}) => {
+const BuildingData: React.FC<IBuildingData> = ({ admin, address }) => {
   return (
     <React.Fragment>
       <div className="row">
         <div className="col-md-3 mb-3">
+          <TextInput
+            label="Στοιχεία Διαχειριστή  :"
+            name="admin"
+            value={admin}
+            placeholder="Στοιχεία Διαχειριστή..."
+            required={true}
+            readOnly={true}
+            disable={true}
+          />
+        </div>
+        <div className="col-md-3 mb-3">
+          <TextInput
+            label="Στοιχεία Παραλαμβάνοντος :"
+            name="reciever"
+            value="Τζιβράς Τζέρι"
+            placeholder="Στοιχεία Παραλαμβάνοντος..."
+            required={true}
+            readOnly={true}
+            disable={true}
+          />
+        </div>
+      </div>
+      <div className="row mt-3">
+        <div className="col-md-3 mb-3">
           <SelectInputSearch
             label="Περιοχή :"
+            value={address.area}
+            name="area"
             className="custom-select"
             options={Cities}
           />
@@ -39,15 +59,13 @@ const BuildingData: React.FC<IBuildingData> = ({address}) => {
         <div className="col-md-3 mb-3">
           <TextInput
             label="Οδός :"
-            name="state"
+            name="street"
             value={address.street}
             placeholder="Οδός..."
-            idElement="validationCustom03"
             required={true}
+            validMessage="Έγκυρη Οδός"
+            invalidMessage="Συμπληρώστε την Οδό"
           />
-          <div className="invalid-feedback">
-            Παρακαλώ εισάγετε μια έγκυρη διεύθυνση
-          </div>
         </div>
 
         <div className="col-md-2 mb-1">
@@ -56,12 +74,10 @@ const BuildingData: React.FC<IBuildingData> = ({address}) => {
             name="number"
             value={address.streetnumber}
             placeholder="Αριθμός"
-            idElement="validationCustom04"
             required={true}
+            validMessage="Έγκυρος Αριθμός Οδού"
+            invalidMessage="Συμπληρώστε τον Αριθμό της οδού"
           />
-          <div className="invalid-feedback">
-            Παρακαλώ εισάγετε έγκυρο Αριθμό
-          </div>
         </div>
 
         <div className="col-md-2 mb-3">
@@ -70,10 +86,10 @@ const BuildingData: React.FC<IBuildingData> = ({address}) => {
             name="zip"
             value={address.postalCode}
             placeholder="ΤΚ"
-            idElement="validationCustom05"
             required={true}
+            validMessage="Έγκυρος Ταχυδρομικός Κώδικας"
+            invalidMessage="Συμπληρώστε τον Ταχυδρομικό Κώδικα"
           />
-          <div className="invalid-feedback">Παρακαλώ εισάγετε έγκυρο ΤΚ</div>
         </div>
       </div>
 
@@ -84,12 +100,10 @@ const BuildingData: React.FC<IBuildingData> = ({address}) => {
             name="reserve"
             value="1000$"
             placeholder="Αποθεματικό..."
-            idElement="validationCustom04"
             required={true}
+            validMessage="Έγκυρο Αποθεματικό"
+            invalidMessage="Συμπληρώστε το Αποθεματικό"
           />
-          <div className="invalid-feedback">
-            Παρακαλώ εισάγετε έγκυρο Αποθεματικό
-          </div>
         </div>
 
         <div className="col-md-3 mb-3">
@@ -97,8 +111,6 @@ const BuildingData: React.FC<IBuildingData> = ({address}) => {
             label="Συμμετοχή Κλειστών :"
             name="closed"
             placeholder="Συμμετοχή Κλειστών..."
-            idElement="validationCustom04"
-            required={false}
           />
         </div>
 
@@ -107,30 +119,20 @@ const BuildingData: React.FC<IBuildingData> = ({address}) => {
             label="Πετρέλαιο Δεξαμενής :"
             name="oil"
             placeholder="Πετρέλαιο Δεξαμενής..."
-            idElement="validationCustom04"
-            required={false}
           />
         </div>
 
-        <div className="col-md-3 mb-3">
+        <div className="col-md-2 mb-3">
           <TextInput
             label="Λίτρα Πετρ. ανά cm :"
-            name="oil"
+            name="oilPerCm"
             placeholder="Λίτρα Πετρ. ανά cm..."
-            idElement="validationCustom04"
-            required={false}
           />
         </div>
       </div>
 
       <div className="row mt-3">
-        <div className="col-md-5 mb-3">
-          <Checkbox id="energy" label="Θερμοώρες" required={false} />
-        </div>
-      </div>
-
-      <div className="row mt-3">
-        <div className="col-md-4 mb-3">
+        <div className="col-md-3 mb-3">
           <RadioInput
             label="Είδος Θέρμανσης :"
             choices={trype_heading}
@@ -138,9 +140,10 @@ const BuildingData: React.FC<IBuildingData> = ({address}) => {
             name="heating"
             required={true}
           />
-          <div className="invalid-feedback">
-            Παρακαλώ επιλέξτε είδος θέρμανσης
-          </div>
+        </div>
+      
+        <div className="col-md-3 mb-3">
+          <Checkbox name="energy" label="Θερμοώρες" />
         </div>
       </div>
     </React.Fragment>

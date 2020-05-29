@@ -2,16 +2,27 @@ import React from "react";
 import ButtonTab from "../buttons/ButtonTab";
 
 interface ITabItemButton {
-  active?: boolean;
+  tabClassName?: string;
   reference: string;
   message: string;
+  tabOnClick: () => void;
 }
 
-const TabItemButton: React.FC<ITabItemButton> = ({ active, reference, message }) => {
+const TabItemButton: React.FC<ITabItemButton> = ({
+  tabClassName,
+  tabOnClick,
+  reference,
+  message,
+}) => {
   return (
     <React.Fragment>
-      <li className={active === true ? "active" : ""}>
-        <ButtonTab href={`#${reference}`} message={message} />
+      <li className="nav-item">
+        <ButtonTab
+          href={reference}
+          onclick={tabOnClick}
+          classname={tabClassName}
+          message={message}
+        />
       </li>
     </React.Fragment>
   );

@@ -8,7 +8,7 @@ interface IForm {
 const Form: React.FC<IForm> = ({ sumbit, formElements }) => {
   return (
     <React.Fragment>
-      <form className="needs-validation" noValidate onSubmit={sumbit}>
+      <form className="was-validated" noValidate onSubmit={sumbit}>
         {formElements}
       </form>
     </React.Fragment>

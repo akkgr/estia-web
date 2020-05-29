@@ -1,19 +1,25 @@
 import React from "react";
 
 interface IButtonParams {
+  classname?: string;
   href: string;
   message: string;
+  onclick: () => void;
 }
 
-const ButtonTab: React.FC<IButtonParams> = ({ href, message }) => {
+const ButtonTab: React.FC<IButtonParams> = ({
+  classname,
+  href,
+  onclick,
+  message,
+}) => {
   return (
     <React.Fragment>
       <a
-        style={{ margin: "20px" }}
-        className="btn btn-primary"
-        role="button"
-        href={href}
+        className={classname}
         data-toggle="tab"
+        href={`#${href}`}
+        onClick={onclick}
       >
         {message}
       </a>

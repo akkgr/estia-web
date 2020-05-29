@@ -13,12 +13,10 @@ const BuildingPower = () => {
             name="counter"
             value="999999999"
             placeholder="Αριθμός Μετρητή..."
-            idElement="validationCustom05"
             required={true}
+            validMessage="Έγκυρος Αριθμός Μετρητή"
+            invalidMessage="Συμπληρώστε τον Αριθμό Μετρητή"
           />
-          <div className="invalid-feedback">
-            Παρακαλώ εισάγετε έγκυρο Αριθμό Μετρητή
-          </div>
         </div>
 
         <div className="col-md-3 mb-3">
@@ -27,38 +25,34 @@ const BuildingPower = () => {
             name="code"
             value="999999999"
             placeholder="Κωδικός Ηλεκτρ. Πληρωμής..."
-            idElement="validationCustom05"
             required={true}
+            validMessage="Έγκυρος Κωδικός Ηλεκτρ. Πληρωμής"
+            invalidMessage="Συμπληρώστε τον Κωδικό Ηλεκτρ. Πληρωμής"
           />
-          <div className="invalid-feedback">
-            Παρακαλώ εισάγετε έγκυρο Αριθμό Μετρητή
-          </div>
         </div>
 
         <div className="col-md-3 mb-3">
           <TextInput
             label="Αριθμός Παροχής :"
-            name="receiver"
+            name="receiveNumber"
             value="999999999"
             placeholder="Αριθμός Παροχής..."
-            idElement="validationCustom06"
             required={true}
+            validMessage="Έγκυρος Αριθμός Παροχής"
+            invalidMessage="Συμπληρώστε τον Αριθμό Παροχής"
           />
-          <div className="invalid-feedback">
-            Παρακαλώ εισάγετε έγκυρο Αριθμό Παροχής
-          </div>
         </div>
       </div>
 
       <div className="row mt-3">
-        <div className="col-md-5 mb-3">
-          <TextArea label="Επωνυμία :" rows={3} placeholder="Επωνυμία..." />
+        <div className="col-md-3 mb-3">
+          <TextArea name="brandNamePower" label="Επωνυμία :" rows={4} placeholder="Επωνυμία..." />
         </div>
       </div>
 
       <div className="row mt-3">
-        <div className="col-md-6 mb-3">
-          <Checkbox id="receivePower" label="Παραλαβή λογ. στο γραφείο" required={true} />
+        <div className="col-md-4 mb-3">
+          <Checkbox name="receiveDeskPower" label="Παραλαβή λογ. στο γραφείο" required={true} />
         </div>
       </div>
     </React.Fragment>

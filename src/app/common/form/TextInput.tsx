@@ -4,40 +4,51 @@ interface InputParams {
   name: string;
   value?: string;
   props?: any;
-  idElement?: string;
+  // idElement?: string;
   placeholder?: string;
-  required: boolean;
+  required?: boolean;
   readOnly?: boolean;
   disable?: boolean;
+  validMessage?: string;
+  invalidMessage?: string;
 }
 const TextInput: React.FC<InputParams> = ({
   label,
   name,
   value,
-  props,
   placeholder,
-  idElement,
   required,
   readOnly,
-  disable
+  disable,
+  validMessage,
+  invalidMessage,
 }) => {
   return (
     <React.Fragment>
-      <label htmlFor={idElement} className="control-label">
-        {label}
-      </label>
-      <input
-        type="text"
-        className="form-control"
-        name={name}
-        defaultValue={value}
-        placeholder={placeholder}
-        required={required}
-        id={idElement}
-        readOnly={readOnly}
-        disabled={disable}
-        {...props}
-      />
+      <div className="form-group">
+        <label htmlFor={name} className="control-label">
+          {label}
+        </label>
+        <input
+          type="text"
+          className="form-control"
+          name={name}
+          defaultValue={value}
+          placeholder={placeholder}
+          required={required}
+          id={name}
+          readOnly={readOnly}
+          disabled={disable}
+        />
+        {required === true ? (
+          <React.Fragment>
+            <div className="valid-feedback">{validMessage}</div>
+            <div className="invalid-feedback">{invalidMessage}</div>
+          </React.Fragment>
+        ) : (
+          <div />
+        )}
+      </div>
     </React.Fragment>
   );
 };

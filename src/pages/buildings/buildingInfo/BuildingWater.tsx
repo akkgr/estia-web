@@ -12,12 +12,7 @@ const BuildingWater = () => {
             label="Αρ. μετρητή ΕΥΔΑΠ :"
             name="codeWater"
             placeholder="Αρ. μετρητή ΕΥΔΑΠ ..."
-            idElement="validationCustom05"
-            required={false}
           />
-          <div className="invalid-feedback">
-            Παρακαλώ εισάγετε έγκυρο Αρ. μετρητή ΕΥΔΑΠ 
-          </div>
         </div>
 
         <div className="col-md-3 mb-3">
@@ -25,23 +20,18 @@ const BuildingWater = () => {
             label="Αρ. μητρώου :"
             name="codeId"
             placeholder="Αρ. μητρώου.."
-            idElement="validationCustom05"
-            required={false}
           />
-          <div className="invalid-feedback">
-            Παρακαλώ εισάγετε έγκυρο Αρ. μητρώου
-          </div>
         </div>
       </div>
 
       <div className="row mt-3">
-        <div className="col-md-5 mb-3">
-          <TextArea label="Επωνυμία :" rows={3} placeholder="Επωνυμία..." />
+        <div className="col-md-3 mb-3">
+          <TextArea name="brandNameWater" label="Επωνυμία :" rows={4} placeholder="Επωνυμία..." />
         </div>
       </div>
       <div className="row mt-3">
-        <div className="col-md-6 mb-3">
-          <Checkbox id="receiveWater" label="Παραλαβή λογ. στο γραφείο" required={true} />
+        <div className="col-md-4 mb-3">
+          <Checkbox name="receiveWater" label="Παραλαβή λογ. στο γραφείο" required={true} />
         </div>
       </div>
     </React.Fragment>

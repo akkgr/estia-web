@@ -4,9 +4,8 @@ interface RadioParams {
   choices: string[];
   type: string; //string need from input
   name: string; //name of radio input group
-  required: boolean;
+  required?: boolean;
   disabled?: boolean; //if we want to make radio input disabled
-  props?: any; //any other prop
 }
 //IF WE NEED TO USE IN COLUMN THE RADIO INPUTS(NOT INLINE) only let className="form-check"
 const RadioInput: React.FC<RadioParams> = ({
@@ -15,8 +14,7 @@ const RadioInput: React.FC<RadioParams> = ({
   type,
   disabled,
   name,
-  required,
-  props,
+  required
 }) => {
   return (
     <React.Fragment>
@@ -33,7 +31,6 @@ const RadioInput: React.FC<RadioParams> = ({
                 value={choice}
                 disabled={disabled}
                 required={required}
-                {...props}
               />
               <label className="custom-control-label" htmlFor={choice}>
                 {choice}

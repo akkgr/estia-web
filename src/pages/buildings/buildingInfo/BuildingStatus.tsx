@@ -14,19 +14,17 @@ const BuildingStatus: React.FC<IDates> = ({ startDate, endDate }) => {
   return (
     <React.Fragment>
       <div className="row mt-3">
-        <div className="col-md-4 mb-3">
-          <Checkbox id="manage" label="Διαχείρηση" required={false} />
+        <div className="col-md-3 mb-3">
+          <Checkbox name="manage" label="Διαχείρηση"/>
         </div>
       </div>
 
       <div className="row mt-3">
-        <div className="col-md-4 mb-3">
-          <Checkbox id="active" label="Ενεργή" required={false} />
+        <div className="col-md-3 mb-3">
+          <Checkbox name="active" label="Ενεργή"/>
         </div>
       </div>
 
-      {/* <div>{JSON.stringify(startDate)}</div>
-      <div>{JSON.stringify(endDate)}</div> */}
       <div className="row mt-3">
         <div className="col-md-2 mb-3">
           <DateTimePicker
@@ -34,13 +32,14 @@ const BuildingStatus: React.FC<IDates> = ({ startDate, endDate }) => {
             startDate={newStartDate}
             selected={newStartDate}
             setStartDate={setStartDate}
+            name="startDate"
             showMonthDropdown={true}
             useShortMonthInDropdown={true}
           />
         </div>
-        <div className="invalid-feedback">
+        {/* <div className="invalid-feedback">
           Παρακαλώ εισάγετε έγκυρη Ημερομηνία Παράλαβής
-        </div>
+        </div> */}
       </div>
 
       <div className="row mt-3">
@@ -49,12 +48,13 @@ const BuildingStatus: React.FC<IDates> = ({ startDate, endDate }) => {
             label="Ημερομηνία Παράδοσης :"
             startDate={newEndDate}
             setStartDate={setEndDate}
+            name="endDate"
             showMonthDropdown={true}
             useShortMonthInDropdown={true}
           />
-          <div className="invalid-feedback">
+          {/* <div className="invalid-feedback">
             Παρακαλώ εισάγετε έγκυρη Ημερομηνία Παράδοσης
-          </div>
+          </div> */}
         </div>
       </div>
     </React.Fragment>

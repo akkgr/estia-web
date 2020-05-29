@@ -10,9 +10,15 @@ const Card: React.FC<ICard> = ({ cardHeader, cardBody, cardFooter }) => {
   return (
     <React.Fragment>
       <div className="card">
-        <div className="card-header text-center">{cardHeader}</div>
-        <div className="card-body">{cardBody}</div>
-        <div className="card-footer">{cardFooter}</div>
+        {cardHeader && (
+          <div className="card-header text-center">{cardHeader}</div>
+        )}
+        {cardBody && (
+          <div className="card-body">{cardBody}</div>
+        )}
+        {cardFooter && (
+          <div className="card-footer">{cardFooter}</div>
+        )}
       </div>
     </React.Fragment>
   );

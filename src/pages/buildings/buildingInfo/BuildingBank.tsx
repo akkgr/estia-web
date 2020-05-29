@@ -11,10 +11,10 @@ const BuildingBank = () => {
             name="bankName"
             value="ESTIACITYSERVICES"
             placeholder="Όνομα Τράπεζας/Αιτιολογίας ..."
-            idElement="validationCustom05"
+            validMessage="Έγκυρο Όνομα Τράπεζας/Αιτιολογίας"
+            invalidMessage="Συμπληρώστε το Όνομα Τράπεζας/Αιτιολογίας"
             required={true}
           />
-          <div className="invalid-feedback">Παρακαλώ εισάγετε έγκυρο Όνομα Τράπεζας/Αιτιολογίας</div>
         </div>
       </div>
     </React.Fragment>

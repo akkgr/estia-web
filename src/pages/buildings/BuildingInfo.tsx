@@ -57,6 +57,61 @@ const BuildingInfo = () => {
     console.log(form);
   };
 
+  const [tabClassNameData, setTabClassNameData] = useState("nav-link active");
+  const [tabClassNameStatus, setTabClassNameStatus] = useState("nav-link");
+  const [tabClassNamePower, setTabClassNamePower] = useState("nav-link");
+  const [tabClassNameGas, setTabClassNameGas] = useState("nav-link");
+  const [tabClassNameWater, setTabClassNameWater] = useState("nav-link");
+  const [tabClassNameBank, setTabClassNameBank] = useState("nav-link");
+  const tabOnClickData = () => {
+    setTabClassNameData("nav-link active");
+    setTabClassNameBank("nav-link");
+    setTabClassNamePower("nav-link");
+    setTabClassNameGas("nav-link");
+    setTabClassNameWater("nav-link");
+    setTabClassNameStatus("nav-link");
+  };
+  const tabOnClickStatus = () => {
+    setTabClassNameStatus("nav-link active");
+    setTabClassNameData("nav-link ");
+    setTabClassNameBank("nav-link");
+    setTabClassNamePower("nav-link");
+    setTabClassNameGas("nav-link");
+    setTabClassNameWater("nav-link");
+  };
+  const tabOnClickBank = () => {
+    setTabClassNameBank("nav-link active");
+    setTabClassNameData("nav-link");
+    setTabClassNamePower("nav-link");
+    setTabClassNameGas("nav-link");
+    setTabClassNameWater("nav-link");
+    setTabClassNameStatus("nav-link");
+  };
+  const tabOnClickGas = () => {
+    setTabClassNameGas("nav-link active");
+    setTabClassNameData("nav-link ");
+    setTabClassNameBank("nav-link");
+    setTabClassNamePower("nav-link");
+    setTabClassNameWater("nav-link");
+    setTabClassNameStatus("nav-link");
+  };
+  const tabOnClickWater = () => {
+    setTabClassNameWater("nav-link active");
+    setTabClassNameBank("nav-link");
+    setTabClassNamePower("nav-link");
+    setTabClassNameGas("nav-link");
+    setTabClassNameData("nav-link");
+    setTabClassNameStatus("nav-link");
+  };
+  const tabOnClickPower = () => {
+    setTabClassNamePower("nav-link active");
+    setTabClassNameBank("nav-link");
+    setTabClassNameWater("nav-link");
+    setTabClassNameGas("nav-link");
+    setTabClassNameData("nav-link");
+    setTabClassNameStatus("nav-link");
+  };
+
   return (
     <React.Fragment>
       <Form
@@ -104,24 +159,85 @@ const BuildingInfo = () => {
                   <Tab
                     tabListItems={
                       <React.Fragment>
-                        <TabItemButton
+                        {/* <TabItemButton
                           active={true}
                           reference="#data"
                           message="Βασικά Στοιχεία Κτηρίου"
-                        />
-                        <TabItemButton reference="#status" message="Κατάσταση" />
+                        /> */}
+                        <li className="nav-item">
+                          <a
+                            className={tabClassNameData}
+                            data-toggle="tab"
+                            href="#data"
+                            onClick={() => tabOnClickData()}
+                          >
+                            Βασικά Στοιχεία Κτιρίου
+                          </a>
+                        </li>
+                        <li className="nav-item">
+                          <a
+                            className={tabClassNameStatus}
+                            data-toggle="tab"
+                            href="#status"
+                            onClick={() => tabOnClickStatus()}
+                          >
+                            Κατάσταση
+                          </a>
+                        </li>
+                        <li className="nav-item">
+                          <a
+                            className={tabClassNamePower}
+                            data-toggle="tab"
+                            href="#power"
+                            onClick={() => tabOnClickPower()}
+                          >
+                            ΔΕΗ
+                          </a>
+                        </li>
+                        <li className="nav-item">
+                          <a
+                            className={tabClassNameGas}
+                            data-toggle="tab"
+                            href="#gas"
+                            onClick={() => tabOnClickGas()}
+                          >
+                            Φυσικό Αέριο
+                          </a>
+                        </li>
+                        <li className="nav-item">
+                          <a
+                            className={tabClassNameWater}
+                            data-toggle="tab"
+                            href="#water"
+                            onClick={() => tabOnClickWater()}
+                          >
+                            ΕΥΔΑΠ
+                          </a>
+                        </li>
+                        <li className="nav-item">
+                          <a
+                            className={tabClassNameBank}
+                            data-toggle="tab"
+                            href="#bank"
+                            onClick={() => tabOnClickBank()}
+                          >
+                            Τράπεζα/Αιτιολογία
+                          </a>
+                        </li>
+
+                        {/* <TabItemButton reference="#status" message="Κατάσταση" />
                         <TabItemButton reference="#power" message="ΔΕΗ" />
                         <TabItemButton reference="#gas" message="Φυσικό Αέριο" />
-                        <TabItemButton reference="#water" message="ΕΥΔΑΠ" />
-                        <TabItemButton
+                        <TabItemButton reference="#water" message="ΕΥΔΑΠ" /> */}
+                        {/* <TabItemButton
                           reference="#bank"
                           message="Τράπεζα/Αιτιολογία"
-                        />
+                        /> */}
                       </React.Fragment>
                     }
                     content={
                       <React.Fragment>
-                        <TabItem
+                        {/* <TabItem
                           active={true}
                           tabId="data"
                           item={<BuildingData address={address} />}
@@ -138,7 +254,34 @@ const BuildingInfo = () => {
                         <TabItem tabId="power" item={<BuildingPower />} />
                         <TabItem tabId="gas" item={<BuildingGas />} />
                         <TabItem tabId="water" item={<BuildingWater />} />
-                        <TabItem tabId="bank" item={<BuildingBank />} />
+                        <TabItem tabId="bank" item={<BuildingBank />} /> */}
+                        <div className="tab-pane fade show active" id="data">
+                          <br />
+                          <BuildingData address={address} />
+                        </div>
+                        <div className="tab-pane fade show " id="status">
+                          <br />
+                          <BuildingStatus
+                            startDate={startDate}
+                            endDate={endDate}
+                          />
+                        </div>
+                        <div className="tab-pane fade show" id="power">
+                          <br />
+                          <BuildingPower />
+                        </div>
+                        <div className="tab-pane fade show" id="gas">
+                          <br />
+                          <BuildingGas />
+                        </div>
+                        <div className="tab-pane fade show" id="water">
+                          <br />
+                          <BuildingWater />
+                        </div>
+                        <div className="tab-pane fade show" id="bank">
+                          <br />
+                          <BuildingBank />
+                        </div>
                       </React.Fragment>
                     }
                   />

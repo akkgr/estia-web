@@ -16,10 +16,10 @@ const Tab: React.FC<ITab> = ({
   return (
     <React.Fragment>
       <div id={tabId}>
-        <ul className="nav nav-pills">
+        <ul className="nav nav-tabs">
           {tabListItems}
         </ul>
-        <div className="tab-content">
+        <div id="myTabContent"  className="tab-content">
             {content}
         </div>
       </div>

@@ -8,7 +8,9 @@ import BuildingStatus from "pages/buildings/buildingInfo/BuildingStatus";
 import BuildingPower from "pages/buildings/buildingInfo/BuildingPower";
 import BuildingGas from "pages/buildings/buildingInfo/BuildingGas";
 import BuildingWater from "pages/buildings/buildingInfo/BuildingWater";
-import BuildingBank from "pages/buildings/buildingInfo/BuildingBank";
+import BuildingOtherInfo from "pages/buildings/buildingInfo/BuildingOtherInfo";
+import BuildingHeating from "pages/buildings/buildingInfo/BuildingHeating";
+import BuildingPhone from "pages/buildings/buildingInfo/BuildingPhone";
 import BuildingPdf from "pages/buildings/buildingInfo/BuildingPdf";
 import UserContext from "UserContext";
 import Form from "app/common/form/Form";
@@ -18,6 +20,7 @@ import TabItemButton from "app/common/tabs/TabItemButton";
 import TabItem from "app/common/tabs/TabItem";
 import PageHeader from "app/common/headers/PageHeader";
 
+
 const entity = "buildings";
 const uri = process.env.REACT_APP_API_URL + "/api";
 
@@ -26,11 +29,13 @@ const BuildingInfo = () => {
   let { id } = useParams();
 
   const [tabActiveData, setTabActiveData] = useState<boolean>(true);
+  const [tabActiveHeating, setActiveHeating] = useState<boolean>(false);
   const [tabActiveStatus, setActiveStatus] = useState<boolean>(false);
   const [tabActivePower, setActivePower] = useState<boolean>(false);
   const [tabActiveGas, setActiveGas] = useState<boolean>(false);
   const [tabActiveWater, setActiveWater] = useState<boolean>(false);
-  const [tabActiveBank, setActiveBank] = useState<boolean>(false);
+  const [tabActiveOtherInfo, setActiveOtherInfo] = useState<boolean>(false);
+  const [tabActivePhone, setActivePhone] = useState<boolean>(false);
   const [tabActivePdf, setActivePdf] = useState<boolean>(false);
 
   const fetchData = async (key: string, id: string | undefined) => {
@@ -68,72 +73,108 @@ const BuildingInfo = () => {
   const tabActivate = (reference: string) => {
     if (reference === "data") {
       setTabActiveData(true);
-      setActiveBank(false);
+      setActiveOtherInfo(false);
       setActivePower(false);
       setActiveGas(false);
       setActiveWater(false);
       setActiveStatus(false);
+      setActivePhone(false);
       setActivePdf(false);
+      setActiveHeating(false);
     }
 
-    if (reference === "status") {
-      setActiveStatus(true);
+    if (reference === "heating") {
       setTabActiveData(false);
-      setActiveBank(false);
+      setActiveHeating(true);
+      setActiveOtherInfo(false);
       setActivePower(false);
       setActiveGas(false);
       setActiveWater(false);
+      setActiveStatus(false);
+      setActivePhone(false);
       setActivePdf(false);
     }
+
+    // if (reference === "status") {
+    //   setActiveStatus(true);
+    //   setTabActiveData(false);
+    //   setActiveBank(false);
+    //   setActivePower(false);
+    //   setActiveGas(false);
+    //   setActiveWater(false);
+    //   setActivePdf(false);
+    // }
 
     if (reference === "power") {
       setActivePower(true);
-      setActiveBank(false);
+      setActiveOtherInfo(false);
       setActiveWater(false);
       setActiveGas(false);
       setTabActiveData(false);
       setActiveStatus(false);
+      setActivePhone(false);
       setActivePdf(false);
+      setActiveHeating(false);
     }
 
     if (reference === "gas") {
       setActiveGas(true);
       setTabActiveData(false);
-      setActiveBank(false);
+      setActiveOtherInfo(false);
       setActivePower(false);
       setActiveWater(false);
       setActiveStatus(false);
+      setActivePhone(false);
       setActivePdf(false);
+      setActiveHeating(false);
     }
 
     if (reference === "water") {
       setActiveWater(true);
-      setActiveBank(false);
+      setActiveOtherInfo(false);
       setActivePower(false);
       setActiveGas(false);
       setTabActiveData(false);
       setActiveStatus(false);
+      setActivePhone(false);
       setActivePdf(false);
+      setActiveHeating(false);
     }
 
-    if (reference === "bank") {
-      setActiveBank(true);
+    if (reference === "otherInfo") {
+      setActiveOtherInfo(true);
       setTabActiveData(false);
       setActivePower(false);
       setActiveGas(false);
       setActiveWater(false);
       setActiveStatus(false);
+      setActivePhone(false);
       setActivePdf(false);
+      setActiveHeating(false);
+    }
+
+    if (reference === "phone") {
+      setActiveOtherInfo(false);
+      setTabActiveData(false);
+      setActivePower(false);
+      setActiveGas(false);
+      setActiveWater(false);
+      setActiveStatus(false);
+      setActivePhone(true);
+      setActivePdf(false);
+      setActiveHeating(false);
     }
 
     if (reference === "pdf") {
       setActivePdf(true);
       setActivePower(false);
-      setActiveBank(false);
+      setActiveOtherInfo(false);
       setActiveWater(false);
       setActiveGas(false);
       setTabActiveData(false);
+      setActivePhone(false);
       setActiveStatus(false);
+      setActiveHeating(false);
     }
   };
 
@@ -159,39 +200,51 @@ const BuildingInfo = () => {
                       <React.Fragment>
                         <TabItemButton
                           reference="data"
-                          message="Βασικά Στοιχεία Κτηρίου"
+                          message="Βασικά Στοιχεία"
                           activeTabButton={tabActiveData}
                           tabOnClick={() => tabActivate("data")}
                         />
                         <TabItemButton
+                          reference="heating"
+                          message="Στοιχεία Θέρμανσης"
+                          activeTabButton={tabActiveHeating}
+                          tabOnClick={() => tabActivate("heating")}
+                        />
+                        {/* <TabItemButton
                           reference="status"
                           message="Κατάσταση"
                           activeTabButton={tabActiveStatus}
                           tabOnClick={() => tabActivate("status")}
-                        />
+                        /> */}
                         <TabItemButton
                           reference="power"
-                          message="ΔΕΗ"
+                          message="Στοιχεία Λογαριασμού Ηλ. Ρεύματος"
                           activeTabButton={tabActivePower}
                           tabOnClick={() => tabActivate("power")}
                         />
                         <TabItemButton
-                          reference="gas"
-                          message="Φυσικό Αέριο"
-                          activeTabButton={tabActiveGas}
-                          tabOnClick={() => tabActivate("gas")}
-                        />
-                        <TabItemButton
                           reference="water"
-                          message="ΕΥΔΑΠ"
+                          message="Στοιχεία Λογαριασμού Ύδρευσης"
                           activeTabButton={tabActiveWater}
                           tabOnClick={() => tabActivate("water")}
                         />
                         <TabItemButton
-                          reference="bank"
-                          message="Τράπεζα/Αιτιολογία"
-                          activeTabButton={tabActiveBank}
-                          tabOnClick={() => tabActivate("bank")}
+                          reference="gas"
+                          message="Στοιχεία Λογαριασμού Φυσικού Αερίου"
+                          activeTabButton={tabActiveGas}
+                          tabOnClick={() => tabActivate("gas")}
+                        />
+                        <TabItemButton
+                          reference="otherInfo"
+                          message="Διάφορες Πληροροφορίες"
+                          activeTabButton={tabActiveOtherInfo}
+                          tabOnClick={() => tabActivate("otherInfo")}
+                        />
+                        <TabItemButton
+                          reference="phone"
+                          message="Στοιχεία Λογαριασμού Τηλεφων. Γραμμής"
+                          activeTabButton={tabActivePhone}
+                          tabOnClick={() => tabActivate("phone")}
                         />
                         <TabItemButton
                           reference="pdf"
@@ -208,12 +261,16 @@ const BuildingInfo = () => {
                           tabId="data"
                           item={
                             <BuildingData
+                              id={id}
                               admin={data.createdBy}
                               address={data.address}
+                              startDate={new Date()}
+                              endDate={new Date()}
                             />
                           }
                         />
-                        <TabItem
+                        <TabItem tabId="heating" item={<BuildingHeating />} />
+                        {/* <TabItem
                           tabId="status"
                           item={
                             <BuildingStatus
@@ -221,11 +278,12 @@ const BuildingInfo = () => {
                               endDate={new Date()}
                             />
                           }
-                        />
+                        /> */}
                         <TabItem tabId="power" item={<BuildingPower />} />
-                        <TabItem tabId="gas" item={<BuildingGas />} />
                         <TabItem tabId="water" item={<BuildingWater />} />
-                        <TabItem tabId="bank" item={<BuildingBank />} />
+                        <TabItem tabId="gas" item={<BuildingGas />} />
+                        <TabItem tabId="otherInfo" item={<BuildingOtherInfo />} />
+                        <TabItem tabId="phone" item={<BuildingPhone />} />
                         <TabItem tabId="pdf" item={<BuildingPdf />} />
                       </React.Fragment>
                     }

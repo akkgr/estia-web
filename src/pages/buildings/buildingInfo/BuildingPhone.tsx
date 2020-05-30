@@ -3,7 +3,7 @@ import TextInput from "app/common/form/TextInput";
 import TextArea from "app/common/form/TextArea";
 import Checkbox from "app/common/form/Checkbox";
 
-const BuildingPower = () => {
+const BuildingPhone = () => {
   return (
     <React.Fragment>
       <div className="row mt-5">
@@ -11,8 +11,8 @@ const BuildingPower = () => {
           <TextInput
             type="text"
             label="Πάροχος :"
-            name="powerSupplier"
-            value="ΔΕΗ"
+            name="phoneSupplier"
+            value="Cosmote"
             placeholder="Πάροχος..."
             required={true}
             // validMessage="Έγκυρος Αριθμός Μετρητή"
@@ -23,53 +23,30 @@ const BuildingPower = () => {
         <div className="col-md-3 mb-3">
           <TextInput
             type="text"
-            label="Αριθμός Συμβολαίου :"
-            name="contractId"
+            label="Αριθμός Σύνδεσης :"
+            name="connectionPhoneId"
             // value="ΔΕΗ"
-            placeholder="Αριθμός Συμβολαίου..."
+            placeholder="Αριθμός Σύνδεσης..."
             required={true}
             // validMessage="Έγκυρος Αριθμός Μετρητή"
-            invalidMessage="Συμπληρώστε τον Αριθμό Συμβολαίου"
+            invalidMessage="Συμπληρώστε τον Αριθμός Σύνδεσης"
           />
         </div>
       </div>
 
       <div className="row mt-5">
-        <div className="col-md-3 mb-3">
-          <TextInput
-            type="text"
-            label="Αριθμός Μετρητή :"
-            name="counter"
-            // value="999999999"
-            placeholder="Αριθμός Μετρητή..."
-            required={true}
-            // validMessage="Έγκυρος Αριθμός Μετρητή"
-            invalidMessage="Συμπληρώστε τον Αριθμό Μετρητή"
-          />
-        </div>
+        
 
         <div className="col-md-3 mb-3">
           <TextInput
             type="text"
-            label="Κωδικός Ηλεκτρ. Πληρωμής : "
-            name="code"
+            label="Αριθμός Συμβολαίου :"
+            name="contractPhoneId"
             // value="999999999"
-            placeholder="Κωδικός Ηλεκτρ. Πληρωμής..."
-            required={true}
-            // validMessage="Έγκυρος Κωδικός Ηλεκτρ. Πληρωμής"
-            invalidMessage="Συμπληρώστε τον Κωδικό Ηλεκτρ. Πληρωμής"
-          />
-        </div>
-
-        <div className="col-md-3 mb-3">
-          <TextInput
-            label="Αριθμός Παροχής :"
-            name="receiveNumber"
-            // value="999999999"
-            placeholder="Αριθμός Παροχής..."
+            placeholder="Αριθμός Συμβολαίου..."
             required={true}
             // validMessage="Έγκυρος Αριθμός Παροχής"
-            invalidMessage="Συμπληρώστε τον Αριθμό Παροχής"
+            invalidMessage="Συμπληρώστε τον Αριθμό Συμβολαίου"
           />
         </div>
       </div>
@@ -77,7 +54,7 @@ const BuildingPower = () => {
       <div className="row mt-3">
         <div className="col-md-3 mb-3">
           <TextArea
-            name="brandNamePower"
+            name="brandNamePhone"
             label="Επωνυμία :"
             rows={4}
             placeholder="Επωνυμία..."
@@ -88,7 +65,7 @@ const BuildingPower = () => {
       <div className="row mt-3">
         <div className="col-md-4 mb-3">
           <Checkbox
-            name="receiveDeskPower"
+            name="receiveDeskPhone"
             label="Παραλαβή λογ. στο γραφείο"
             required={true}
           />
@@ -98,4 +75,4 @@ const BuildingPower = () => {
   );
 };
 
-export default BuildingPower;
+export default BuildingPhone;

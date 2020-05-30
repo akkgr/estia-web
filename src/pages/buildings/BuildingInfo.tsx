@@ -154,16 +154,6 @@ const BuildingInfo = () => {
             <Card
               cardBody={
                 <React.Fragment>
-                  <li>
-                    <a
-                      href="#"
-                      data-toggle="tooltip"
-                      data-placement="top"
-                      title="Hooray!"
-                    >
-                      Top
-                    </a>
-                  </li>
                   <Tab
                     tabListItems={
                       <React.Fragment>

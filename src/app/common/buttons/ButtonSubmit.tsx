@@ -1,13 +1,46 @@
 import React from "react";
 
 interface IButtonSubmit {
-  message: string;
+  message?: any;
+  classname?: string;
+  dataToggle?: string;
+  dataPlacement?: string;
+  title?: string;
 }
 
-const ButtonSubmit: React.FC<IButtonSubmit> = ({ message }) => {
+const ButtonSubmit: React.FC<IButtonSubmit> = ({
+  message,
+  classname,
+  dataToggle,
+  dataPlacement,
+  title
+}) => {
+
+  const checkClassname = (classname?: string) => {
+    return classname === undefined ? `btn btn-primary` : `${classname}`
+  }
+
+  const checkDataToggle = (dataToggle?: string) => {
+    return dataToggle === undefined ? null : `${dataToggle}`
+  }
+
+  const checkPlacement = (dataPlacement?: string) => {
+    return dataPlacement === undefined ? null : `${dataPlacement}`
+  }
+
+  const checkTitle = (title?: string) => {
+    return title === undefined ? undefined : `${title}`
+  }
+
   return (
     <React.Fragment>
-      <button type="submit" className="btn btn-primary">
+      <button
+        type="submit"
+        className={checkClassname(classname)}
+        data-topgle={checkDataToggle(dataToggle)}
+        data-placement={checkPlacement(dataPlacement)}
+        title={checkTitle(title)}
+      >
         {message}
       </button>
     </React.Fragment>

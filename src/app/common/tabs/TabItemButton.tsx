@@ -1,15 +1,15 @@
 import React from "react";
-import ButtonTab from "../buttons/ButtonTab";
+import ButtonTab from "app/common/buttons/ButtonTab";
 
 interface ITabItemButton {
-  tabClassName?: string;
+  activeTabButton?: boolean;
   reference: string;
   message: string;
   tabOnClick: () => void;
 }
 
 const TabItemButton: React.FC<ITabItemButton> = ({
-  tabClassName,
+  activeTabButton,
   tabOnClick,
   reference,
   message,
@@ -20,7 +20,7 @@ const TabItemButton: React.FC<ITabItemButton> = ({
         <ButtonTab
           href={reference}
           onclick={tabOnClick}
-          classname={tabClassName}
+          activeButton={activeTabButton}
           message={message}
         />
       </li>

@@ -39,7 +39,7 @@ const SelectInputSearch: React.FC<SelectParams> = ({
         name={name}
         data-style={data_style}
         data-live-search={data_live_search}
-        // onChange={handleChange}
+        onChange={handleChange}
       >
         {options.map((option) => {
           return (

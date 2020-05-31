@@ -10,7 +10,7 @@ import {
 } from "@ant-design/icons";
 
 import BuildingQueries from "components/admin/buildings/BuildingQueries";
-
+var x = 0;
 const { Search } = Input;
 
 interface DataTableProps {
@@ -33,9 +33,9 @@ const DataTable: React.FC<DataTableProps> = ({ entity, columns, filterFn }) => {
   const memoizedCallback = useCallback(
     async (id: string) => {
       await deleteBuildings(id);
-      queryCache.refetchQueries([data, entity, page, rows, sort, filter]);
+      queryCache.refetchQueries([entity, page, rows, sort, filter]);
     },
-    [entity, filter, page, rows, sort]
+    [entity, page, rows, sort, filter]
   );
 
   useEffect(() => {
@@ -81,8 +81,11 @@ const DataTable: React.FC<DataTableProps> = ({ entity, columns, filterFn }) => {
 
   const handleTableChange = (pagination: any, _: any, sorting: any) => {
     setTotal(data.count);
+    console.log("total:" + total);
     setPage(pagination.current);
+    console.log("page:" + page);
     setRows(pagination.pageSize);
+    console.log("rows:" + rows);
     if (!sorting.columnKey) sorting.columnKey = "id";
     setSort([sorting.columnKey, sorting.order !== "ascend" ? "DESC" : "ASC"]);
   };

@@ -4,7 +4,7 @@ import Agent from "app/api/Agent";
 import axios from "axios";
 
 const BuildingQueries = () => {
-  const entity = "apartments";
+  const entity = "buildings";
   const { Buildings } = Agent();
   const fetchBuildings = async (
     key: string,
@@ -15,19 +15,16 @@ const BuildingQueries = () => {
   ) => {
     const s = JSON.stringify(sort);
     const f = JSON.stringify(filter);
-    const CancelToken = axios.CancelToken;
-    const source = CancelToken.source();
+    console.log("rows:", rows, " page:", page, " sort:", s);
     const { data } = await Buildings.view(key, page, rows, s, f);
-    data.cancel = () => {
-      source.cancel("Query was cancelled by React Query");
-    };
+    console.log("d.length:", data.length);
     return data;
   };
 
-  const fetchBuildingData =async(key:string,id:string |undefined)=>{
-    const data =await Buildings.list_info(key,id);
+  const fetchBuildingData = async (key: string, id: string | undefined) => {
+    const data = await Buildings.list_info(key, id);
     return data;
-  }
+  };
 
   const deleteBuildings = async (id: string) => {
     await Buildings.delete(entity, id);
@@ -43,6 +40,6 @@ const BuildingQueries = () => {
   //   return data;
   // }
 
-  return { fetchBuildings, deleteBuildings,fetchBuildingData };
+  return { fetchBuildings, deleteBuildings, fetchBuildingData };
 };
 export default BuildingQueries;

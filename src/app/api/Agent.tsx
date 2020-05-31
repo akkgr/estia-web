@@ -1,29 +1,26 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import axios, { AxiosResponse } from "axios";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import UserContext from "../../UserContext";
-import { Building } from "app/models/Building";
+// import { Building } from "app/models/Building";
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL + "/api";
 const Agent = () => {
   const history = useHistory();
   const manager = useContext(UserContext);
-  const CancelToken = axios.CancelToken;
-  const source = CancelToken.source();
-
+  let cancelSource = axios.CancelToken.source();
   axios.interceptors.request.use(
     async (config) => {
       const user = await manager.getUser();
       const token = user?.access_token;
-      if (!user || user?.expired) {
-        manager.signinRedirect();
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
       } else {
-        if (token) {
-          config.headers.Authorization = `Bearer ${token}`;
-        }
+        manager.signinRedirect();
       }
-        console.info("✉️ ", config);
+      config.cancelToken = cancelSource.token;
+      // console.info("info" + JSON.stringify(config));
       return config;
     },
     (error) => {
@@ -37,7 +34,6 @@ const Agent = () => {
       history.push("/dashboard");
       return toast.error("Network error -make sure API and Auth is runnning!");
     }
-    //redirect to a notfound component
     const { status, data, config } = error.response;
     if (status === 400) {
       history.push("/notfound");
@@ -57,31 +53,28 @@ const Agent = () => {
     if (status === 500) {
       return toast.error("Server error -check the terminal for more info!");
     }
+
+    //redirect to a notfound component
+
     throw error.response;
   });
 
-  const responseBody = (response: AxiosResponse) => response.data;
+  const responseBody = async (response: AxiosResponse) => await response.data;
 
   const requests = {
-    get: (url: string) =>
-      axios.get(url, { cancelToken: source.token }).then(responseBody),
+    get: (url: string) => axios.get(url).then(responseBody),
     post: (url: string, body: {}) => axios.post(url, body).then(responseBody),
     put: (url: string, body: {}) => axios.put(url, body).then(responseBody),
     del: (url: string) => axios.delete(url).then(responseBody),
   };
 
   const Buildings = {
-    view: (
-      key: string,
-      page: number,
-      rows: number,
-      s: string,
-      f: string
-    ): Promise<any> =>
+    view: (key: string, page: number, rows: number, s: string, f: string) =>
       requests.get(`/${key}?sort=${s}&page=[${page},${rows}]&filter=${f}`),
-    list_info: (key: string, id: string | undefined): Promise<any> =>
+    list_info: (key: string, id: string | undefined) =>
       requests.get(`/${key}/${id}`),
-      update:(key:string,id:string,input:any)=>requests.put(`/${key}/${id}`, input),
+    update: (key: string, id: string, input: any) =>
+      requests.put(`/${key}/${id}`, input),
     delete: (entity: string, id: string) => requests.del(`/${entity}/${id}`),
   };
 

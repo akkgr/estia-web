@@ -1,9 +1,21 @@
 export interface Person {
   lastName: string;
   firstName: string;
+  fatherName: string;
   telephone: string;
   mobile: string;
   email: string;
+  afm: string;
+  doy: string;
+  roleType: RoleType;
+}
+
+export enum RoleType {
+  None,
+  Manager,
+  Oil,
+  Heat,
+  Repairs,
 }
 
 export const NewPerson = (): Person => {
@@ -13,6 +25,10 @@ export const NewPerson = (): Person => {
     telephone: "",
     mobile: "",
     email: "",
+    fatherName: "",
+    afm: "",
+    doy: "",
+    roleType: RoleType.None,
   };
 };
 

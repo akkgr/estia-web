@@ -7,5 +7,30 @@ export interface Apartment extends Entity {
   position: number;
   resident: Person;
   owner: Person;
-  buildingTitle: String;
+  closed: boolean;
+  infoType: InfoType;
+  common: number;
+  lift: number;
+  ei: number;
+  fi: number;
+  owners: number;
+  special: number;
+  special1: number;
+  special2: number;
+  special3: number;
+  special4: number;
+  heat: number;
+  label: string;
+  buildingTitle: string;
+}
+
+export enum InfoType {
+  Post,
+  Phone,
+  Fax,
+  Email,
+  Sms,
+  EmailOwner,
+  EmailResident,
+  Appointment,
 }

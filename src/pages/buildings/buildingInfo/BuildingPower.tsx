@@ -34,7 +34,7 @@ const BuildingPower = () => {
         </div>
       </div>
 
-      <div className="row mt-5">
+      <div className="row mt-3">
         <div className="col-md-3 mb-3">
           <TextInput
             type="text"
@@ -83,10 +83,8 @@ const BuildingPower = () => {
             placeholder="Επωνυμία..."
           />
         </div>
-      </div>
 
-      <div className="row mt-3">
-        <div className="col-md-4 mb-3">
+        <div className="col-md-9 mb-3">
           <Checkbox
             name="receiveDeskPower"
             label="Παραλαβή λογ. στο γραφείο"

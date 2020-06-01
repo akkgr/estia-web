@@ -3,19 +3,26 @@ import SelectInputSearch from "app/common/form/SelectInputSearch";
 import TextInput from "app/common/form/TextInput";
 
 export const HeatingTypes = [
+  // { id: -1, value: "Kati" },
   { id: 1, value: "Κεντρική Θέρμανση" },
   { id: 2, value: "Αυτόνομη - Πετρέλαιο" },
   { id: 3, value: "Αυτόνομη - Φυσικό Αέριο" },
 ];
 
-const BuildingHeating = () => {
+interface IProps {
+  litersPerCm?: string;
+  heatingType?: string;
+}
+
+const BuildingHeating: React.FC<IProps> = ({ litersPerCm, heatingType }) => {
   return (
     <React.Fragment>
+      <div>{JSON.stringify(heatingType)}</div>
       <div className="row mt-5">
         <div className="col-md-4 mb-3">
           <SelectInputSearch
             label="Τύπος Θέρμανσης :"
-            // value={address.area}
+            value={heatingType}
             name="heatingType"
             className="custom-select"
             options={HeatingTypes}
@@ -58,8 +65,9 @@ const BuildingHeating = () => {
           <TextInput
             type="number"
             label="Λίτρα Πετρ. ανά cm :"
-            name="oilPerCm"
-            // min={0}
+            name="litersPerCm"
+            min={0}
+            value={litersPerCm}
             placeholder="Λίτρα Πετρ. ανά cm..."
             required={true}
             invalidMessage="Συμπληρώστε τα Λίτρα Πετρ. ανά cm"
@@ -71,7 +79,7 @@ const BuildingHeating = () => {
             type="number"
             label="Πετρέλαιο Δεξαμενής :"
             name="oilInTank"
-            // min={0}
+            min={0}
             placeholder="Πετρέλαιο Δεξαμενής..."
             required={true}
             invalidMessage="Συμπληρώστε το Πετρέλαιο Δεξαμενής"

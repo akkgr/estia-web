@@ -22,8 +22,8 @@ const BuildingPdf = () => {
             </tr>
           </thead>
           <tbody>
-            {files.map((item: any, index: number) => (
-              <tr>
+            {files.map((item: any, index?: any) => (
+              <tr id={index} key={index}>
                 <td>{item.id}</td>
                 <td>{item.date}</td>
                 <td>{item.value}</td>

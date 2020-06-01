@@ -4,7 +4,6 @@ import { useQuery } from "react-query";
 import axios from "axios";
 
 import BuildingData from "pages/buildings/buildingInfo/BuildingData";
-import BuildingStatus from "pages/buildings/buildingInfo/BuildingStatus";
 import BuildingPower from "pages/buildings/buildingInfo/BuildingPower";
 import BuildingGas from "pages/buildings/buildingInfo/BuildingGas";
 import BuildingWater from "pages/buildings/buildingInfo/BuildingWater";
@@ -19,7 +18,6 @@ import Tab from "app/common/tabs/Tab";
 import TabItemButton from "app/common/tabs/TabItemButton";
 import TabItem from "app/common/tabs/TabItem";
 import PageHeader from "app/common/headers/PageHeader";
-
 
 const entity = "buildings";
 const uri = process.env.REACT_APP_API_URL + "/api";
@@ -94,16 +92,6 @@ const BuildingInfo = () => {
       setActivePhone(false);
       setActivePdf(false);
     }
-
-    // if (reference === "status") {
-    //   setActiveStatus(true);
-    //   setTabActiveData(false);
-    //   setActiveBank(false);
-    //   setActivePower(false);
-    //   setActiveGas(false);
-    //   setActiveWater(false);
-    //   setActivePdf(false);
-    // }
 
     if (reference === "power") {
       setActivePower(true);
@@ -180,6 +168,7 @@ const BuildingInfo = () => {
 
   return (
     <React.Fragment>
+      <div>data = {JSON.stringify(data)}</div>
       <Form
         formElements={
           <React.Fragment>
@@ -188,7 +177,7 @@ const BuildingInfo = () => {
                 <Link to="/buildings">Κτίρια</Link>
               </li>
               <li className="breadcrumb-item active" aria-current="page">
-                {data.address.street} {data.address.streetnumber},
+                {data.address.street} {data.address.streetNumber},
                 {data.address.area}
               </li>
             </PageHeader>
@@ -210,12 +199,6 @@ const BuildingInfo = () => {
                           activeTabButton={tabActiveHeating}
                           tabOnClick={() => tabActivate("heating")}
                         />
-                        {/* <TabItemButton
-                          reference="status"
-                          message="Κατάσταση"
-                          activeTabButton={tabActiveStatus}
-                          tabOnClick={() => tabActivate("status")}
-                        /> */}
                         <TabItemButton
                           reference="power"
                           message="Στοιχεία Λογαριασμού Ηλ. Ρεύματος"
@@ -269,20 +252,22 @@ const BuildingInfo = () => {
                             />
                           }
                         />
-                        <TabItem tabId="heating" item={<BuildingHeating />} />
-                        {/* <TabItem
-                          tabId="status"
+                        <TabItem
+                          tabId="heating"
                           item={
-                            <BuildingStatus
-                              startDate={new Date()}
-                              endDate={new Date()}
+                            <BuildingHeating
+                              litersPerCm={data.litersPerCm}
+                              heatingType={data.heatingType}
                             />
                           }
-                        /> */}
+                        />
                         <TabItem tabId="power" item={<BuildingPower />} />
                         <TabItem tabId="water" item={<BuildingWater />} />
                         <TabItem tabId="gas" item={<BuildingGas />} />
-                        <TabItem tabId="otherInfo" item={<BuildingOtherInfo />} />
+                        <TabItem
+                          tabId="otherInfo"
+                          item={<BuildingOtherInfo />}
+                        />
                         <TabItem tabId="phone" item={<BuildingPhone />} />
                         <TabItem tabId="pdf" item={<BuildingPdf />} />
                       </React.Fragment>

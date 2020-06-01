@@ -4,9 +4,9 @@ import TextInput from "app/common/form/TextInput";
 
 export const HeatingTypes = [
   // { id: -1, value: "Kati" },
-  { id: 1, value: "Κεντρική Θέρμανση" },
-  { id: 2, value: "Αυτόνομη - Πετρέλαιο" },
-  { id: 3, value: "Αυτόνομη - Φυσικό Αέριο" },
+  { value: "Κεντρική Θέρμανση" , label: 'Κεντρική Θέρμανση' },
+  { value: "Αυτόνομη - Πετρέλαιο" , label: 'Αυτόνομη - Πετρέλαιο'},
+  { value: "Αυτόνομη - Φυσικό Αέριο" , label:'Αυτόνομη - Φυσικό Αέριο' },
 ];
 
 interface IProps {

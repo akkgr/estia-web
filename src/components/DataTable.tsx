@@ -77,15 +77,12 @@ const DataTable: React.FC<DataTableProps> = ({ entity, columns, filterFn }) => {
   const { status, data, isFetching } = useQuery<
     any,
     [string, number, number, string[], {}]
-  >([entity, page, rows, sort, filter], fetchBuildings);
+  >([ entity, page, rows, sort, filter], fetchBuildings);
 
   const handleTableChange = (pagination: any, _: any, sorting: any) => {
     setTotal(data.count);
-    console.log("total:" + total);
     setPage(pagination.current);
-    console.log("page:" + page);
     setRows(pagination.pageSize);
-    console.log("rows:" + rows);
     if (!sorting.columnKey) sorting.columnKey = "id";
     setSort([sorting.columnKey, sorting.order !== "ascend" ? "DESC" : "ASC"]);
   };

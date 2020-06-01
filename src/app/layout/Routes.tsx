@@ -30,7 +30,7 @@ function Routes(props: any) {
         <Dashboard changeUser={props.changeUser} />
       </Route>
 
-      <Route exact path="/buildings" component={BuildingList} />
+      <Route exact path="/buildings" component={BuildingList1} />
 
       <Route exact path="/buildings/new" component={NewBuilding} />
 

@@ -7,7 +7,7 @@ const BuildingQueries = () => {
   const entity = "buildings";
   const { Buildings } = Agent();
   const fetchBuildings = async (
-    key: string,
+    entity: string,
     page: number,
     rows: number,
     sort: string[],
@@ -16,8 +16,8 @@ const BuildingQueries = () => {
     const s = JSON.stringify(sort);
     const f = JSON.stringify(filter);
     console.log("rows:", rows, " page:", page, " sort:", s);
-    const { data } = await Buildings.view(key, page, rows, s, f);
-    console.log("d.length:", data.length);
+    const data  = await Buildings.view(entity, page, rows, s, f);
+    console.log("d.count:", data.count);
     return data;
   };
 

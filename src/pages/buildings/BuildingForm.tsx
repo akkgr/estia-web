@@ -6,7 +6,6 @@ import { Skeleton, notification, Form } from "antd";
 
 import UserContext from "UserContext";
 import AddressForm from "components/AddressForm";
-import { AppartmentList } from "components/AppartmentList";
 import { AddressTitle } from "app/models/Address";
 import { ActionsForm } from "components/ActionsForm";
 import Cards from "app/common/views/Cards";
@@ -18,20 +17,6 @@ const BuildingForm = () => {
   const manager = useContext(UserContext);
   let { id } = useParams();
   const {fetchBuildingData}=BuildingQueries();
-
-  // const fetchData = async (key: string, id: string | undefined) => {
-  //   const user = await manager.getUser();
-  //   if (!user || user?.expired) {
-  //     manager.signinRedirect();
-  //   }
-  //   const { data } = await axios.get(`${uri}/${key}/${id}`, {
-  //     headers: {
-  //       Authorization: `Bearer ${user?.access_token}`,
-  //     },
-  //   }); 
-  //   return data;
-  // };
-
   const updateData = async (input: any) => {
     const user = await manager.getUser();
     if (!user || user?.expired) {
@@ -107,8 +92,6 @@ const BuildingForm = () => {
             />
           </div>
         </div>
-
-        <AppartmentList data={data}></AppartmentList>
       </Form.Provider>
     </Skeleton>
   );

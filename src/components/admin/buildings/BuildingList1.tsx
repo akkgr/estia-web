@@ -8,24 +8,7 @@ import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import "./buildings.css";
 const entity = "buildings";
-const dummyData = [
-  {
-    address: {
-      area: "Αθήνα",
-      street: "Νάξος",
-      streetnumber: 45,
-    },
-    id: 23424323423,
-  },
-  {
-    address: {
-      area: "θερμοπυλών",
-      street: "Ηράκλειο",
-      streetnumber: 89,
-    },
-    id: 23424312312312245,
-  },
-];
+
 const BuildingList1 = () => {
   const history = useHistory();
   const { fetchBuildings, deleteBuildings } = BuildingQueries();
@@ -74,7 +57,7 @@ const BuildingList1 = () => {
           <button
             type="button"
             className="btn btn-link"
-            onClick={(e) => history.push(`/${entity}/${row.id}`)}
+            onClick={()=>history.push(`/${entity}/${row.id}`)}
           >
             <BsPencilSquare />
           </button>
@@ -99,15 +82,10 @@ const BuildingList1 = () => {
   const memoizedCallback = useCallback(
     async (id: string) => {
       await deleteBuildings(id);
-      queryCache.refetchQueries([entity, page, rows, sort, filter]);
+      queryCache.refetchQueries( [entity, page, rows, filter]);
     },
-    [entity, page, rows, sort, filter]
+    [entity, page, rows, filter]
   );
-
-  // async function deleteRow(id: string) {
-  //   await deleteBuildings(id);
-  //   queryCache.refetchQueries([data, entity, page, rows, sort, filter]);
-  // }
 
   const filterFn = (value: any) => {
     return {
@@ -138,7 +116,7 @@ const BuildingList1 = () => {
     type: any,
     { page, sizePerPage, sortField, sortOrder }: any
   ): void => {
-    setTotal(data.length);
+    setTotal(data.count);
     setPage(page);
     setRows(sizePerPage);
     if (!sortField || !sortOrder) {
@@ -148,44 +126,47 @@ const BuildingList1 = () => {
     return setSort([sortField, sortOrder === "asc" ? "ASC" : "DESC"]);
   };
 
-  // const options = {
-  //   paginationSize: 4,
-  //   pageStartIndex: 0,
-  //   // alwaysShowAllBtns: true, // Always show next and previous button
-  //   // withFirstAndLast: false, // Hide the going to First and Last page button
-  //   // hideSizePerPage: true, // Hide the sizePerPage dropdown always
-  //   // hidePageListOnlyOnePage: true, // Hide the pagination list when only one page
-  //   firstPageText: "First",
-  //   prePageText: "Back",
-  //   nextPageText: "Next",
-  //   lastPageText: "Last",
-  //   nextPageTitle: "First page",
-  //   prePageTitle: "Pre page",
-  //   firstPageTitle: "Next page",
-  //   lastPageTitle: "Last page",
-  //   showTotal: true,
-  //   disablePageTitle: true,
-  //   sizePerPageList: [
-  //     {
-  //       text: "5",
-  //       value: 5,
-  //     },
-  //     {
-  //       text: "10",
-  //       value: 7,
-  //     },
-  //     {
-  //       text: "All",
-  //       value: data.length,
-  //     },
-  //   ], // A numeric array is also available. the purpose of above example is custom the text
-  // };
+  const options={
+    page: page,
+    sizePerPage: rows,
+    totalSize: data.count, //ΠΡΕΠΕΙ ΝΑ ΜΟΥ ΣΤΕΙΛΕΙΣ ΑΠΟ ΤΟ BACKEND ΠΟΣΑ ΕΙΝΑΙ ΓΙΑ ΝΑ ΔΟΥΛΕΨΕΙ ΤΟ PAGINATION
+    showTotal: true,
+    sizePerPageList: [
+          {
+            text: "5",
+            value: 5,
+          },
+          {
+            text: "10",
+            value: 10,
+          },
+          {
+            text: "30",
+            value: 30,
+          },    {
+            text: "50",
+            value: 50,
+          },
+          
+          {
+            text: "All",
+            value: data.count,
+          }
+        ]
+  }
+
   return (
     <React.Fragment>
-      {isFetching || status === "loading" ? <Loading /> : null}
-      <div className="container my-5">
+            <nav>
+        <ol className="breadcrumb" style={{ padding: "6px 15px" }}>
+          <li className="breadcrumb-item active" aria-current="page">
+            Κτίρια
+          </li>
+        </ol>
+      </nav>
+      <div className="container" >
         <div className="row">
-          <div className="col-md-12">
+          <div className="col">
             <form className="form" onSubmit={onSearch}>
               <div className="input-group flex-fill">
                 <input
@@ -204,22 +185,19 @@ const BuildingList1 = () => {
           </div>
         </div>
       </div>
+      {isFetching || status === "loading" ? <Loading /> : null}
       <BootstrapTable
         bootstrap4
         striped
-        bordered={false}
-        data={data}
+        bordered={true}
+        data={data.data}
+        noDataIndication={()=>"Ο πίνακας είναι άδειος"}
         keyField="id"
         defaultSortDirection="asc"
         remote={true}
         columns={columns}
         onTableChange={onTableChange}
-        pagination={paginationFactory({
-          page: page,
-          sizePerPage: rows,
-          totalSize: total, //ΠΡΕΠΕΙ ΝΑ ΜΟΥ ΣΤΕΙΛΕΙΣ ΑΠΟ ΤΟ BACKEND ΠΟΣΑ ΕΙΝΑΙ ΓΙΑ ΝΑ ΔΟΥΛΕΨΕΙ ΤΟ PAGINATION
-          showTotal: true,
-        })}
+        pagination={paginationFactory(options)}
         wrapperClasses="table-responsive"
       />
     </React.Fragment>

@@ -9,14 +9,16 @@ import AddressForm from "components/AddressForm";
 import { AddressTitle } from "app/models/Address";
 import { ActionsForm } from "components/ActionsForm";
 import Cards from "app/common/views/Cards";
-import BuildingQueries from 'components/admin/buildings/BuildingQueries';
+import BuildingQueries from "components/admin/buildings/BuildingQueries";
+import { AppartmentList } from "components/AppartmentList";
+import AppartmentList1 from "components/admin/apartments/ApartmentList1";
 const uri = process.env.REACT_APP_API_URL + "/api";
 const entity = "buildings";
 
 const BuildingForm = () => {
   const manager = useContext(UserContext);
   let { id } = useParams();
-  const {fetchBuildingData}=BuildingQueries();
+  const { fetchBuildingData } = BuildingQueries();
   const updateData = async (input: any) => {
     const user = await manager.getUser();
     if (!user || user?.expired) {
@@ -93,6 +95,9 @@ const BuildingForm = () => {
           </div>
         </div>
       </Form.Provider>
+
+      {/* <AppartmentList data={data}></AppartmentList> */}
+      <AppartmentList1 data={data}></AppartmentList1>
     </Skeleton>
   );
 };

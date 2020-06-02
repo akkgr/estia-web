@@ -10,7 +10,6 @@ import {
 } from "@ant-design/icons";
 
 import BuildingQueries from "components/admin/buildings/BuildingQueries";
-var x = 0;
 const { Search } = Input;
 
 interface DataTableProps {
@@ -77,7 +76,7 @@ const DataTable: React.FC<DataTableProps> = ({ entity, columns, filterFn }) => {
   const { status, data, isFetching } = useQuery<
     any,
     [string, number, number, string[], {}]
-  >([ entity, page, rows, sort, filter], fetchBuildings);
+  >([entity, page, rows, sort, filter], fetchBuildings);
 
   const handleTableChange = (pagination: any, _: any, sorting: any) => {
     setTotal(data.count);
@@ -94,7 +93,7 @@ const DataTable: React.FC<DataTableProps> = ({ entity, columns, filterFn }) => {
       setFilter({});
     }
   };
-
+  console.log(data.data);
   return (
     <>
       <Form
@@ -119,7 +118,7 @@ const DataTable: React.FC<DataTableProps> = ({ entity, columns, filterFn }) => {
         size="small"
         columns={columnsWithActions}
         rowKey={(record) => record.id}
-        dataSource={data}
+        dataSource={data.data}
         pagination={{
           defaultCurrent: 1,
           total: total,

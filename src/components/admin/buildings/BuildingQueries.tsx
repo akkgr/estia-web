@@ -16,13 +16,13 @@ const BuildingQueries = () => {
     const s = JSON.stringify(sort);
     const f = JSON.stringify(filter);
     console.log("rows:", rows, " page:", page, " sort:", s);
-    const data  = await Buildings.view(entity, page, rows, s, f);
-    console.log("d.count:", data.count);
+    const data = await Buildings.view(entity, page, rows, s, f);
     return data;
   };
 
   const fetchBuildingData = async (key: string, id: string | undefined) => {
     const data = await Buildings.list_info(key, id);
+    console.log("data:" + JSON.stringify(data));
     return data;
   };
 

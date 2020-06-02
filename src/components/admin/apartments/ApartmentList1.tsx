@@ -1,15 +1,13 @@
 import React, { useState, SyntheticEvent, useCallback } from "react";
-import BuildingQueries from "components/admin/buildings/BuildingQueries";
+import BuildingQueries from "../buildings/BuildingQueries";
 import { useQuery, queryCache } from "react-query";
 import { useHistory } from "react-router-dom";
 import { BsTrashFill, BsPencilSquare, BsPlusCircle } from "react-icons/bs";
-import Loading from "app/layout/Loading";
+import Loading from "../../../app/layout/Loading";
 import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
-import "./buildings.css";
-const entity = "buildings";
-
-const BuildingList1 = () => {
+import "../buildings/buildings.css";
+const ApartmentList1 = (props: any) => {
   const history = useHistory();
   const { fetchBuildings, deleteBuildings } = BuildingQueries();
   const [page, setPage] = useState(1);
@@ -17,21 +15,38 @@ const BuildingList1 = () => {
   const [total, setTotal] = useState(0);
   const [sort, setSort] = useState(["id", "ASC"]);
   const [filter, setFilter] = useState({});
+  const entity = "buildings/" + props.data.id + "/apartments";
+
   const columns = [
     {
-      dataField: "address.area",
-      text: "Περιοχή",
+      dataField: "position",
+      text: "A/A",
       sort: true,
     },
     {
-      dataField: "address.street",
-      text: "Οδός",
+      dataField: "title",
+      text: "Διαμέρισμα",
       sort: true,
     },
     {
-      dataField: "address.streetnumber",
+      dataField: "owner",
       text: "Αριθμός",
       sort: true,
+      formatter: (cell: any, row: any) => (
+        <div>
+          {row.owner?.lastName || ""} {row.owner?.firstName || ""}
+        </div>
+      ),
+    },
+    {
+      dataField: "resident",
+      text: "Ένοικος",
+      sort: true,
+      formatter: (cell: any, row: any) => (
+        <div>
+          {row.resident?.lastName || ""} {row.resident?.firstName || ""}
+        </div>
+      ),
     },
     {
       dataField: "Actions",
@@ -73,12 +88,6 @@ const BuildingList1 = () => {
       ),
     },
   ];
-
-  const { status, data, isFetching } = useQuery<
-    any,
-    [string, number, number, string[], {}]
-  >([entity, page, rows, sort, filter], fetchBuildings);
-
   const memoizedCallback = useCallback(
     async (id: string) => {
       await deleteBuildings(id);
@@ -101,6 +110,11 @@ const BuildingList1 = () => {
       ],
     };
   };
+
+  const { status, data, isFetching } = useQuery<
+    any,
+    [string, number, number, string[], {}]
+  >([entity, page, rows, sort, filter], fetchBuildings);
 
   const onSearch = (event: any) => {
     event.preventDefault();
@@ -125,19 +139,12 @@ const BuildingList1 = () => {
     }
     return setSort([sortField, sortOrder === "asc" ? "ASC" : "DESC"]);
   };
-  const renderShowsTotal = (from: any, to: any, size: any) => {
-    return (
-      <span className="react-bootstrap-table-pagination-total">
-        Showing {from} to {to} of {size} Results
-      </span>
-    );
-  };
+
   const options = {
     page: page,
     sizePerPage: rows,
     totalSize: data.count, //ΠΡΕΠΕΙ ΝΑ ΜΟΥ ΣΤΕΙΛΕΙΣ ΑΠΟ ΤΟ BACKEND ΠΟΣΑ ΕΙΝΑΙ ΓΙΑ ΝΑ ΔΟΥΛΕΨΕΙ ΤΟ PAGINATION
     showTotal: true,
-    paginationTotalRenderer: renderShowsTotal,
     sizePerPageList: [
       {
         text: "5",
@@ -165,13 +172,6 @@ const BuildingList1 = () => {
 
   return (
     <React.Fragment>
-      <nav>
-        <ol className="breadcrumb" style={{ padding: "6px 15px" }}>
-          <li className="breadcrumb-item active" aria-current="page">
-            Κτίρια
-          </li>
-        </ol>
-      </nav>
       <div className="container">
         <div className="row">
           <div className="col">
@@ -212,4 +212,4 @@ const BuildingList1 = () => {
   );
 };
 
-export default BuildingList1;
+export default ApartmentList1;

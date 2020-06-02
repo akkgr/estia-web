@@ -4,8 +4,8 @@ import { useQuery, queryCache } from "react-query";
 import { useHistory } from "react-router-dom";
 import { BsTrashFill, BsPencilSquare, BsPlusCircle } from "react-icons/bs";
 import Loading from "app/layout/Loading";
-import BootstrapTable from "react-bootstrap-table-next";
-import paginationFactory from "react-bootstrap-table2-paginator";
+import Table from 'app/common/table/Table';
+import Table_Search from 'app/common/table/Table_Search';
 import "./buildings.css";
 const entity = "buildings";
 
@@ -132,7 +132,14 @@ const BuildingList1 = () => {
       </span>
     );
   };
-  const options = {
+  var options;
+  if(Object.keys(data.data).length===0){
+     options={ 
+       hideSizePerPage: true,
+       hidePageListOnlyOnePage: true
+      }
+  }else{
+   options = {
     page: page,
     sizePerPage: rows,
     totalSize: data.count, //ΠΡΕΠΕΙ ΝΑ ΜΟΥ ΣΤΕΙΛΕΙΣ ΑΠΟ ΤΟ BACKEND ΠΟΣΑ ΕΙΝΑΙ ΓΙΑ ΝΑ ΔΟΥΛΕΨΕΙ ΤΟ PAGINATION
@@ -162,51 +169,17 @@ const BuildingList1 = () => {
       },
     ],
   };
+}
 
   return (
     <React.Fragment>
-      <nav>
-        <ol className="breadcrumb" style={{ padding: "6px 15px" }}>
-          <li className="breadcrumb-item active" aria-current="page">
-            Κτίρια
-          </li>
-        </ol>
-      </nav>
-      <div className="container">
-        <div className="row">
-          <div className="col">
-            <form className="form" onSubmit={onSearch}>
-              <div className="input-group flex-fill">
-                <input
-                  type="text"
-                  className="form-control"
-                  name="search"
-                  placeholder="search.."
-                />
-                <div className="input-group-append">
-                  <button type="submit" className="btn btn-outline-primary">
-                    Search
-                  </button>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
+   <Table_Search onSearch={onSearch}/>
       {isFetching || status === "loading" ? <Loading /> : null}
-      <BootstrapTable
-        bootstrap4
-        striped
-        bordered={true}
+      <Table
         data={data.data}
-        noDataIndication={() => "Ο πίνακας είναι άδειος"}
-        keyField="id"
-        defaultSortDirection="asc"
-        remote={true}
         columns={columns}
         onTableChange={onTableChange}
-        pagination={paginationFactory(options)}
-        wrapperClasses="table-responsive"
+        options={options}
       />
     </React.Fragment>
   );

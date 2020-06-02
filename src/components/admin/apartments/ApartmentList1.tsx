@@ -7,6 +7,8 @@ import Loading from "../../../app/layout/Loading";
 import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import "../buildings/buildings.css";
+import Table from 'app/common/table/Table';
+import Table_Search from 'app/common/table/Table_Search';
 const ApartmentList1 = (props: any) => {
   const history = useHistory();
   const { fetchBuildings, deleteBuildings } = BuildingQueries();
@@ -99,14 +101,14 @@ const ApartmentList1 = (props: any) => {
   const filterFn = (value: any) => {
     return {
       $or: [
-        { "address.street": { $regex: `${value}`, $options: "i" } },
+        { "resident.lastName": { $regex: `${value}`, $options: "i" } },  //NEED FIX DO NOT FILTER 
         {
-          "address.streetnumber": {
+          "position": {
             $regex: `${value}`,
             $options: "i",
           },
         },
-        { "address.area": { $regex: `${value}`, $options: "i" } },
+        { "title": { $regex: `${value}`, $options: "i" } },
       ],
     };
   };
@@ -139,12 +141,26 @@ const ApartmentList1 = (props: any) => {
     }
     return setSort([sortField, sortOrder === "asc" ? "ASC" : "DESC"]);
   };
-
-  const options = {
+  const renderShowsTotal = (from: any, to: any, size: any) => {
+    return (
+      <span className="react-bootstrap-table-pagination-total">
+        Showing {from} to {to} of {size} Results
+      </span>
+    );
+  };
+  var options;
+  if(Object.keys(data.data).length===0){
+     options={ 
+       hideSizePerPage: true,
+        hidePageListOnlyOnePage: true
+      }
+  }else{
+   options = {
     page: page,
     sizePerPage: rows,
     totalSize: data.count, //ΠΡΕΠΕΙ ΝΑ ΜΟΥ ΣΤΕΙΛΕΙΣ ΑΠΟ ΤΟ BACKEND ΠΟΣΑ ΕΙΝΑΙ ΓΙΑ ΝΑ ΔΟΥΛΕΨΕΙ ΤΟ PAGINATION
     showTotal: true,
+    paginationTotalRenderer: renderShowsTotal,
     sizePerPageList: [
       {
         text: "5",
@@ -169,44 +185,17 @@ const ApartmentList1 = (props: any) => {
       },
     ],
   };
+}
 
   return (
     <React.Fragment>
-      <div className="container">
-        <div className="row">
-          <div className="col">
-            <form className="form" onSubmit={onSearch}>
-              <div className="input-group flex-fill">
-                <input
-                  type="text"
-                  className="form-control"
-                  name="search"
-                  placeholder="search.."
-                />
-                <div className="input-group-append">
-                  <button type="submit" className="btn btn-outline-primary">
-                    Search
-                  </button>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
+<Table_Search onSearch={onSearch}/>
       {isFetching || status === "loading" ? <Loading /> : null}
-      <BootstrapTable
-        bootstrap4
-        striped
-        bordered={true}
+      <Table
         data={data.data}
-        noDataIndication={() => "Ο πίνακας είναι άδειος"}
-        keyField="id"
-        defaultSortDirection="asc"
-        remote={true}
         columns={columns}
         onTableChange={onTableChange}
-        pagination={paginationFactory(options)}
-        wrapperClasses="table-responsive"
+        options={options}
       />
     </React.Fragment>
   );

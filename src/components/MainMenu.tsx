@@ -4,10 +4,10 @@ import { Link, useLocation } from "react-router-dom";
 // import { HomeOutlined, DashboardOutlined } from "@ant-design/icons";
 import {FaRegBuilding} from 'react-icons/fa'
 import {MdDashboard} from 'react-icons/md'
-
+import Agent from 'app/api/Agent';
 const MainMenu = () => {
   // let location = useLocation();
-
+  const {isLoggedIn}=Agent()
   return (
     // <Menu theme="dark" selectedKeys={[location.pathname]} mode="inline">
     //   <Menu.Item key="/dashboard">
@@ -36,13 +36,14 @@ const MainMenu = () => {
                       <span>Dashboard</span>
                     </Link>
                   </li>
+                { isLoggedIn() ?
                   <li>
                     <Link to={`/buildings`}>
                       <FaRegBuilding />
                       &nbsp;
                       <span>Κτίρια</span>
                     </Link>
-                  </li>
+                  </li>:<div></div>}
               </ul>
             </nav>
     </div>

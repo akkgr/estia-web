@@ -85,6 +85,20 @@ const Agent = () => {
       requests.put(`/${key}/${id}`, input),
     new_update: (key: string, input: any) => requests.put(`/${key}`, input),
   };
-  return { Buildings, Apartments };
+
+  const isLoggedIn =async ()=>{
+    const user =  await manager.getUser();
+    const token = user?.access_token;
+    if(token){
+      if (token===undefined) {
+        return false;
+    }else{
+        return true;
+      }
+    }else{
+      return false
+    }
+  }
+  return { Buildings, Apartments ,isLoggedIn};
 };
 export default Agent;

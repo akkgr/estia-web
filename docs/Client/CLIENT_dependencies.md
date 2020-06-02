@@ -41,3 +41,7 @@
 ## react-icons
 
     Svg react icons of popular icon packs   
+
+## react-bootstrap-table-next ,react-bootstrap-table2-paginator
+    
+    Bootstrap Table for React and additional dependency for paginator

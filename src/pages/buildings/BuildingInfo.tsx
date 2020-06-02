@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useQuery } from "react-query";
 import axios from "axios";
@@ -18,6 +18,7 @@ import Tab from "app/common/tabs/Tab";
 import TabItemButton from "app/common/tabs/TabItemButton";
 import TabItem from "app/common/tabs/TabItem";
 import PageHeader from "app/common/headers/PageHeader";
+import { ProviderType } from "app/models/Provider";
 
 const entity = "buildings";
 const uri = process.env.REACT_APP_API_URL + "/api";
@@ -28,13 +29,15 @@ const BuildingInfo = () => {
 
   const [tabActiveData, setTabActiveData] = useState<boolean>(true);
   const [tabActiveHeating, setActiveHeating] = useState<boolean>(false);
-  const [tabActiveStatus, setActiveStatus] = useState<boolean>(false);
-  const [tabActivePower, setActivePower] = useState<boolean>(false);
-  const [tabActiveGas, setActiveGas] = useState<boolean>(false);
-  const [tabActiveWater, setActiveWater] = useState<boolean>(false);
+  const [tabActiveProvider, setActiveProvider] = useState<boolean>(false);
+  // const [tabActivePower, setActivePower] = useState<boolean>(false);
+  // const [tabActiveGas, setActiveGas] = useState<boolean>(false);
+  // const [tabActiveWater, setActiveWater] = useState<boolean>(false);
+  // const [tabActivePhone, setActivePhone] = useState<boolean>(false);
   const [tabActiveOtherInfo, setActiveOtherInfo] = useState<boolean>(false);
-  const [tabActivePhone, setActivePhone] = useState<boolean>(false);
   const [tabActivePdf, setActivePdf] = useState<boolean>(false);
+
+  const [disableSaveButton, setDisableSaveButton] = useState<boolean>();
 
   const fetchData = async (key: string, id: string | undefined) => {
     const user = await manager.getUser();
@@ -72,11 +75,7 @@ const BuildingInfo = () => {
     if (reference === "data") {
       setTabActiveData(true);
       setActiveOtherInfo(false);
-      setActivePower(false);
-      setActiveGas(false);
-      setActiveWater(false);
-      setActiveStatus(false);
-      setActivePhone(false);
+      setActiveProvider(false);
       setActivePdf(false);
       setActiveHeating(false);
     }
@@ -85,86 +84,86 @@ const BuildingInfo = () => {
       setTabActiveData(false);
       setActiveHeating(true);
       setActiveOtherInfo(false);
-      setActivePower(false);
-      setActiveGas(false);
-      setActiveWater(false);
-      setActiveStatus(false);
-      setActivePhone(false);
+      setActiveProvider(false);
       setActivePdf(false);
     }
 
-    if (reference === "power") {
-      setActivePower(true);
+    if (reference === "provider") {
+      setActiveProvider(true);
       setActiveOtherInfo(false);
-      setActiveWater(false);
-      setActiveGas(false);
       setTabActiveData(false);
-      setActiveStatus(false);
-      setActivePhone(false);
       setActivePdf(false);
       setActiveHeating(false);
     }
 
-    if (reference === "gas") {
-      setActiveGas(true);
-      setTabActiveData(false);
-      setActiveOtherInfo(false);
-      setActivePower(false);
-      setActiveWater(false);
-      setActiveStatus(false);
-      setActivePhone(false);
-      setActivePdf(false);
-      setActiveHeating(false);
-    }
-
-    if (reference === "water") {
-      setActiveWater(true);
-      setActiveOtherInfo(false);
-      setActivePower(false);
-      setActiveGas(false);
-      setTabActiveData(false);
-      setActiveStatus(false);
-      setActivePhone(false);
-      setActivePdf(false);
-      setActiveHeating(false);
-    }
 
     if (reference === "otherInfo") {
       setActiveOtherInfo(true);
       setTabActiveData(false);
-      setActivePower(false);
-      setActiveGas(false);
-      setActiveWater(false);
-      setActiveStatus(false);
-      setActivePhone(false);
-      setActivePdf(false);
-      setActiveHeating(false);
-    }
-
-    if (reference === "phone") {
-      setActiveOtherInfo(false);
-      setTabActiveData(false);
-      setActivePower(false);
-      setActiveGas(false);
-      setActiveWater(false);
-      setActiveStatus(false);
-      setActivePhone(true);
+      setActiveProvider(false);
       setActivePdf(false);
       setActiveHeating(false);
     }
 
     if (reference === "pdf") {
       setActivePdf(true);
-      setActivePower(false);
+      setActiveProvider(false);
       setActiveOtherInfo(false);
-      setActiveWater(false);
-      setActiveGas(false);
       setTabActiveData(false);
-      setActivePhone(false);
-      setActiveStatus(false);
       setActiveHeating(false);
     }
   };
+
+  const TestDataProvidersElecticity = [
+    {
+      providerType: ProviderType.Electricity,
+      providerName: "ΔΕΗ",
+      customerName: "thisCustomer",
+      contractNumber: "1243245798237",
+      connectionNumber: "wqf234324",
+      counterNumber: "co34241243",
+      paymentCode: "pay6768976",
+      interval: 0,
+      day: 1,
+      office: true,
+    },
+    {
+      providerType: ProviderType.Water,
+      providerName: "ΕΥΔΑΠ",
+      customerName: "thisCustomer",
+      contractNumber: "124324435342",
+      connectionNumber: "sdfswf234324",
+      counterNumber: "bgdnb3567567243",
+      paymentCode: "pay6734765476",
+      interval: 0,
+      day: 1,
+      office: true,
+    },
+    {
+      providerType: ProviderType.Gas,
+      providerName: "Nrg",
+      customerName: "thisCustomer",
+      contractNumber: "47568967876",
+      connectionNumber: "gfhngfj234324",
+      counterNumber: "co456745634",
+      paymentCode: "pay676575676",
+      interval: 0,
+      day: 1,
+      office: true,
+    },
+    {
+      providerType: ProviderType.Telecommunications,
+      providerName: "Cosmote",
+      customerName: "thisCustomer",
+      contractNumber: "1435234237",
+      connectionNumber: "dsf43534",
+      counterNumber: "co3fdhd435243",
+      paymentCode: "pay45y45g76",
+      interval: 0,
+      day: 1,
+      office: true,
+    },
+  ];
 
   return (
     <React.Fragment>
@@ -172,12 +171,15 @@ const BuildingInfo = () => {
       <Form
         formElements={
           <React.Fragment>
-            <PageHeader returnUrl="/buildings">
+            <PageHeader
+              returnUrl="/buildings"
+              disableSubmitButton={disableSaveButton}
+            >
               <li className="breadcrumb-item active" aria-current="page">
                 <Link to="/buildings">Κτίρια</Link>
               </li>
               <li className="breadcrumb-item active" aria-current="page">
-                {data.address.street} {data.address.streetNumber},
+                {data.address.street} {data.address.streetNumber},{" "}
                 {data.address.area}
               </li>
             </PageHeader>
@@ -200,34 +202,16 @@ const BuildingInfo = () => {
                           tabOnClick={() => tabActivate("heating")}
                         />
                         <TabItemButton
-                          reference="power"
-                          message="Στοιχεία Λογαριασμού Ηλ. Ρεύματος"
-                          activeTabButton={tabActivePower}
-                          tabOnClick={() => tabActivate("power")}
-                        />
-                        <TabItemButton
-                          reference="water"
-                          message="Στοιχεία Λογαριασμού Ύδρευσης"
-                          activeTabButton={tabActiveWater}
-                          tabOnClick={() => tabActivate("water")}
-                        />
-                        <TabItemButton
-                          reference="gas"
-                          message="Στοιχεία Λογαριασμού Φυσικού Αερίου"
-                          activeTabButton={tabActiveGas}
-                          tabOnClick={() => tabActivate("gas")}
+                          reference="provider"
+                          message="Στοιχεία Παρόχων"
+                          activeTabButton={tabActiveProvider}
+                          tabOnClick={() => tabActivate("provider")}
                         />
                         <TabItemButton
                           reference="otherInfo"
                           message="Διάφορες Πληροροφορίες"
                           activeTabButton={tabActiveOtherInfo}
                           tabOnClick={() => tabActivate("otherInfo")}
-                        />
-                        <TabItemButton
-                          reference="phone"
-                          message="Στοιχεία Λογαριασμού Τηλεφων. Γραμμής"
-                          activeTabButton={tabActivePhone}
-                          tabOnClick={() => tabActivate("phone")}
                         />
                         <TabItemButton
                           reference="pdf"
@@ -261,14 +245,44 @@ const BuildingInfo = () => {
                             />
                           }
                         />
-                        <TabItem tabId="power" item={<BuildingPower />} />
-                        <TabItem tabId="water" item={<BuildingWater />} />
-                        <TabItem tabId="gas" item={<BuildingGas />} />
+                        <TabItem
+                          tabId="power"
+                          item={
+                            <BuildingPower
+                              providerPower={TestDataProvidersElecticity[0]}
+                            />
+                          }
+                        />
+                        {/* <TabItem
+                          tabId="water"
+                          item={
+                            <BuildingWater
+                              providerWater={TestDataProvidersElecticity[1]}
+                            />
+                          }
+                        />
+                        <TabItem
+                          tabId="gas"
+                          item={
+                            <BuildingGas
+                              providerGas={TestDataProvidersElecticity[2]}
+                            />
+                          }
+                        />
+                        <TabItem
+                          tabId="phone"
+                          item={
+                            <BuildingPhone
+                              providerPhone={TestDataProvidersElecticity[3]}
+                            />
+                          }
+                        /> */}
                         <TabItem
                           tabId="otherInfo"
-                          item={<BuildingOtherInfo />}
+                          item={
+                            <BuildingOtherInfo bankReason={data.bankReason} />
+                          }
                         />
-                        <TabItem tabId="phone" item={<BuildingPhone />} />
                         <TabItem tabId="pdf" item={<BuildingPdf />} />
                       </React.Fragment>
                     }

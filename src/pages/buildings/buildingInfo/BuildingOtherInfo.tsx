@@ -1,7 +1,11 @@
 import React from "react";
 import TextInput from "app/common/form/TextInput";
 
-const BuildingOtherInfo = () => {
+interface IOtherInfo {
+  bankReason: string;
+}
+
+const BuildingOtherInfo: React.FC<IOtherInfo> = ({ bankReason }) => {
   return (
     <React.Fragment>
       <div className="row mt-5">
@@ -20,6 +24,7 @@ const BuildingOtherInfo = () => {
           <TextInput
             type="text"
             label="Αιτιολογία :"
+            value={bankReason}
             name="bankReason"
             placeholder="Αιτιολογία ..."
             invalidMessage="Συμπληρώστε την Αιτιολογία"

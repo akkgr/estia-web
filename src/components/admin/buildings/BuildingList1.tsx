@@ -29,7 +29,7 @@ const BuildingList1 = () => {
       sort: true,
     },
     {
-      dataField: "address.streetnumber",
+      dataField: "address.streetNumber",
       text: "Αριθμός",
       sort: true,
     },

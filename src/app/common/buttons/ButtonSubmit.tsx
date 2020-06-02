@@ -6,6 +6,7 @@ interface IButtonSubmit {
   dataToggle?: string;
   dataPlacement?: string;
   title?: string;
+  disable?: boolean;
 }
 
 const ButtonSubmit: React.FC<IButtonSubmit> = ({
@@ -13,7 +14,8 @@ const ButtonSubmit: React.FC<IButtonSubmit> = ({
   classname,
   dataToggle,
   dataPlacement,
-  title
+  title,
+  disable
 }) => {
 
   const checkClassname = (classname?: string) => {
@@ -40,6 +42,7 @@ const ButtonSubmit: React.FC<IButtonSubmit> = ({
         data-topgle={checkDataToggle(dataToggle)}
         data-placement={checkPlacement(dataPlacement)}
         title={checkTitle(title)}
+        disabled={disable}
       >
         {message}
       </button>

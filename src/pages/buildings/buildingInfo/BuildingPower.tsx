@@ -2,17 +2,23 @@ import React from "react";
 import TextInput from "app/common/form/TextInput";
 import TextArea from "app/common/form/TextArea";
 import Checkbox from "app/common/form/Checkbox";
+import { Provider } from "app/models/Provider";
 
-const BuildingPower = () => {
+interface IProviderPower {
+  providerPower: Provider;
+}
+
+const BuildingPower: React.FC<IProviderPower> = ({ providerPower }) => {
   return (
     <React.Fragment>
-      <div className="row mt-5">
+      {/* <div>{JSON.stringify(providerPower)}</div> */}
+      <div className="row">
         <div className="col-md-3 mb-3">
           <TextInput
             type="text"
             label="Πάροχος :"
-            name="powerSupplier"
-            value="ΔΕΗ"
+            name="providerNamePower"
+            value={providerPower.providerName}
             placeholder="Πάροχος..."
             required={true}
             // validMessage="Έγκυρος Αριθμός Μετρητή"
@@ -24,8 +30,8 @@ const BuildingPower = () => {
           <TextInput
             type="text"
             label="Αριθμός Συμβολαίου :"
-            name="contractId"
-            // value="ΔΕΗ"
+            name="contractNumberPower"
+            value={providerPower.contractNumber}
             placeholder="Αριθμός Συμβολαίου..."
             required={true}
             // validMessage="Έγκυρος Αριθμός Μετρητή"
@@ -39,8 +45,8 @@ const BuildingPower = () => {
           <TextInput
             type="text"
             label="Αριθμός Μετρητή :"
-            name="counter"
-            // value="999999999"
+            name="counterNumberPower"
+            value={providerPower.counterNumber}
             placeholder="Αριθμός Μετρητή..."
             required={true}
             // validMessage="Έγκυρος Αριθμός Μετρητή"
@@ -52,8 +58,8 @@ const BuildingPower = () => {
           <TextInput
             type="text"
             label="Κωδικός Ηλεκτρ. Πληρωμής : "
-            name="code"
-            // value="999999999"
+            name="paymentCodePower"
+            value={providerPower.paymentCode}
             placeholder="Κωδικός Ηλεκτρ. Πληρωμής..."
             required={true}
             // validMessage="Έγκυρος Κωδικός Ηλεκτρ. Πληρωμής"
@@ -64,8 +70,8 @@ const BuildingPower = () => {
         <div className="col-md-3 mb-3">
           <TextInput
             label="Αριθμός Παροχής :"
-            name="receiveNumber"
-            // value="999999999"
+            name="connectionNumberPower"
+            value={providerPower.connectionNumber}
             placeholder="Αριθμός Παροχής..."
             required={true}
             // validMessage="Έγκυρος Αριθμός Παροχής"
@@ -83,10 +89,13 @@ const BuildingPower = () => {
             placeholder="Επωνυμία..."
           />
         </div>
+      </div>
 
+      <div className="row mt-3">
         <div className="col-md-9 mb-3">
           <Checkbox
-            name="receiveDeskPower"
+            name="officePower"
+            checked={providerPower.office}
             label="Παραλαβή λογ. στο γραφείο"
             required={true}
           />

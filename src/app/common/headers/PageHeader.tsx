@@ -13,11 +13,13 @@ interface IHeader {
   headerName?: string;
   subHeaderName?: string;
   returnUrl: string;
+  disableSubmitButton?: boolean;
 }
 
 const PageΗeader: React.FC<IHeader> = ({
   returnUrl,
   children,
+  disableSubmitButton
 }) => {
   const history = useHistory();
 
@@ -45,6 +47,7 @@ const PageΗeader: React.FC<IHeader> = ({
                 dataToggle="tooltip"
                 dataPlacement="bottom"
                 title="Αποθήκευση"
+                disable={disableSubmitButton}
               />
             </div>
             <div className="col-md-auto">

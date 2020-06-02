@@ -2,35 +2,85 @@ import React from "react";
 import TextInput from "app/common/form/TextInput";
 import TextArea from "app/common/form/TextArea";
 import Checkbox from "app/common/form/Checkbox";
+import { Provider } from "app/models/Provider";
 
-const BuildingGas = () => {
+interface IProviderGas {
+  providerGas: Provider;
+}
+
+
+const BuildingGas: React.FC<IProviderGas> = ({ providerGas }) => {
   return (
     <React.Fragment>
-      <div className="row mt-5">
+      <div className="row">
         <div className="col-md-3 mb-3">
           <TextInput
             type="text"
-            label="Κωδικός πελάτη :"
-            name="codeCustomer"
-            placeholder="Κωδικός πελάτη..."
+            label="Πάροχος :"
+            name="providerNameGas"
+            value={providerGas.providerName}
+            placeholder="Πάροχος..."
             required={true}
-            invalidMessage="Συμπληρώστε τον Κωδικό του Πελάτη"
+            // validMessage="Έγκυρος Αριθμός Μετρητή"
+            invalidMessage="Συμπληρώστε τον Πάροχο"
           />
         </div>
 
         <div className="col-md-3 mb-3">
           <TextInput
             type="text"
-            label="Κωδικός Ηλεκτρονικής πληρωμής :"
-            name="codePayment"
-            placeholder="Κωδικός Ηλεκτρονικής πληρωμής..."
+            label="Αριθμός Συμβολαίου :"
+            name="contractNumberGas"
+            value={providerGas.contractNumber}
+            placeholder="Αριθμός Συμβολαίου..."
             required={true}
-            invalidMessage="Συμπληρώστε τον Κωδικό Ηλεκτρονικής πληρωμής"
+            // validMessage="Έγκυρος Αριθμός Μετρητή"
+            invalidMessage="Συμπληρώστε τον Αριθμό Συμβολαίου"
           />
         </div>
       </div>
 
-      <div className="row mt-5">
+      <div className="row mt-3">
+        <div className="col-md-3 mb-3">
+          <TextInput
+            type="text"
+            label="Αριθμός Μετρητή :"
+            name="counterNumberGas"
+            value={providerGas.counterNumber}
+            placeholder="Αριθμός Μετρητή..."
+            required={true}
+            // validMessage="Έγκυρος Αριθμός Μετρητή"
+            invalidMessage="Συμπληρώστε τον Αριθμό Μετρητή"
+          />
+        </div>
+
+        <div className="col-md-3 mb-3">
+          <TextInput
+            type="text"
+            label="Κωδικός Ηλεκτρ. Πληρωμής : "
+            name="paymentCodeGas"
+            value={providerGas.paymentCode}
+            placeholder="Κωδικός Ηλεκτρ. Πληρωμής..."
+            required={true}
+            // validMessage="Έγκυρος Κωδικός Ηλεκτρ. Πληρωμής"
+            invalidMessage="Συμπληρώστε τον Κωδικό Ηλεκτρ. Πληρωμής"
+          />
+        </div>
+
+        <div className="col-md-3 mb-3">
+          <TextInput
+            label="Αριθμός Παροχής :"
+            name="connectionNumberGas"
+            value={providerGas.connectionNumber}
+            placeholder="Αριθμός Παροχής..."
+            required={true}
+            // validMessage="Έγκυρος Αριθμός Παροχής"
+            invalidMessage="Συμπληρώστε τον Αριθμό Παροχής"
+          />
+        </div>
+      </div>
+
+      <div className="row mt-3">
         <div className="col-md-3 mb-3">
           <TextArea
             name="brandNameGas"
@@ -42,9 +92,10 @@ const BuildingGas = () => {
       </div>
 
       <div className="row mt-3">
-        <div className="col-md-6 mb-3">
+        <div className="col-md-9 mb-3">
           <Checkbox
-            name="receiveGas"
+            name="officeGas"
+            checked={providerGas.office}
             label="Παραλαβή λογ. στο γραφείο"
             required={true}
           />

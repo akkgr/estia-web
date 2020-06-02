@@ -14,6 +14,6 @@ export interface Provider {
 export enum ProviderType {
   Electricity,
   Water,
-  Cas,
+  Gas,
   Telecommunications,
 }

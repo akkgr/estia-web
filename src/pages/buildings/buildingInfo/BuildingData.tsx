@@ -25,7 +25,7 @@ const BuildingData: React.FC<IBuildingData> = ({
 
   return (
     <React.Fragment>
-      <div className="row mt-3">
+      <div className="row">
         <div className="col-md-3 mb-2">
           <TextInput
             type="text"
@@ -69,7 +69,7 @@ const BuildingData: React.FC<IBuildingData> = ({
           <TextInput
             type="text"
             label="Αριθμός :"
-            name="number"
+            name="streetNumber"
             value={address.streetNumber}
             placeholder="Αριθμός"
             required={true}
@@ -82,7 +82,7 @@ const BuildingData: React.FC<IBuildingData> = ({
           <TextInput
             type="text"
             label="ΤΚ :"
-            name="tk"
+            name="postalCode"
             value={address.postalCode}
             placeholder="ΤΚ"
             required={true}

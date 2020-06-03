@@ -1,5 +1,4 @@
 import React from "react";
-import DataTable from "./DataTable";
 import SelectInputSearch from "app/common/form/SelectInputSearch";
 
 const Year = [
@@ -102,11 +101,11 @@ export const BuildingPaymentList = (props: any) => {
         options={Year}
       />
       <br />
-      <DataTable
+      {/* <DataTable
         entity={`buildings/${props.data.id}/apartments`}
         columns={columns}
         filterFn={filterFn}
-      />
+      /> */}
     </div>
   );
 };

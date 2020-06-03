@@ -2,7 +2,6 @@ import React, { lazy } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 
 const Dashboard = lazy(() => import("pages/Dashboard"));
-const BuildingList = lazy(() => import("pages/buildings/BuildingList"));
 const NewBuilding = lazy(() => import("pages/buildings/NewBuilding"));
 const BuildingForm = lazy(() => import("pages/buildings/BuildingForm"));
 const Ratings = lazy(() => import("pages/buildings/Ratings"));
@@ -13,8 +12,8 @@ const NewApartment = lazy(() => import("pages/apartments/NewApartment"));
 const ApartmentForm = lazy(() => import("pages/apartments/ApartmentForm"));
 
 const Callback = lazy(() => import("pages/Callback"));
-const BuildingList1 = lazy(() =>
-  import("components/admin/buildings/BuildingList1")
+const BuildingList = lazy(() =>
+  import("components/admin/buildings/BuildingList")
 );
 const NotFound = lazy(() => import("app/layout/NotFound"));
 const Silent = lazy(() => import("pages/Silent"));
@@ -30,7 +29,7 @@ function Routes(props: any) {
         <Dashboard changeUser={props.changeUser} />
       </Route>
 
-      <Route exact path="/buildings" component={BuildingList1} />
+      <Route exact path="/buildings" component={BuildingList} />
 
       <Route exact path="/buildings/new" component={NewBuilding} />
 
@@ -41,7 +40,6 @@ function Routes(props: any) {
       <Route exact path="/buildings/:id/info" component={BuildingInfo} />
       <Route exact path="/buildings/:id/payments" component={BuildingPay} />
 
-      <Route exact path="/buildings/:id/try" component={BuildingList1} />
       <Route
         exact
         path="/buildings/:id/apartments/new"

@@ -1,15 +1,15 @@
 import React, { useState, SyntheticEvent, useCallback } from "react";
-import BuildingQueries from "../buildings/BuildingQueries";
+import BuildingQueries from "components/admin/buildings/BuildingQueries";
 import { useQuery, queryCache } from "react-query";
 import { useHistory } from "react-router-dom";
 import { BsTrashFill, BsPencilSquare, BsPlusCircle } from "react-icons/bs";
-import Loading from "../../../app/layout/Loading";
-import BootstrapTable from "react-bootstrap-table-next";
-import paginationFactory from "react-bootstrap-table2-paginator";
-import "../buildings/buildings.css";
+import Loading from "app/layout/Loading";
 import Table from 'app/common/table/Table';
 import Table_Search from 'app/common/table/Table_Search';
-const ApartmentList1 = (props: any) => {
+import "./buildings.css";
+const entity = "buildings";
+
+const BuildingList = () => {
   const history = useHistory();
   const { fetchBuildings, deleteBuildings } = BuildingQueries();
   const [page, setPage] = useState(1);
@@ -17,38 +17,21 @@ const ApartmentList1 = (props: any) => {
   const [total, setTotal] = useState(0);
   const [sort, setSort] = useState(["id", "ASC"]);
   const [filter, setFilter] = useState({});
-  const entity = "buildings/" + props.data.id + "/apartments";
-
   const columns = [
     {
-      dataField: "position",
-      text: "A/A",
+      dataField: "address.area",
+      text: "Περιοχή",
       sort: true,
     },
     {
-      dataField: "title",
-      text: "Διαμέρισμα",
+      dataField: "address.street",
+      text: "Οδός",
       sort: true,
     },
     {
-      dataField: "owner",
+      dataField: "address.streetNumber",
       text: "Αριθμός",
       sort: true,
-      formatter: (cell: any, row: any) => (
-        <div>
-          {row.owner?.lastName || ""} {row.owner?.firstName || ""}
-        </div>
-      ),
-    },
-    {
-      dataField: "resident",
-      text: "Ένοικος",
-      sort: true,
-      formatter: (cell: any, row: any) => (
-        <div>
-          {row.resident?.lastName || ""} {row.resident?.firstName || ""}
-        </div>
-      ),
     },
     {
       dataField: "Actions",
@@ -90,6 +73,12 @@ const ApartmentList1 = (props: any) => {
       ),
     },
   ];
+
+  const { status, data, isFetching } = useQuery<
+    any,
+    [string, number, number, string[], {}]
+  >([entity, page, rows, sort, filter], fetchBuildings);
+
   const memoizedCallback = useCallback(
     async (id: string) => {
       await deleteBuildings(id);
@@ -101,22 +90,17 @@ const ApartmentList1 = (props: any) => {
   const filterFn = (value: any) => {
     return {
       $or: [
-        { "resident.lastName": { $regex: `${value}`, $options: "i" } },  //NEED FIX DO NOT FILTER 
+        { "address.street": { $regex: `${value}`, $options: "i" } },
         {
-          "position": {
+          "address.streetnumber": {
             $regex: `${value}`,
             $options: "i",
           },
         },
-        { "title": { $regex: `${value}`, $options: "i" } },
+        { "address.area": { $regex: `${value}`, $options: "i" } },
       ],
     };
   };
-
-  const { status, data, isFetching } = useQuery<
-    any,
-    [string, number, number, string[], {}]
-  >([entity, page, rows, sort, filter], fetchBuildings);
 
   const onSearch = (event: any) => {
     event.preventDefault();
@@ -152,7 +136,7 @@ const ApartmentList1 = (props: any) => {
   if(Object.keys(data.data).length===0){
      options={ 
        hideSizePerPage: true,
-        hidePageListOnlyOnePage: true
+       hidePageListOnlyOnePage: true
       }
   }else{
    options = {
@@ -189,7 +173,7 @@ const ApartmentList1 = (props: any) => {
 
   return (
     <React.Fragment>
-<Table_Search onSearch={onSearch}/>
+   <Table_Search onSearch={onSearch}/>
       {isFetching || status === "loading" ? <Loading /> : null}
       <Table
         data={data.data}
@@ -201,4 +185,4 @@ const ApartmentList1 = (props: any) => {
   );
 };
 
-export default ApartmentList1;
+export default BuildingList;

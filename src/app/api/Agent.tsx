@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import axios, { AxiosResponse } from "axios";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -86,19 +86,19 @@ const Agent = () => {
     new_update: (key: string, input: any) => requests.put(`/${key}`, input),
   };
 
-  const isLoggedIn =async ()=>{
-    const user =  await manager.getUser();
+  const isLoggedIn = async () => {
+    const user = await manager.getUser();
     const token = user?.access_token;
-    if(token){
-      if (token===undefined) {
+    if (token) {
+      if (token === undefined) {
         return false;
-    }else{
+      } else {
         return true;
       }
-    }else{
-      return false
+    } else {
+      return false;
     }
-  }
-  return { Buildings, Apartments ,isLoggedIn};
+  };
+  return { Buildings, Apartments, isLoggedIn };
 };
 export default Agent;

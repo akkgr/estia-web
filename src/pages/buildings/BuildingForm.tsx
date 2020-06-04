@@ -55,6 +55,7 @@ const BuildingForm = () => {
       <Form.Provider
         onFormFinish={(name, { values, forms }) => {
           const { addressForm } = forms;
+          console.log(values);
           addressForm.validateFields().then((values) => updateAddress(values));
         }}
       >

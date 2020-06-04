@@ -1,5 +1,3 @@
-import { useContext } from "react";
-import UserContext from "UserContext";
 import Agent from "app/api/Agent";
 
 const ApartmentsQueries = (id: string) => {

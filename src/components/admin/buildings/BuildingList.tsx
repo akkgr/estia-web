@@ -1,11 +1,11 @@
-import React, { useState, SyntheticEvent, useCallback } from "react";
+import React, { useState, useCallback } from "react";
 import BuildingQueries from "components/admin/buildings/BuildingQueries";
 import { useQuery, queryCache } from "react-query";
 import { useHistory } from "react-router-dom";
 import { BsTrashFill, BsPencilSquare, BsPlusCircle } from "react-icons/bs";
 import Loading from "app/layout/Loading";
-import Table from 'app/common/table/Table';
-import Table_Search from 'app/common/table/Table_Search';
+import Table from "app/common/table/Table";
+import Table_Search from "app/common/table/Table_Search";
 import "./buildings.css";
 const entity = "buildings";
 
@@ -14,7 +14,7 @@ const BuildingList = () => {
   const { fetchBuildings, deleteBuildings } = BuildingQueries();
   const [page, setPage] = useState(1);
   const [rows, setRows] = useState(10);
-  const [total, setTotal] = useState(0);
+  // const [total, setTotal] = useState(0);
   const [sort, setSort] = useState(["id", "ASC"]);
   const [filter, setFilter] = useState({});
   const columns = [
@@ -84,7 +84,7 @@ const BuildingList = () => {
       await deleteBuildings(id);
       queryCache.refetchQueries([entity, page, rows, filter]);
     },
-    [entity, page, rows, filter]
+    [page, rows, filter, deleteBuildings]
   );
 
   const filterFn = (value: any) => {
@@ -116,7 +116,7 @@ const BuildingList = () => {
     type: any,
     { page, sizePerPage, sortField, sortOrder }: any
   ): void => {
-    setTotal(data.count);
+    // setTotal(data.count);
     setPage(page);
     setRows(sizePerPage);
     if (!sortField || !sortOrder) {
@@ -133,47 +133,47 @@ const BuildingList = () => {
     );
   };
   var options;
-  if(Object.keys(data.data).length===0){
-     options={ 
-       hideSizePerPage: true,
-       hidePageListOnlyOnePage: true
-      }
-  }else{
-   options = {
-    page: page,
-    sizePerPage: rows,
-    totalSize: data.count, //ΠΡΕΠΕΙ ΝΑ ΜΟΥ ΣΤΕΙΛΕΙΣ ΑΠΟ ΤΟ BACKEND ΠΟΣΑ ΕΙΝΑΙ ΓΙΑ ΝΑ ΔΟΥΛΕΨΕΙ ΤΟ PAGINATION
-    showTotal: true,
-    paginationTotalRenderer: renderShowsTotal,
-    sizePerPageList: [
-      {
-        text: "5",
-        value: 5,
-      },
-      {
-        text: "10",
-        value: 10,
-      },
-      {
-        text: "30",
-        value: 30,
-      },
-      {
-        text: "50",
-        value: 50,
-      },
+  if (Object.keys(data.data).length === 0) {
+    options = {
+      hideSizePerPage: true,
+      hidePageListOnlyOnePage: true,
+    };
+  } else {
+    options = {
+      page: page,
+      sizePerPage: rows,
+      totalSize: data.count, //ΠΡΕΠΕΙ ΝΑ ΜΟΥ ΣΤΕΙΛΕΙΣ ΑΠΟ ΤΟ BACKEND ΠΟΣΑ ΕΙΝΑΙ ΓΙΑ ΝΑ ΔΟΥΛΕΨΕΙ ΤΟ PAGINATION
+      showTotal: true,
+      paginationTotalRenderer: renderShowsTotal,
+      sizePerPageList: [
+        {
+          text: "5",
+          value: 5,
+        },
+        {
+          text: "10",
+          value: 10,
+        },
+        {
+          text: "30",
+          value: 30,
+        },
+        {
+          text: "50",
+          value: 50,
+        },
 
-      {
-        text: "All",
-        value: data.count,
-      },
-    ],
-  };
-}
+        {
+          text: "All",
+          value: data.count,
+        },
+      ],
+    };
+  }
 
   return (
     <React.Fragment>
-   <Table_Search onSearch={onSearch}/>
+      <Table_Search onSearch={onSearch} />
       {isFetching || status === "loading" ? <Loading /> : null}
       <Table
         data={data.data}

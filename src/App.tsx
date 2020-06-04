@@ -7,8 +7,7 @@ import React, {
 } from "react";
 import { ReactQueryConfigProvider } from "react-query";
 import "./App.css";
-import { BrowserRouter as Router , Link } from "react-router-dom";
-import { Layout } from "antd";
+import { BrowserRouter as Router } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -17,10 +16,6 @@ import MainMenu from "components/MainMenu";
 import MainHeader from "components/MainHeader";
 import Routes from "app/layout/Routes";
 import Loading from "app/layout/Loading";
-
-import { FiMenu } from 'react-icons/fi'
-
-const { Content, Footer, Sider } = Layout;
 
 const queryConfig = {
   // Global
@@ -94,7 +89,7 @@ function App() {
           </Layout> */}
           <div className="wrapper">
             <MainMenu></MainMenu>
-            <div id="content" >
+            <div id="content">
               <MainHeader
                 collapsed={collapsed}
                 menuClick={menuClick}
@@ -102,18 +97,18 @@ function App() {
                 user={user}
               />
               <br />
-              <div id="routes-content" style={{margin: 15 }}>
+              <div id="routes-content" style={{ margin: 15 }}>
                 <Routes changeUser={changeUser} />
               </div>
             </div>
+          </div>
+          <div className="footer">
+            <div className="media-container-row align-center ">
+              <p className="mbr-text mb-0 mbr-fonts-style display-7 text-center bg-dark text-white ">
+                Copyright © 2020 - GG noob
+              </p>
             </div>
-            <div className="footer">
-                <div className="media-container-row align-center ">
-                        <p className="mbr-text mb-0 mbr-fonts-style display-7 text-center bg-dark text-white ">
-                        Copyright © 2020 - GG noob
-                    </p>
-                </div>
-            </div>
+          </div>
         </Router>
       </Suspense>
     </ReactQueryConfigProvider>

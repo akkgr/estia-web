@@ -1,5 +1,4 @@
 import React from "react";
-import FormItemInput from "antd/lib/form/FormItemInput";
 
 const files = [
   { id: 1, date: "30/5/2020", value: "Αρχείο-1.pdf" },

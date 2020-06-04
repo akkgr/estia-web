@@ -8,18 +8,18 @@ const NotFound = () => {
         <div className="col-md-12">
           <div className="error-template">
             <h1>Oops!</h1>
-            <h2>404 Not Found</h2>
+            <h2>404 Δεν βρέθηκε η σελίδα</h2>
             <div className="error-details">
-              Sorry, an error has occured, Requested page not found!
+              Σόρρυ,Εντοπίστηκε σφάλμα,Η σελίδα δεν βρέθηκε!
             </div>
             <div className="error-actions">
               <Link to="/" className="btn btn-primary btn-lg">
                 <span className="glyphicon glyphicon-home"></span>
-                Take Me Home{" "}
+                Κεντρική σελίδα{" "}
               </Link>
               <Link to="/dashboard" className="btn btn-danger btn-lg">
-                <span className="glyphicon glyphicon-envelope"></span> Contact
-                Support{" "}
+                <span className="glyphicon glyphicon-envelope"></span>{" "}
+                Επικοινωνήστε με την Υποστήριξη{" "}
               </Link>
             </div>
           </div>

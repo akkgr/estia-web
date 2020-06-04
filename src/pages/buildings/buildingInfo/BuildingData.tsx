@@ -1,8 +1,5 @@
 import React, { useState } from "react";
-import SelectInputSearch from "app/common/form/SelectInputSearch";
 import TextInput from "app/common/form/TextInput";
-import RadioInput from "app/common/form/RadioInput";
-import Checkbox from "app/common/form/Checkbox";
 import { DateTimePicker } from "app/common/form/DateTimePicker";
 
 interface IBuildingData {

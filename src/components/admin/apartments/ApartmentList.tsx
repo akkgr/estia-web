@@ -1,20 +1,18 @@
-import React, { useState, SyntheticEvent, useCallback } from "react";
+import React, { useState, useCallback } from "react";
 import BuildingQueries from "../buildings/BuildingQueries";
 import { useQuery, queryCache } from "react-query";
 import { useHistory } from "react-router-dom";
 import { BsTrashFill, BsPencilSquare, BsPlusCircle } from "react-icons/bs";
 import Loading from "../../../app/layout/Loading";
-import BootstrapTable from "react-bootstrap-table-next";
-import paginationFactory from "react-bootstrap-table2-paginator";
 import "../buildings/buildings.css";
-import Table from 'app/common/table/Table';
-import Table_Search from 'app/common/table/Table_Search';
+import Table from "app/common/table/Table";
+import Table_Search from "app/common/table/Table_Search";
 const ApartmentList = (props: any) => {
   const history = useHistory();
   const { fetchBuildings, deleteBuildings } = BuildingQueries();
   const [page, setPage] = useState(1);
   const [rows, setRows] = useState(10);
-  const [total, setTotal] = useState(0);
+  // const [total, setTotal] = useState(0);
   const [sort, setSort] = useState(["id", "ASC"]);
   const [filter, setFilter] = useState({});
   const entity = "buildings/" + props.data.id + "/apartments";
@@ -95,20 +93,20 @@ const ApartmentList = (props: any) => {
       await deleteBuildings(id);
       queryCache.refetchQueries([entity, page, rows, filter]);
     },
-    [entity, page, rows, filter]
+    [entity, page, rows, filter, deleteBuildings]
   );
 
   const filterFn = (value: any) => {
     return {
       $or: [
-        { "resident.lastName": { $regex: `${value}`, $options: "i" } },  //NEED FIX DO NOT FILTER 
+        { "resident.lastName": { $regex: `${value}`, $options: "i" } }, //NEED FIX DO NOT FILTER
         {
-          "position": {
+          position: {
             $regex: `${value}`,
             $options: "i",
           },
         },
-        { "title": { $regex: `${value}`, $options: "i" } },
+        { title: { $regex: `${value}`, $options: "i" } },
       ],
     };
   };
@@ -132,7 +130,7 @@ const ApartmentList = (props: any) => {
     type: any,
     { page, sizePerPage, sortField, sortOrder }: any
   ): void => {
-    setTotal(data.count);
+    // setTotal(data.count);
     setPage(page);
     setRows(sizePerPage);
     if (!sortField || !sortOrder) {
@@ -149,47 +147,47 @@ const ApartmentList = (props: any) => {
     );
   };
   var options;
-  if(Object.keys(data.data).length===0){
-     options={ 
-       hideSizePerPage: true,
-        hidePageListOnlyOnePage: true
-      }
-  }else{
-   options = {
-    page: page,
-    sizePerPage: rows,
-    totalSize: data.count, //ΠΡΕΠΕΙ ΝΑ ΜΟΥ ΣΤΕΙΛΕΙΣ ΑΠΟ ΤΟ BACKEND ΠΟΣΑ ΕΙΝΑΙ ΓΙΑ ΝΑ ΔΟΥΛΕΨΕΙ ΤΟ PAGINATION
-    showTotal: true,
-    paginationTotalRenderer: renderShowsTotal,
-    sizePerPageList: [
-      {
-        text: "5",
-        value: 5,
-      },
-      {
-        text: "10",
-        value: 10,
-      },
-      {
-        text: "30",
-        value: 30,
-      },
-      {
-        text: "50",
-        value: 50,
-      },
+  if (Object.keys(data.data).length === 0) {
+    options = {
+      hideSizePerPage: true,
+      hidePageListOnlyOnePage: true,
+    };
+  } else {
+    options = {
+      page: page,
+      sizePerPage: rows,
+      totalSize: data.count, //ΠΡΕΠΕΙ ΝΑ ΜΟΥ ΣΤΕΙΛΕΙΣ ΑΠΟ ΤΟ BACKEND ΠΟΣΑ ΕΙΝΑΙ ΓΙΑ ΝΑ ΔΟΥΛΕΨΕΙ ΤΟ PAGINATION
+      showTotal: true,
+      paginationTotalRenderer: renderShowsTotal,
+      sizePerPageList: [
+        {
+          text: "5",
+          value: 5,
+        },
+        {
+          text: "10",
+          value: 10,
+        },
+        {
+          text: "30",
+          value: 30,
+        },
+        {
+          text: "50",
+          value: 50,
+        },
 
-      {
-        text: "All",
-        value: data.count,
-      },
-    ],
-  };
-}
+        {
+          text: "All",
+          value: data.count,
+        },
+      ],
+    };
+  }
 
   return (
     <React.Fragment>
-<Table_Search onSearch={onSearch}/>
+      <Table_Search onSearch={onSearch} />
       {isFetching || status === "loading" ? <Loading /> : null}
       <Table
         data={data.data}

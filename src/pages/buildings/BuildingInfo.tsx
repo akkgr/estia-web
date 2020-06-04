@@ -1,15 +1,12 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useQuery } from "react-query";
 import axios from "axios";
 
 import BuildingData from "pages/buildings/buildingInfo/BuildingData";
-import BuildingPower from "pages/buildings/buildingInfo/BuildingPower";
-import BuildingGas from "pages/buildings/buildingInfo/BuildingGas";
-import BuildingWater from "pages/buildings/buildingInfo/BuildingWater";
 import BuildingOtherInfo from "pages/buildings/buildingInfo/BuildingOtherInfo";
 import BuildingHeating from "pages/buildings/buildingInfo/BuildingHeating";
-import BuildingPhone from "pages/buildings/buildingInfo/BuildingPhone";
+import BuildingProvider from "pages/buildings/buildingInfo/BuildingProvider";
 import BuildingPdf from "pages/buildings/buildingInfo/BuildingPdf";
 import UserContext from "UserContext";
 import Form from "app/common/form/Form";
@@ -95,7 +92,6 @@ const BuildingInfo = () => {
       setActivePdf(false);
       setActiveHeating(false);
     }
-
 
     if (reference === "otherInfo") {
       setActiveOtherInfo(true);
@@ -246,37 +242,13 @@ const BuildingInfo = () => {
                           }
                         />
                         <TabItem
-                          tabId="power"
+                          tabId="provider"
                           item={
-                            <BuildingPower
-                              providerPower={TestDataProvidersElecticity[0]}
+                            <BuildingProvider
+                              provider={TestDataProvidersElecticity}
                             />
                           }
                         />
-                        {/* <TabItem
-                          tabId="water"
-                          item={
-                            <BuildingWater
-                              providerWater={TestDataProvidersElecticity[1]}
-                            />
-                          }
-                        />
-                        <TabItem
-                          tabId="gas"
-                          item={
-                            <BuildingGas
-                              providerGas={TestDataProvidersElecticity[2]}
-                            />
-                          }
-                        />
-                        <TabItem
-                          tabId="phone"
-                          item={
-                            <BuildingPhone
-                              providerPhone={TestDataProvidersElecticity[3]}
-                            />
-                          }
-                        /> */}
                         <TabItem
                           tabId="otherInfo"
                           item={

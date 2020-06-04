@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from "react";
-import Select from 'react-select'
+import React from "react";
+import Select from "react-select";
 interface SelectParams {
   label: string;
   name?: string;
   value?: string;
   options: Array<{ value: string; label: string }>;
   className: string;
+  setValueSelect?: any;
   data_style?: string;
   data_live_search?: boolean;
   placeholder?: string;
@@ -21,21 +22,19 @@ const SelectInputSearch: React.FC<SelectParams> = ({
   className,
   data_style,
   data_live_search,
+  setValueSelect,
 }) => {
-  const [valueSelect, setValueSelect] = useState(value);
-  
+  // const [valueSelect, setValueSelect] = useState(value);
 
   const handleChange = (myOption: any) => {
-    console.log(myOption.value)
     setValueSelect(myOption.value);
   };
-  
 
   return (
     <React.Fragment>
       <div className="form-group">
         <label>{label}</label>
-        <Select options={options} onChange={handleChange} placeholder={label}/>
+        <Select options={options} onChange={handleChange} placeholder={label} />
       </div>
     </React.Fragment>
   );

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import BuildingPower from "pages/buildings/buildingInfo/BuildingPower";
 import SelectInputSearch from "app/common/form/SelectInputSearch";
 import BootstrapTable from "react-bootstrap-table-next";
@@ -27,6 +27,9 @@ const newdata = {
 };
 const BuildingProvider: React.FC<IProvider> = ({ provider }) => {
   const [valueSelect, setValueSelect] = useState("");
+  useEffect(() => {
+    setOpenForm(false);
+  }, [valueSelect]);
   const [openForm, setOpenForm] = useState(false);
   const [data, setData] = useState([
     {

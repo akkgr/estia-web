@@ -18,12 +18,12 @@ const Checkbox: React.FC<CheckboxParams> = ({
   const [check, setCheck] = useState<boolean | undefined>(checked);
 
   const handleCheck = () => {
-    setCheck(!check)
-  }
+    setCheck(!check);
+  };
 
   return (
     <React.Fragment>
-      <div className="custom-control custom-checkbox mb-3">
+      <div className=" custom-checkbox mb-3">
         <input
           id={name}
           type="checkbox"

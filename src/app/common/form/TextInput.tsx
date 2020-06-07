@@ -3,7 +3,7 @@ interface InputParams {
   type?: string;
   label: string;
   name: string;
-  value?: string;
+  value?: any;
   prepend?: string;
   append?: string;
   placeholder?: string;
@@ -31,12 +31,12 @@ const TextInput: React.FC<InputParams> = ({
   invalidMessage,
   min,
   max,
-  step
+  step,
 }) => {
   const checkInputType = (type?: string) => {
     return type === undefined ? "text" : type;
   };
-
+  // const input = React.createRef();
   return (
     <React.Fragment>
       <div className="form-group">
@@ -54,7 +54,8 @@ const TextInput: React.FC<InputParams> = ({
             className="form-control"
             name={name}
             id={name}
-            defaultValue={value}
+            defaultValue={value || ""}
+            //ref={input}
             placeholder={placeholder}
             required={required}
             readOnly={readOnly}
@@ -71,9 +72,7 @@ const TextInput: React.FC<InputParams> = ({
           )}
           {append !== undefined && (
             <div className="input-group-append">
-              <span className="input-group-text">
-                {append}
-              </span>
+              <span className="input-group-text">{append}</span>
             </div>
           )}
         </div>

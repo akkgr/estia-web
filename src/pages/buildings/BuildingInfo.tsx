@@ -61,11 +61,11 @@ const BuildingInfo = () => {
       admin: { value: string };
       reciever: { value: string };
     };
-    const admin = target.admin.value;
-    const reciever = target.reciever.value;
+    //const admin = target.admin.value;
+    //const reciever = target.reciever.value;
 
-    console.log("admin = " + admin);
-    console.log("reciever = " + reciever);
+    // console.log("admin = " + admin);
+    // console.log("reciever = " + reciever);
   };
 
   const tabActivate = (reference: string) => {

@@ -241,14 +241,7 @@ const BuildingInfo = () => {
                             />
                           }
                         />
-                        <TabItem
-                          tabId="provider"
-                          item={
-                            <BuildingProvider
-                              provider={TestDataProvidersElecticity}
-                            />
-                          }
-                        />
+                        <TabItem tabId="provider" item={<BuildingProvider />} />
                         <TabItem
                           tabId="otherInfo"
                           item={

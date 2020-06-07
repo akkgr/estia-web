@@ -1,31 +1,17 @@
 import React, { useState, useEffect } from "react";
-import BuildingPower from "pages/buildings/buildingInfo/BuildingPower";
+import BuildingFormProvider from "pages/buildings/buildingInfo/BuildingFormProvider";
 import SelectInputSearch from "app/common/form/SelectInputSearch";
 import BootstrapTable from "react-bootstrap-table-next";
 import { BsTrashFill, BsPencilSquare, BsPlusCircle } from "react-icons/bs";
 import { ProviderType } from "app/models/Provider";
-interface IProvider {
-  provider?: any;
-}
+
 const choices = [
   { label: "Electricity", value: "Electricity" },
   { label: "Gas", value: "Gas" },
   { label: "Water", value: "Water" },
   { label: "Telecommunications", value: "Telecommunications" },
 ];
-const newdata = {
-  providerType: ProviderType.Electricity,
-  providerName: "",
-  customerName: "",
-  contractNumber: "",
-  connectionNumber: "",
-  counterNumber: "",
-  paymentCode: "",
-  interval: 0,
-  day: 1,
-  office: false,
-};
-const BuildingProvider: React.FC<IProvider> = ({ provider }) => {
+const BuildingProvider = () => {
   const [valueSelect, setValueSelect] = useState("");
   useEffect(() => {
     setOpenForm(false);
@@ -35,17 +21,17 @@ const BuildingProvider: React.FC<IProvider> = ({ provider }) => {
     {
       providerType: ProviderType.Electricity,
       providerName: "ΔΕΗ",
-      customerName: "thisCustomer",
+      customerName: "thisCustomer", //need import in form field
       contractNumber: "1243245798237",
       connectionNumber: "wqf234324",
       counterNumber: "co34241243",
       paymentCode: "pay6768976",
-      interval: 0,
-      day: 1,
+      interval: 0, //need import in form field
+      day: 1, //need import in form field
       office: true,
     },
   ]);
-  var dataElectricity = data.filter(
+  const dataElectricity = data.filter(
     (f: any) => f.providerType === ProviderType.Electricity
   );
   const dataGas = data.filter((f: any) => f.providerType === ProviderType.Gas);
@@ -56,19 +42,19 @@ const BuildingProvider: React.FC<IProvider> = ({ provider }) => {
     (f: any) => f.providerType === ProviderType.Telecommunications
   );
   const [rowEdit, setRowEdit] = useState({});
-  const [newElectricity, setnewElectricity] = useState(false);
-  const [editElectricity, seteditElectricity] = useState(false);
+  const [newProvider, setnewProvider] = useState(false);
+  const [editProvider, seteditProvider] = useState(false);
 
-  const handleEditElectricity = (row: any) => {
+  const handleEditProvider = (row: any) => {
     setOpenForm(true);
-    seteditElectricity(true);
-    setnewElectricity(false);
+    seteditProvider(true);
+    setnewProvider(false);
     setRowEdit(row);
   };
-  const handleNewElectricity = () => {
+  const handleNewProvider = () => {
     setOpenForm(true);
-    setnewElectricity(true);
-    seteditElectricity(false);
+    setnewProvider(true);
+    seteditProvider(false);
   };
 
   const handleDeleteProvider = (providerName: string) => {
@@ -91,7 +77,7 @@ const BuildingProvider: React.FC<IProvider> = ({ provider }) => {
               type="button"
               className="btn btn-link"
               style={{ color: "green" }}
-              onClick={() => handleNewElectricity()}
+              onClick={() => handleNewProvider()}
             >
               <BsPlusCircle />
             </button>
@@ -104,7 +90,7 @@ const BuildingProvider: React.FC<IProvider> = ({ provider }) => {
           <button
             type="button"
             className="btn btn-link"
-            onClick={() => handleEditElectricity(row)}
+            onClick={() => handleEditProvider(row)}
           >
             <BsPencilSquare />
           </button>
@@ -121,141 +107,70 @@ const BuildingProvider: React.FC<IProvider> = ({ provider }) => {
     },
   ];
 
-  const handleBuildingChange = (valueSelect: string) => {
-    if (valueSelect === "Electricity") {
-      // return <BuildingPower providerPower={provider[0]} />;
+  const handleProviderChange = (valueSelect: string) => {
+    if (valueSelect !== "") {
+      const dataChoiceSelect = () => {
+        if (valueSelect === "Electricity") {
+          return dataElectricity;
+        } else if (valueSelect === "Gas") {
+          return dataGas;
+        } else if (valueSelect === "Water") {
+          return dataWater;
+        } else {
+          return dataTelecommunications;
+        }
+      };
+      const ProviderChoiceSelect = () => {
+        if (valueSelect === "Electricity") {
+          return ProviderType.Electricity;
+        } else if (valueSelect === "Gas") {
+          return ProviderType.Gas;
+        } else if (valueSelect === "Water") {
+          return ProviderType.Water;
+        } else {
+          return ProviderType.Telecommunications;
+        }
+      };
+      const newdata = {
+        providerType: ProviderChoiceSelect(),
+        providerName: "",
+        customerName: "",
+        contractNumber: "",
+        connectionNumber: "",
+        counterNumber: "",
+        paymentCode: "",
+        interval: 0,
+        day: 1,
+        office: false,
+      };
       return (
         <div className="row">
+          {" "}
           <div className="col">
             <BootstrapTable
               bootstrap4
               noDataIndication={() => "Ο πίνακας είναι άδειος"}
               keyField="providerName"
               columns={columns}
-              data={dataElectricity}
+              data={dataChoiceSelect()}
               wrapperClasses="table-responsive"
             />
           </div>
           <div className="col">
-            {editElectricity && openForm && (
-              <BuildingPower
+            {editProvider && openForm && (
+              <BuildingFormProvider
                 setData={setData}
                 row={rowEdit}
-                providerType={ProviderType.Electricity}
+                providerType={ProviderChoiceSelect()}
                 data={data}
                 setOpenForm={setOpenForm}
               />
             )}
-            {newElectricity && openForm && (
-              <BuildingPower
+            {newProvider && openForm && (
+              <BuildingFormProvider
                 setData={setData}
                 row={newdata}
-                providerType={ProviderType.Electricity}
-                data={data}
-                setOpenForm={setOpenForm}
-              />
-            )}
-          </div>
-        </div>
-      );
-    } else if (valueSelect === "Gas") {
-      return (
-        <div className="row">
-          <div className="col">
-            <BootstrapTable
-              bootstrap4
-              noDataIndication={() => "Ο πίνακας είναι άδειος"}
-              keyField="providerName"
-              columns={columns}
-              data={dataGas}
-              wrapperClasses="table-responsive"
-            />
-          </div>
-          <div className="col">
-            {editElectricity && openForm && (
-              <BuildingPower
-                setData={setData}
-                row={rowEdit}
-                providerType={ProviderType.Gas}
-                data={data}
-                setOpenForm={setOpenForm}
-              />
-            )}
-            {newElectricity && openForm && (
-              <BuildingPower
-                setData={setData}
-                row={newdata}
-                providerType={ProviderType.Gas}
-                data={data}
-                setOpenForm={setOpenForm}
-              />
-            )}
-          </div>
-        </div>
-      );
-    } else if (valueSelect === "Water") {
-      return (
-        <div className="row">
-          <div className="col">
-            <BootstrapTable
-              bootstrap4
-              noDataIndication={() => "Ο πίνακας είναι άδειος"}
-              keyField="providerName"
-              columns={columns}
-              data={dataWater}
-              wrapperClasses="table-responsive"
-            />
-          </div>
-          <div className="col">
-            {editElectricity && openForm && (
-              <BuildingPower
-                setData={setData}
-                row={rowEdit}
-                providerType={ProviderType.Water}
-                data={data}
-                setOpenForm={setOpenForm}
-              />
-            )}
-            {newElectricity && openForm && (
-              <BuildingPower
-                setData={setData}
-                row={newdata}
-                providerType={ProviderType.Water}
-                data={data}
-                setOpenForm={setOpenForm}
-              />
-            )}
-          </div>
-        </div>
-      );
-    } else if (valueSelect === "Telecommunications") {
-      return (
-        <div className="row">
-          <div className="col">
-            <BootstrapTable
-              bootstrap4
-              noDataIndication={() => "Ο πίνακας είναι άδειος"}
-              keyField="providerName"
-              columns={columns}
-              data={dataTelecommunications}
-              wrapperClasses="table-responsive"
-            />
-          </div>
-          <div className="col">
-            {editElectricity && openForm && (
-              <BuildingPower
-                setData={setData}
-                row={rowEdit}
-                providerType={ProviderType.Telecommunications}
-                data={data}
-                setOpenForm={setOpenForm}
-              />
-            )}
-            {newElectricity && openForm && (
-              <BuildingPower
-                setData={setData}
-                row={newdata}
-                providerType={ProviderType.Telecommunications}
+                providerType={ProviderChoiceSelect()}
                 data={data}
                 setOpenForm={setOpenForm}
               />
@@ -275,7 +190,7 @@ const BuildingProvider: React.FC<IProvider> = ({ provider }) => {
         options={choices}
         setValueSelect={setValueSelect}
       />
-      {handleBuildingChange(valueSelect)}
+      {handleProviderChange(valueSelect)}
     </React.Fragment>
   );
 };

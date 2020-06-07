@@ -3,7 +3,7 @@ import TextInput from "app/common/form/TextInput";
 import TextArea from "app/common/form/TextArea";
 import Checkbox from "app/common/form/Checkbox";
 import { toast } from "react-toastify";
-interface IProviderPower {
+interface IProviderProps {
   setData: any;
   row?: any;
   data: any;
@@ -11,13 +11,14 @@ interface IProviderPower {
   providerType: any;
 }
 
-const BuildingPower: React.FC<IProviderPower> = ({
+const BuildingFormProvider: React.FC<IProviderProps> = ({
   setData,
   row,
   data,
   providerType,
   setOpenForm,
 }) => {
+  console.log(row);
   return (
     <React.Fragment>
       {/* <div>{JSON.stringify(providerPower)}</div> */}
@@ -130,13 +131,25 @@ const BuildingPower: React.FC<IProviderPower> = ({
 
           <div className="col-md-3 mb-3">
             <TextInput
-              label="Αριθμός Παροχής :"
+              label={
+                row.providerType === 3
+                  ? "Αριθμός Σύνδεσης :"
+                  : "Αριθμός Παροχής :"
+              }
               name="connectionNumber"
               value={row.connectionNumber}
-              placeholder="Αριθμός Παροχής..."
+              placeholder={
+                row.providerType === 3
+                  ? "Αριθμός Σύνδεσης :"
+                  : "Αριθμός Παροχής :"
+              }
               required={true}
               // validMessage="Έγκυρος Αριθμός Παροχής"
-              invalidMessage="Συμπληρώστε τον Αριθμό Παροχής"
+              invalidMessage={
+                row.providerType === 3
+                  ? "Συμπληρώστε τον Αριθμό Σύνδεσης"
+                  : "Συμπληρώστε τον Αριθμό Παροχής"
+              }
             />
           </div>
         </div>
@@ -170,4 +183,4 @@ const BuildingPower: React.FC<IProviderPower> = ({
   );
 };
 
-export default BuildingPower;
+export default BuildingFormProvider;

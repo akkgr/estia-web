@@ -58,12 +58,13 @@ const BuildingInfo = () => {
     e.preventDefault();
 
     const target = e.target as typeof e.target & {
-      admin: { value: string };
+      area: { value: string };
       reciever: { value: string };
     };
     //const admin = target.admin.value;
     //const reciever = target.reciever.value;
-
+    // const area = target.area.value;
+    // console.log(area);
     // console.log("admin = " + admin);
     // console.log("reciever = " + reciever);
   };
@@ -109,57 +110,6 @@ const BuildingInfo = () => {
       setActiveHeating(false);
     }
   };
-
-  const TestDataProvidersElecticity = [
-    {
-      providerType: ProviderType.Electricity,
-      providerName: "ΔΕΗ",
-      customerName: "thisCustomer",
-      contractNumber: "1243245798237",
-      connectionNumber: "wqf234324",
-      counterNumber: "co34241243",
-      paymentCode: "pay6768976",
-      interval: 0,
-      day: 1,
-      office: true,
-    },
-    {
-      providerType: ProviderType.Water,
-      providerName: "ΕΥΔΑΠ",
-      customerName: "thisCustomer",
-      contractNumber: "124324435342",
-      connectionNumber: "sdfswf234324",
-      counterNumber: "bgdnb3567567243",
-      paymentCode: "pay6734765476",
-      interval: 0,
-      day: 1,
-      office: true,
-    },
-    {
-      providerType: ProviderType.Gas,
-      providerName: "Nrg",
-      customerName: "thisCustomer",
-      contractNumber: "47568967876",
-      connectionNumber: "gfhngfj234324",
-      counterNumber: "co456745634",
-      paymentCode: "pay676575676",
-      interval: 0,
-      day: 1,
-      office: true,
-    },
-    {
-      providerType: ProviderType.Telecommunications,
-      providerName: "Cosmote",
-      customerName: "thisCustomer",
-      contractNumber: "1435234237",
-      connectionNumber: "dsf43534",
-      counterNumber: "co3fdhd435243",
-      paymentCode: "pay45y45g76",
-      interval: 0,
-      day: 1,
-      office: true,
-    },
-  ];
 
   return (
     <React.Fragment>

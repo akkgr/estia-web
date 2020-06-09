@@ -27,7 +27,7 @@ const Checkbox: React.FC<CheckboxParams> = ({
         <input
           id={name}
           type="checkbox"
-          checked={check}
+          defaultChecked={check}
           className="custom-control-input"
           name={name}
           required={required}

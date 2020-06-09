@@ -6,8 +6,9 @@ interface IBuildingData {
   id: string;
   address: any;
   admin?: string;
-  startDate?: Date;
+  startDate: any;
   endDate?: Date;
+  reserve: number;
 }
 
 const BuildingData: React.FC<IBuildingData> = ({
@@ -16,10 +17,10 @@ const BuildingData: React.FC<IBuildingData> = ({
   address,
   startDate,
   endDate,
+  reserve,
 }) => {
   const [newStartDate, setStartDate] = useState(startDate);
   const [newEndDate, setEndDate] = useState(endDate);
-
   return (
     <React.Fragment>
       <div className="row">
@@ -107,10 +108,9 @@ const BuildingData: React.FC<IBuildingData> = ({
             type="number"
             label="Αποθεματικό :"
             name="reserve"
-            value="1000"
+            value={reserve}
             placeholder="Αποθεματικό..."
             required={true}
-            // validMessage="Συμπληρώσατε το Αποθεματικό"
             invalidMessage="Συμπληρώστε το Αποθεματικό"
           />
         </div>

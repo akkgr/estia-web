@@ -16,6 +16,7 @@ import TabItemButton from "app/common/tabs/TabItemButton";
 import TabItem from "app/common/tabs/TabItem";
 import PageHeader from "app/common/headers/PageHeader";
 import { ProviderType } from "app/models/Provider";
+import { toast } from "react-toastify";
 
 const entity = "buildings";
 const uri = process.env.REACT_APP_API_URL + "/api";
@@ -34,7 +35,7 @@ const BuildingInfo = () => {
   const [tabActiveOtherInfo, setActiveOtherInfo] = useState<boolean>(false);
   const [tabActivePdf, setActivePdf] = useState<boolean>(false);
 
-  const [disableSaveButton, setDisableSaveButton] = useState<boolean>();
+  const [disableSaveButton, setDisableSaveButton] = useState<boolean>(false);
 
   const fetchData = async (key: string, id: string | undefined) => {
     const user = await manager.getUser();
@@ -59,12 +60,38 @@ const BuildingInfo = () => {
 
     const target = e.target as typeof e.target & {
       area: { value: string };
-      reciever: { value: string };
+      street: { value: string };
+      streetNumber: { value: number };
+      postalCode: { value: any }; //need string
+      management: { value: string };
+      reserve: { value: number };
     };
-    //const admin = target.admin.value;
-    //const reciever = target.reciever.value;
-    // const area = target.area.value;
-    // console.log(area);
+    const area = target.area.value;
+    const street = target.street.value;
+    const streetNumber = target.streetNumber.value;
+    const postalCode = target.postalCode.value;
+    const management = target.management.value;
+    const reserve = target.reserve.value;
+    if (
+      area === "" ||
+      street === "" ||
+      !streetNumber ||
+      !postalCode ||
+      management === "" ||
+      !reserve
+    ) {
+      toast.error("Η φόρμα εμφάνισε προβλήματα");
+      return false;
+    }
+    const submitedData = {
+      area: area,
+      street: street,
+      streetNumber: streetNumber,
+      postalCode: postalCode,
+      management: management,
+      reserve: reserve,
+    };
+    console.log("submitedData" + JSON.stringify(submitedData));
     // console.log("admin = " + admin);
     // console.log("reciever = " + reciever);
   };
@@ -114,101 +141,99 @@ const BuildingInfo = () => {
   return (
     <React.Fragment>
       <div>data = {JSON.stringify(data)}</div>
-      <Form
-        formElements={
-          <React.Fragment>
-            <PageHeader
-              returnUrl="/buildings"
-              disableSubmitButton={disableSaveButton}
-            >
-              <li className="breadcrumb-item active" aria-current="page">
-                <Link to="/buildings">Κτίρια</Link>
-              </li>
-              <li className="breadcrumb-item active" aria-current="page">
-                {data.address.street} {data.address.streetNumber},{" "}
-                {data.address.area}
-              </li>
-            </PageHeader>
-            <Card
-              cardBody={
-                <React.Fragment>
-                  <Tab
-                    tabListItems={
-                      <React.Fragment>
-                        <TabItemButton
-                          reference="data"
-                          message="Βασικά Στοιχεία"
-                          activeTabButton={tabActiveData}
-                          tabOnClick={() => tabActivate("data")}
-                        />
-                        <TabItemButton
-                          reference="heating"
-                          message="Στοιχεία Θέρμανσης"
-                          activeTabButton={tabActiveHeating}
-                          tabOnClick={() => tabActivate("heating")}
-                        />
-                        <TabItemButton
-                          reference="provider"
-                          message="Στοιχεία Παρόχων"
-                          activeTabButton={tabActiveProvider}
-                          tabOnClick={() => tabActivate("provider")}
-                        />
-                        <TabItemButton
-                          reference="otherInfo"
-                          message="Διάφορες Πληροροφορίες"
-                          activeTabButton={tabActiveOtherInfo}
-                          tabOnClick={() => tabActivate("otherInfo")}
-                        />
-                        <TabItemButton
-                          reference="pdf"
-                          message="Ιστορικό Αρχείων"
-                          activeTabButton={tabActivePdf}
-                          tabOnClick={() => tabActivate("pdf")}
-                        />
-                      </React.Fragment>
-                    }
-                    content={
-                      <React.Fragment>
-                        <TabItem
-                          active={true}
-                          tabId="data"
-                          item={
-                            <BuildingData
-                              id={id}
-                              admin={data.createdBy}
-                              address={data.address}
-                              startDate={new Date()}
-                              endDate={new Date()}
-                            />
-                          }
-                        />
-                        <TabItem
-                          tabId="heating"
-                          item={
-                            <BuildingHeating
-                              litersPerCm={data.litersPerCm}
-                              heatingType={data.heatingType}
-                            />
-                          }
-                        />
-                        <TabItem tabId="provider" item={<BuildingProvider />} />
-                        <TabItem
-                          tabId="otherInfo"
-                          item={
-                            <BuildingOtherInfo bankReason={data.bankReason} />
-                          }
-                        />
-                        <TabItem tabId="pdf" item={<BuildingPdf />} />
-                      </React.Fragment>
-                    }
-                  />
-                </React.Fragment>
-              }
-            />
-          </React.Fragment>
-        }
-        sumbit={handleSubmit}
-      />
+      <form onSubmit={handleSubmit} className="was-validated" noValidate>
+        <React.Fragment>
+          <PageHeader
+            returnUrl="/buildings"
+            disableSubmitButton={disableSaveButton}
+          >
+            <li className="breadcrumb-item active" aria-current="page">
+              <Link to="/buildings">Κτίρια</Link>
+            </li>
+            <li className="breadcrumb-item active" aria-current="page">
+              {data.address.street} {data.address.streetNumber},{" "}
+              {data.address.area}
+            </li>
+          </PageHeader>
+          <Card
+            cardBody={
+              <React.Fragment>
+                <Tab
+                  tabListItems={
+                    <React.Fragment>
+                      <TabItemButton
+                        reference="data"
+                        message="Βασικά Στοιχεία"
+                        activeTabButton={tabActiveData}
+                        tabOnClick={() => tabActivate("data")}
+                      />
+                      <TabItemButton
+                        reference="heating"
+                        message="Στοιχεία Θέρμανσης"
+                        activeTabButton={tabActiveHeating}
+                        tabOnClick={() => tabActivate("heating")}
+                      />
+                      <TabItemButton
+                        reference="provider"
+                        message="Στοιχεία Παρόχων"
+                        activeTabButton={tabActiveProvider}
+                        tabOnClick={() => tabActivate("provider")}
+                      />
+                      <TabItemButton
+                        reference="otherInfo"
+                        message="Διάφορες Πληροροφορίες"
+                        activeTabButton={tabActiveOtherInfo}
+                        tabOnClick={() => tabActivate("otherInfo")}
+                      />
+                      <TabItemButton
+                        reference="pdf"
+                        message="Ιστορικό Αρχείων"
+                        activeTabButton={tabActivePdf}
+                        tabOnClick={() => tabActivate("pdf")}
+                      />
+                    </React.Fragment>
+                  }
+                  content={
+                    <React.Fragment>
+                      <TabItem
+                        active={true}
+                        tabId="data"
+                        item={
+                          <BuildingData
+                            id={id}
+                            admin={data.createdBy}
+                            reserve={data.reserve}
+                            address={data.address}
+                            startDate={new Date(data.managementStart)}
+                            endDate={new Date(data.managementEnd)}
+                          />
+                        }
+                      />
+                      <TabItem
+                        tabId="heating"
+                        item={
+                          <BuildingHeating
+                            litersPerCm={data.litersPerCm}
+                            heatingType={data.heatingType}
+                          />
+                        }
+                      />
+                      <TabItem tabId="provider" item={<BuildingProvider />} />
+                      <TabItem
+                        tabId="otherInfo"
+                        item={
+                          <BuildingOtherInfo bankReason={data.bankReason} />
+                        }
+                      />
+                      <TabItem tabId="pdf" item={<BuildingPdf />} />
+                    </React.Fragment>
+                  }
+                />
+              </React.Fragment>
+            }
+          />
+        </React.Fragment>
+      </form>
     </React.Fragment>
   );
 };

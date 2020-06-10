@@ -54,6 +54,8 @@ const BuildingInfo = () => {
     [entity, id],
     fetchData
   );
+  const [startDate, setStartDate] = useState(new Date(data.managementStart));
+  const [endDate, setEndDate] = useState(new Date(data.managementEnd));
 
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
@@ -65,6 +67,9 @@ const BuildingInfo = () => {
       postalCode: { value: any }; //need string
       management: { value: string };
       reserve: { value: number };
+      startDate:{value:any};
+      heatingType:{value:number};
+      closedApartmentParticipation:{value:number};
     };
     const area = target.area.value;
     const street = target.street.value;
@@ -72,6 +77,7 @@ const BuildingInfo = () => {
     const postalCode = target.postalCode.value;
     const management = target.management.value;
     const reserve = target.reserve.value;
+    const closedApartmentParticipation=target.closedApartmentParticipation.value;
     if (
       area === "" ||
       street === "" ||
@@ -84,16 +90,19 @@ const BuildingInfo = () => {
       return false;
     }
     const submitedData = {
+      address:{
       area: area,
       street: street,
       streetNumber: streetNumber,
       postalCode: postalCode,
+      },
       management: management,
       reserve: reserve,
+      managementStart:startDate,
+      managementEnd:endDate,
+      closedApartmentParticipation:closedApartmentParticipation
     };
     console.log("submitedData" + JSON.stringify(submitedData));
-    // console.log("admin = " + admin);
-    // console.log("reciever = " + reciever);
   };
 
   const tabActivate = (reference: string) => {
@@ -204,8 +213,10 @@ const BuildingInfo = () => {
                             admin={data.createdBy}
                             reserve={data.reserve}
                             address={data.address}
-                            startDate={new Date(data.managementStart)}
-                            endDate={new Date(data.managementEnd)}
+                            startDate={startDate}
+                            setStartDate={setStartDate}
+                            setEndDate={setEndDate}
+                            endDate={endDate}
                           />
                         }
                       />
@@ -213,6 +224,7 @@ const BuildingInfo = () => {
                         tabId="heating"
                         item={
                           <BuildingHeating
+                          closedApartmentParticipation={data.closedApartmentParticipation}
                             litersPerCm={data.litersPerCm}
                             heatingType={data.heatingType}
                           />

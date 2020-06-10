@@ -6,8 +6,10 @@ interface IBuildingData {
   id: string;
   address: any;
   admin?: string;
-  startDate: any;
-  endDate?: Date;
+  startDate: Date;
+  endDate: Date;
+  setStartDate:any;
+  setEndDate:any;
   reserve: number;
 }
 
@@ -16,11 +18,11 @@ const BuildingData: React.FC<IBuildingData> = ({
   admin,
   address,
   startDate,
+  setStartDate,
   endDate,
+  setEndDate,
   reserve,
 }) => {
-  const [newStartDate, setStartDate] = useState(startDate);
-  const [newEndDate, setEndDate] = useState(endDate);
   return (
     <React.Fragment>
       <div className="row">
@@ -118,8 +120,8 @@ const BuildingData: React.FC<IBuildingData> = ({
         <div className="col-md-2 mb-3">
           <DateTimePicker
             label="Ημερομηνία Παραλαβής :"
-            startDate={newStartDate}
-            selected={newStartDate}
+            startDate={startDate}
+            selected={startDate}
             setStartDate={setStartDate}
             name="startDate"
             showMonthDropdown={true}
@@ -130,8 +132,8 @@ const BuildingData: React.FC<IBuildingData> = ({
         <div className="col-md-2 mb-3">
           <DateTimePicker
             label="Ημερομηνία Παράδοσης :"
-            startDate={newEndDate}
-            selected={newEndDate}
+            startDate={endDate}
+            selected={endDate}
             setStartDate={setEndDate}
             name="startDate"
             showMonthDropdown={true}

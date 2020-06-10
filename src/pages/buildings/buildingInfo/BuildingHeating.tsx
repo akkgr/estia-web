@@ -12,9 +12,10 @@ export const HeatingTypes = [
 interface IProps {
   litersPerCm?: string;
   heatingType?: string;
+  closedApartmentParticipation:number
 }
 
-const BuildingHeating: React.FC<IProps> = ({ litersPerCm, heatingType }) => {
+const BuildingHeating: React.FC<IProps> = ({ litersPerCm, heatingType,closedApartmentParticipation }) => {
   return (
     <React.Fragment>
       <div>{JSON.stringify(heatingType)}</div>
@@ -49,7 +50,8 @@ const BuildingHeating: React.FC<IProps> = ({ litersPerCm, heatingType }) => {
           <TextInput
             type="number"
             label="Συμμετοχή Κλειστών :"
-            name="closedPercent"
+            name="closedApartmentParticipation"
+            value={closedApartmentParticipation}
             // min={0}
             placeholder="Συμμετοχή Κλειστών..."
             required={true}

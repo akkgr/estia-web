@@ -4,7 +4,7 @@ import SelectInputSearch from "app/common/form/SelectInputSearch";
 import BootstrapTable from "react-bootstrap-table-next";
 import { BsTrashFill, BsPencilSquare, BsPlusCircle } from "react-icons/bs";
 import { ProviderType } from "app/models/Provider";
-
+import { Provider } from "app/models/Provider";
 const choices = [
   { label: "Electricity", value: "Electricity" },
   { label: "Gas", value: "Gas" },
@@ -12,7 +12,7 @@ const choices = [
   { label: "Telecommunications", value: "Telecommunications" },
 ];
 interface IProps {
-  data: any;
+  data: Provider | any;
   setData: any;
 }
 const BuildingProvider: React.FC<IProps> = ({ data, setData }) => {

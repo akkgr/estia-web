@@ -21,7 +21,7 @@ const Checkbox: React.FC<CheckboxParams> = ({
   };
   return (
     <React.Fragment>
-      <div className=" custom-checkbox mb-3">
+      <div className="custom-control custom-checkbox mb-3">
         <input
           id={name}
           type="checkbox"

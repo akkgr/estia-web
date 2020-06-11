@@ -1,32 +1,30 @@
 import React from "react";
 import Checkbox from "app/common/form/Checkbox";
 import { DateTimePicker } from "app/common/form/DateTimePicker";
-
+import { Building } from "app/models/Building";
 interface IDates {
   startDate: Date;
   endDate: Date;
   setStartDate: any;
   setEndDate: any;
-  management: boolean;
-  active: boolean;
+  data: Building;
 }
 
 const BuildingStatus: React.FC<IDates> = ({
+  data,
   startDate,
   setStartDate,
   endDate,
   setEndDate,
-  management,
-  active,
 }) => {
   return (
     <React.Fragment>
-      <div className="row mt-5" style={{ marginLeft: "10px" }}>
+      <div className="row">
         <div className="col-md-2 mb-3">
           <Checkbox
             name="management"
             label="Διαχείρηση"
-            checked={management}
+            checked={data.management}
             required={true}
           />
         </div>
@@ -34,12 +32,12 @@ const BuildingStatus: React.FC<IDates> = ({
           <Checkbox
             name="active"
             label="Ενεργή"
-            checked={active}
+            checked={data.active}
             required={true}
           />
         </div>
       </div>
-      <div className="row mt-5">
+      <div className="row">
         <div className="col-md-2 mb-3">
           <DateTimePicker
             label="Ημερομηνία Παραλαβής :"

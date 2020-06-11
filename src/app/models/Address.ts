@@ -1,7 +1,7 @@
 export interface Address {
   area: string;
   street: string;
-  streetnumber: string;
+  streetNumber: string;
   postalCode: string;
   country: string;
   lat: number;
@@ -12,7 +12,7 @@ export const NewAddress = (): Address => {
   return {
     area: "",
     street: "",
-    streetnumber: "",
+    streetNumber: "",
     postalCode: "",
     country: "",
     lat: 0,
@@ -21,5 +21,5 @@ export const NewAddress = (): Address => {
 };
 
 export const AddressTitle = (value: Address): string => {
-  return `${value.street} ${value.streetnumber}, ${value.area}`;
+  return `${value.street} ${value.streetNumber}, ${value.area}`;
 };

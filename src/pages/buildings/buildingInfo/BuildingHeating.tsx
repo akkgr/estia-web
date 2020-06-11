@@ -2,6 +2,7 @@ import React from "react";
 import SelectInputSearch from "app/common/form/SelectInputSearch";
 import TextInput from "app/common/form/TextInput";
 import Checkbox from "app/common/form/Checkbox";
+import { Building } from "app/models/Building";
 export const HeatingTypes = [
   { value: "Κεντρική Θέρμανση", label: "Κεντρική Θέρμανση" },
   { value: "Αυτόνομη - Πετρέλαιο", label: "Αυτόνομη - Πετρέλαιο" },
@@ -9,21 +10,14 @@ export const HeatingTypes = [
 ];
 
 interface IProps {
-  litersPerCm?: string;
+  data: Building;
   setHeatingType?: any;
-  caloriesCounter: boolean;
-  closedApartmentParticipation: number;
 }
 
-const BuildingHeating: React.FC<IProps> = ({
-  litersPerCm,
-  setHeatingType,
-  caloriesCounter,
-  closedApartmentParticipation,
-}) => {
+const BuildingHeating: React.FC<IProps> = ({ data, setHeatingType }) => {
   return (
     <React.Fragment>
-      <div className="row mt-5">
+      <div className="row">
         <div className="col-md-4 mb-3">
           <SelectInputSearch
             label="Τύπος Θέρμανσης :"
@@ -33,25 +27,24 @@ const BuildingHeating: React.FC<IProps> = ({
             options={HeatingTypes}
           />
         </div>
-      </div>
-
-      <div className="row mt-5">
-        <div className="col-md-3 mb-3" style={{ marginLeft: "20px" }}>
+        <div className="col-md-9 mb-10">
           <Checkbox
             label="Θερμοώρες"
             name="caloriesCounter"
-            checked={caloriesCounter}
+            checked={data.caloriesCounter}
             required={true}
             invalidMessage="Συμπληρώστε τις Θερμοώρες"
           />
         </div>
+      </div>
 
+      <div className="row mt-2">
         <div className="col-md-3 mb-3">
           <TextInput
             type="number"
             label="Συμμετοχή Κλειστών :"
             name="closedApartmentParticipation"
-            value={closedApartmentParticipation}
+            value={data.closedApartmentParticipation}
             // min={0}
             placeholder="Συμμετοχή Κλειστών..."
             required={true}
@@ -60,22 +53,18 @@ const BuildingHeating: React.FC<IProps> = ({
             invalidMessage="Συμπληρώστε το ποσοστό συμμετοχής των κλειστών διαμερισμάτων στην Κενρική Θέρμανση"
           />
         </div>
-      </div>
-
-      <div className="row mt-5">
         <div className="col-md-3 mb-3">
           <TextInput
             type="number"
             label="Λίτρα Πετρ. ανά cm :"
             name="litersPerCm"
             min={0}
-            value={litersPerCm}
+            value={data.litersPerCm}
             placeholder="Λίτρα Πετρ. ανά cm..."
             required={true}
             invalidMessage="Συμπληρώστε τα Λίτρα Πετρ. ανά cm"
           />
         </div>
-
         <div className="col-md-3 mb-3">
           <TextInput
             type="number"

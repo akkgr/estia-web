@@ -57,7 +57,6 @@ const BuildingFormProvider: React.FC<IProviderProps> = ({
       const existing = data.find(
         (f: any) => f.providerName === providerName.current.value
       );
-      console.log("existing:" + existing);
       if (existing) {
         toast.error(
           "Ο ίδιος πάροχος υπάρχει ήδη.Ο πάροχος πρέπει να έχει μοναδικό όνομα!"

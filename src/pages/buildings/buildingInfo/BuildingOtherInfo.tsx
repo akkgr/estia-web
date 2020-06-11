@@ -8,7 +8,7 @@ interface IOtherInfo {
 const BuildingOtherInfo: React.FC<IOtherInfo> = ({ bankReason }) => {
   return (
     <React.Fragment>
-      <div className="row mt-5">
+      <div className="row mt-2">
         <div className="col-md-4 mb-3">
           <TextInput
             type="text"

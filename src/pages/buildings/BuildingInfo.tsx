@@ -70,7 +70,6 @@ const BuildingInfo: React.FC<{ provider: Building }> = ({ provider }) => {
   const [startDate, setStartDate] = useState(new Date(data.managementStart));
   const [endDate, setEndDate] = useState(new Date(data.managementEnd));
   const [heatingType, setHeatingType] = useState(data.heatingType);
-
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
     const HeatingTypeSelect = () => {
@@ -78,8 +77,10 @@ const BuildingInfo: React.FC<{ provider: Building }> = ({ provider }) => {
         return HeatingType.Central;
       } else if (heatingType === "Αυτόνομη - Πετρέλαιο") {
         return HeatingType.Oil;
-      } else {
+      } else if (heatingType === "Αυτόνομη - Φυσικό Αέριο") {
         return HeatingType.Gas;
+      } else {
+        return heatingType;
       }
     };
     const target = e.target as typeof e.target & {
@@ -267,28 +268,13 @@ const BuildingInfo: React.FC<{ provider: Building }> = ({ provider }) => {
                       <TabItem
                         active={true}
                         tabId="data"
-                        item={
-                          <BuildingData
-                            id={id}
-                            createdBy={data.createdBy}
-                            reserve={data.reserve}
-                            address={data.address}
-                            startDate={startDate}
-                            setStartDate={setStartDate}
-                            setEndDate={setEndDate}
-                            endDate={endDate}
-                          />
-                        }
+                        item={<BuildingData data={data} />}
                       />
                       <TabItem
                         tabId="heating"
                         item={
                           <BuildingHeating
-                            closedApartmentParticipation={
-                              data.closedApartmentParticipation
-                            }
-                            caloriesCounter={data.caloriesCounter}
-                            litersPerCm={data.litersPerCm}
+                            data={data}
                             setHeatingType={setHeatingType}
                           />
                         }
@@ -306,8 +292,7 @@ const BuildingInfo: React.FC<{ provider: Building }> = ({ provider }) => {
                         tabId="status"
                         item={
                           <BuildingStatus
-                            active={data.active}
-                            management={data.management}
+                            data={data}
                             startDate={startDate}
                             setStartDate={setStartDate}
                             setEndDate={setEndDate}

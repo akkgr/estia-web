@@ -1,61 +1,71 @@
-import React, { useState } from "react";
+import React from "react";
 import Checkbox from "app/common/form/Checkbox";
 import { DateTimePicker } from "app/common/form/DateTimePicker";
 
 interface IDates {
   startDate: Date;
   endDate: Date;
+  setStartDate: any;
+  setEndDate: any;
+  management: boolean;
+  active: boolean;
 }
 
-const BuildingStatus: React.FC<IDates> = ({ startDate, endDate }) => {
-  const [newStartDate, setStartDate] = useState(startDate);
-  const [newEndDate, setEndDate] = useState(endDate);
-
+const BuildingStatus: React.FC<IDates> = ({
+  startDate,
+  setStartDate,
+  endDate,
+  setEndDate,
+  management,
+  active,
+}) => {
   return (
     <React.Fragment>
-      <div className="row mt-3">
-        <div className="col-md-3 mb-3">
-          <Checkbox name="manage" label="Διαχείρηση"/>
+      <div className="row mt-5" style={{ marginLeft: "10px" }}>
+        <div className="col-md-2 mb-3">
+          <Checkbox
+            name="management"
+            label="Διαχείρηση"
+            checked={management}
+            required={true}
+          />
+        </div>
+        <div className="col-md-2 mb-3">
+          <Checkbox
+            name="active"
+            label="Ενεργή"
+            checked={active}
+            required={true}
+          />
         </div>
       </div>
-
-      <div className="row mt-3">
-        <div className="col-md-3 mb-3">
-          <Checkbox name="active" label="Ενεργή"/>
-        </div>
-      </div>
-
-      <div className="row mt-3">
+      <div className="row mt-5">
         <div className="col-md-2 mb-3">
           <DateTimePicker
             label="Ημερομηνία Παραλαβής :"
-            startDate={newStartDate}
-            selected={newStartDate}
+            startDate={startDate}
+            selected={startDate}
             setStartDate={setStartDate}
             name="startDate"
-            showMonthDropdown={true}
-            useShortMonthInDropdown={true}
           />
         </div>
-        {/* <div className="invalid-feedback">
+        {/* <div classNameName="invalid-feedback">
           Παρακαλώ εισάγετε έγκυρη Ημερομηνία Παράλαβής
         </div> */}
-      </div>
 
-      <div className="row mt-3">
-        <div className="col-md-3 mb-3">
+        <div className="col-md-2 mb-3">
           <DateTimePicker
             label="Ημερομηνία Παράδοσης :"
-            startDate={newEndDate}
+            startDate={endDate}
+            selected={endDate}
             setStartDate={setEndDate}
             name="endDate"
-            showMonthDropdown={true}
-            useShortMonthInDropdown={true}
           />
-          {/* <div className="invalid-feedback">
+        </div>
+
+        {/* <div classNameName="invalid-feedback">
             Παρακαλώ εισάγετε έγκυρη Ημερομηνία Παράδοσης
           </div> */}
-        </div>
       </div>
     </React.Fragment>
   );

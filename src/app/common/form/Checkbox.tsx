@@ -15,23 +15,21 @@ const Checkbox: React.FC<CheckboxParams> = ({
   validMessage,
   invalidMessage,
 }) => {
-  const [check, setCheck] = useState<boolean | undefined>(checked);
-
-  const handleCheck = () => {
+  const [check, setCheck] = useState<any>(checked);
+  const handleChange = () => {
     setCheck(!check);
   };
-
   return (
     <React.Fragment>
       <div className=" custom-checkbox mb-3">
         <input
           id={name}
           type="checkbox"
-          defaultChecked={check}
+          value={check}
           className="custom-control-input"
           name={name}
           required={required}
-          onClick={handleCheck}
+          onClick={handleChange}
         />
         <label className="custom-control-label" htmlFor={name}>
           {label}

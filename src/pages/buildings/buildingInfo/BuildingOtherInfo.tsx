@@ -12,18 +12,7 @@ const BuildingOtherInfo: React.FC<IOtherInfo> = ({ bankReason }) => {
         <div className="col-md-4 mb-3">
           <TextInput
             type="text"
-            label="Τοποθεσία :"
-            name="location"
-            placeholder="Τοποθεσία ..."
-            invalidMessage="Συμπληρώστε την Τοποθεσία"
-            required={true}
-          />
-        </div>
-
-        <div className="col-md-4 mb-3">
-          <TextInput
-            type="text"
-            label="Αιτιολογία :"
+            label="Τράπεζα/Αιτιολογία :"
             value={bankReason}
             name="bankReason"
             placeholder="Αιτιολογία ..."

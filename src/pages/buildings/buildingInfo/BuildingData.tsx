@@ -1,21 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
 import TextInput from "app/common/form/TextInput";
 import { DateTimePicker } from "app/common/form/DateTimePicker";
 
 interface IBuildingData {
   id: string;
   address: any;
-  admin?: string;
+  createdBy?: string;
   startDate: Date;
   endDate: Date;
-  setStartDate:any;
-  setEndDate:any;
+  setStartDate: any;
+  setEndDate: any;
   reserve: number;
 }
 
 const BuildingData: React.FC<IBuildingData> = ({
   id,
-  admin,
+  createdBy,
   address,
   startDate,
   setStartDate,
@@ -97,8 +97,8 @@ const BuildingData: React.FC<IBuildingData> = ({
           <TextInput
             type="text"
             label="Διαχείρηση :"
-            name="management"
-            value={admin}
+            name="createdBy"
+            value={createdBy}
             placeholder="Διαχείρηση..."
             required={true}
             // validMessage="Συμπληρώσατε τη Διαχείρηση"
@@ -124,8 +124,6 @@ const BuildingData: React.FC<IBuildingData> = ({
             selected={startDate}
             setStartDate={setStartDate}
             name="startDate"
-            showMonthDropdown={true}
-            useShortMonthInDropdown={true}
           />
         </div>
 
@@ -135,9 +133,7 @@ const BuildingData: React.FC<IBuildingData> = ({
             startDate={endDate}
             selected={endDate}
             setStartDate={setEndDate}
-            name="startDate"
-            showMonthDropdown={true}
-            useShortMonthInDropdown={true}
+            name="endDate"
           />
         </div>
       </div>

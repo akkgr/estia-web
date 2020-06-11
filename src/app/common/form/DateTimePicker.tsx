@@ -10,8 +10,10 @@ export const DateTimePicker = (props: any) => {
       <DatePicker
         selected={props.startDate}
         onChange={(date) => props.setStartDate(date)}
-        showMonthDropdown={props.showMonthDropdown}
-        useShortMonthInDropdown={props.useShortMonthInDropdown}
+        showMonthDropdown
+        useShortMonthInDropdown
+        showYearDropdown
+        dropdownMode="select"
         required={true}
         {...props}
       />

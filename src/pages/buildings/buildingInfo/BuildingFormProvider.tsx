@@ -1,7 +1,4 @@
 import React, { useRef, useState } from "react";
-import TextInput from "app/common/form/TextInput";
-import TextArea from "app/common/form/TextArea";
-import Checkbox from "app/common/form/Checkbox";
 import { toast } from "react-toastify";
 interface IProviderProps {
   setData: any;
@@ -75,40 +72,42 @@ const BuildingFormProvider: React.FC<IProviderProps> = ({
     <React.Fragment>
       {/* <div>{JSON.stringify(providerPower)}</div> */}
       <div key={row.providerName} id={row.providerName}>
-        <div className="row">
-          <div className="col-md-3 mb-3">
-            <input
-              defaultValue={row.providerName}
-              ref={providerName}
-              type="text"
-              placeholder="Πάροχος..."
-              className="form-control"
-              required={true}
-            />
-            {validation === true && (
-              <div className="invalid-feedback">Συμπληρώστε τον Πάροχο</div>
-            )}
-          </div>
+        <div className="container">
+          <div className="row">
+            <div className="col">
+              <input
+                defaultValue={row.providerName}
+                ref={providerName}
+                type="text"
+                placeholder="Πάροχος..."
+                className="form-control"
+                required={true}
+              />
+              {validation === true && (
+                <div className="invalid-feedback">Συμπληρώστε τον Πάροχο</div>
+              )}
+            </div>
 
-          <div className="col-md-3 mb-3">
-            <input
-              type="text"
-              defaultValue={row.contractNumber}
-              ref={contractNumber}
-              name="contractNumber"
-              placeholder="Αριθμός Συμβολαίου..."
-              required={true}
-              className="form-control"
-            />
-            {validation === true && (
-              <div className="invalid-feedback">
-                Συμπληρώστε τον Αριθμό Συμβολαίου
-              </div>
-            )}
-          </div>
+            <div className="col">
+              <input
+                type="text"
+                defaultValue={row.contractNumber}
+                ref={contractNumber}
+                name="contractNumber"
+                placeholder="Αριθμός Συμβολαίου..."
+                required={true}
+                className="form-control"
+              />
+              {validation === true && (
+                <div className="invalid-feedback">
+                  Συμπληρώστε τον Αριθμό Συμβολαίου
+                </div>
+              )}
+            </div>
 
-          <div className="row mt-3">
-            <div className="col-md-3 mb-3">
+            <div className="w-100"></div>
+
+            <div className="col">
               <input
                 type="text"
                 defaultValue={row.counterNumber}
@@ -125,7 +124,7 @@ const BuildingFormProvider: React.FC<IProviderProps> = ({
               )}
             </div>
 
-            <div className="col-md-3 mb-3">
+            <div className="col">
               <input
                 type="text"
                 defaultValue={row.paymentCode}
@@ -142,7 +141,9 @@ const BuildingFormProvider: React.FC<IProviderProps> = ({
               )}
             </div>
 
-            <div className="col-md-3 mb-3">
+            <div className="w-100"></div>
+
+            <div className="col">
               <input
                 defaultValue={row.connectionNumber}
                 ref={connectionNumber}
@@ -162,10 +163,7 @@ const BuildingFormProvider: React.FC<IProviderProps> = ({
                 </div>
               )}
             </div>
-          </div>
-
-          <div className="row mt-3">
-            <div className="col-md-9 mb-3">
+            <div className="col">
               <div className=" custom-checkbox mb-3">
                 <input
                   id="office"
@@ -176,7 +174,11 @@ const BuildingFormProvider: React.FC<IProviderProps> = ({
                   required={true}
                   ref={office}
                 />
-                <label className="custom-control-label" htmlFor="office">
+                <label
+                  className="custom-control-label"
+                  htmlFor="office"
+                  style={{ marginLeft: "25px" }}
+                >
                   Παραλαβή λογ. στο γραφείο
                   {validation === true ? (
                     <div className="invalid-feedback">Συμπληρώστε το πεδίο</div>
@@ -186,15 +188,18 @@ const BuildingFormProvider: React.FC<IProviderProps> = ({
                 </label>
               </div>
             </div>
-          </div>
-          <div>
-            <input
-              type="submit"
-              value="ΠΡΟΣΘΗΚΗ"
-              id="innerButton1"
-              className="btn btn-primary"
-              onClick={(e) => handleSubmit(e)}
-            />
+
+            <div className="w-100"></div>
+
+            <div className="col-md-6 offset-md-3">
+              <input
+                type="submit"
+                value="ΠΡΟΣΘΗΚΗ"
+                id="innerButton1"
+                className="btn btn-primary"
+                onClick={(e) => handleSubmit(e)}
+              />
+            </div>
           </div>
         </div>
       </div>

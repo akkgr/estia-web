@@ -1,29 +1,33 @@
 import React from "react";
 import SelectInputSearch from "app/common/form/SelectInputSearch";
 import TextInput from "app/common/form/TextInput";
-
+import Checkbox from "app/common/form/Checkbox";
 export const HeatingTypes = [
-  // { id: -1, value: "Kati" },
-  { value: "Κεντρική Θέρμανση" , label: 'Κεντρική Θέρμανση' },
-  { value: "Αυτόνομη - Πετρέλαιο" , label: 'Αυτόνομη - Πετρέλαιο'},
-  { value: "Αυτόνομη - Φυσικό Αέριο" , label:'Αυτόνομη - Φυσικό Αέριο' },
+  { value: "Κεντρική Θέρμανση", label: "Κεντρική Θέρμανση" },
+  { value: "Αυτόνομη - Πετρέλαιο", label: "Αυτόνομη - Πετρέλαιο" },
+  { value: "Αυτόνομη - Φυσικό Αέριο", label: "Αυτόνομη - Φυσικό Αέριο" },
 ];
 
 interface IProps {
   litersPerCm?: string;
-  heatingType?: string;
-  closedApartmentParticipation:number
+  setHeatingType?: any;
+  caloriesCounter: boolean;
+  closedApartmentParticipation: number;
 }
 
-const BuildingHeating: React.FC<IProps> = ({ litersPerCm, heatingType,closedApartmentParticipation }) => {
+const BuildingHeating: React.FC<IProps> = ({
+  litersPerCm,
+  setHeatingType,
+  caloriesCounter,
+  closedApartmentParticipation,
+}) => {
   return (
     <React.Fragment>
-      <div>{JSON.stringify(heatingType)}</div>
       <div className="row mt-5">
         <div className="col-md-4 mb-3">
           <SelectInputSearch
             label="Τύπος Θέρμανσης :"
-            value={heatingType}
+            setValueSelect={setHeatingType}
             name="heatingType"
             className="custom-select"
             options={HeatingTypes}
@@ -32,16 +36,12 @@ const BuildingHeating: React.FC<IProps> = ({ litersPerCm, heatingType,closedApar
       </div>
 
       <div className="row mt-5">
-        <div className="col-md-3 mb-3">
-          <TextInput
-            type="number"
-            label="Θερμοώρες :"
-            name="energy"
-            // min={0}
-            // value={address.area}
-            placeholder="Θερμοώρες ..."
+        <div className="col-md-3 mb-3" style={{ marginLeft: "20px" }}>
+          <Checkbox
+            label="Θερμοώρες"
+            name="caloriesCounter"
+            checked={caloriesCounter}
             required={true}
-            // validMessage="Έγκυρη Περιοχή"
             invalidMessage="Συμπληρώστε τις Θερμοώρες"
           />
         </div>

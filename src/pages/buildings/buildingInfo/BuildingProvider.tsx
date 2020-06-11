@@ -11,26 +11,17 @@ const choices = [
   { label: "Water", value: "Water" },
   { label: "Telecommunications", value: "Telecommunications" },
 ];
-const BuildingProvider = () => {
+interface IProps {
+  data: any;
+  setData: any;
+}
+const BuildingProvider: React.FC<IProps> = ({ data, setData }) => {
   const [valueSelect, setValueSelect] = useState("");
   useEffect(() => {
     setOpenForm(false);
   }, [valueSelect]);
   const [openForm, setOpenForm] = useState(false);
-  const [data, setData] = useState([
-    {
-      providerType: ProviderType.Electricity,
-      providerName: "ΔΕΗ",
-      customerName: "thisCustomer", //need import in form field
-      contractNumber: "1243245798237",
-      connectionNumber: "wqf234324",
-      counterNumber: "co34241243",
-      paymentCode: "pay6768976",
-      interval: 0, //need import in form field
-      day: 1, //need import in form field
-      office: true,
-    },
-  ]);
+
   const dataElectricity = data.filter(
     (f: any) => f.providerType === ProviderType.Electricity
   );
@@ -58,7 +49,7 @@ const BuildingProvider = () => {
   };
 
   const handleDeleteProvider = (providerName: string) => {
-    const newData = data.filter((d) => d.providerName !== providerName);
+    const newData = data.filter((d: any) => d.providerName !== providerName);
     setData(newData);
   };
   const columns = [

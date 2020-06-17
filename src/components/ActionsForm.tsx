@@ -4,11 +4,13 @@ import { SaveOutlined, UndoOutlined } from "@ant-design/icons";
 
 interface ActionsFormProps {
   returnUrl: string;
+  showSubmitButton?: any;
 }
 
 export const ActionsForm: React.FC<ActionsFormProps> = ({
   returnUrl,
   children,
+  showSubmitButton,
 }) => {
   const history = useHistory();
 
@@ -29,17 +31,20 @@ export const ActionsForm: React.FC<ActionsFormProps> = ({
         </div>
         <div className="col ">
           <div className="row mx-auto">
-            <div className="col">
-              <button
-                className="btn btn-info"
-                type="submit"
-                data-toggle="tooltip"
-                data-placement="bottom"
-                title="Αποθήκευση"
-              >
-                <SaveOutlined />
-              </button>
-            </div>
+            {showSubmitButton && (
+              <div className="col">
+                <button
+                  className="btn btn-info"
+                  type="submit"
+                  data-toggle="tooltip"
+                  data-placement="bottom"
+                  title="Αποθήκευση"
+                >
+                  <SaveOutlined />
+                </button>
+              </div>
+            )}
+
             <div className="col">
               <button
                 className="btn btn-danger"

@@ -1,26 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
-// import { Menu } from "antd";
-// import { HomeOutlined, DashboardOutlined } from "@ant-design/icons";
 import { FaRegBuilding } from "react-icons/fa";
 import { MdDashboard } from "react-icons/md";
 const MainMenu = () => {
   // let location = useLocation();
   return (
-    // <Menu theme="dark" selectedKeys={[location.pathname]} mode="inline">
-    //   <Menu.Item key="/dashboard">
-    //     <Link to={`/dashboard`}>
-    //       <DashboardOutlined />
-    //       <span>Dashboard</span>
-    //     </Link>
-    //   </Menu.Item>
-    //   <Menu.Item key="/buildings">
-    //     <Link to={`/buildings`}>
-    //       <HomeOutlined />
-    //       <span>Κτίρια</span>
-    //     </Link>
-    //   </Menu.Item>
-    // </Menu>
     <div>
       <nav id="sidebar">
         <div className="sidebar-header">

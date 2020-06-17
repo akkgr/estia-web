@@ -5,17 +5,17 @@ const ApartmentsQueries = (id: string) => {
   const parentEntity = "buildings";
   const { Apartments } = Agent();
   const fetchApartments = async (key: string, id1: string | undefined) => {
-    const { data } = await Apartments.data(key, id1);
+    const data = await Apartments.data(key, id1);
     return data;
   };
 
   const updateApartments = async (input: any) => {
-    const { data } = await Apartments.update(entity, id, input);
+    const data = await Apartments.update(entity, id, input);
     return data;
   };
 
   const newudpateApartments = async (input: any) => {
-    const { data } = await Apartments.new_update(entity, input);
+    const data = await Apartments.new_update(entity, input);
     return data;
   };
 

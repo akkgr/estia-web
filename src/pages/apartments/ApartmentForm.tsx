@@ -1,11 +1,10 @@
 import React from "react";
 import { useParams, Link } from "react-router-dom";
 import { useQuery, useMutation, queryCache } from "react-query";
-import { Form, Input, InputNumber, Skeleton } from "antd";
+import { Skeleton } from "antd";
 import { ActionsForm } from "components/ActionsForm";
 import { PersonForm } from "components/PersonForm";
-
-import TextArea from "antd/lib/input/TextArea";
+import TextInput from "app/common/form/TextInput";
 import Cards from "app/common/views/Cards";
 import ApartmentsQueries from "components/admin/apartments/ApartmentsQueries";
 
@@ -17,7 +16,7 @@ const ApartmentForm = () => {
     any,
     [string, string | undefined]
   >([entity, id2], fetchApartments);
-
+  console.log(data);
   const [mutate] = useMutation(updateApartments, {
     onSuccess: (data) => queryCache.setQueryData([entity, id2], data),
   });
@@ -26,27 +25,55 @@ const ApartmentForm = () => {
     mutate(input);
   };
 
+  const handleSubmit = (e: React.SyntheticEvent) => {
+    e.preventDefault();
+    const target = e.target as typeof e.target & {
+      position: { value: number };
+      title: { value: string };
+      common: { value: string };
+      owners: { value: string };
+      lift: { value: string };
+      heat: { value: string };
+      lastName: { value: string };
+      firstName: { value: string };
+      telephone: { value: string };
+      mobile: { value: string };
+      email: { value: string };
+    };
+    const position = target.position.value;
+    const title = target.title.value;
+    const common = target.common.value;
+    const owners = target.owners.value;
+    const lift = target.lift.value;
+    const heat = target.heat.value;
+    const lastName = target.lastName.value;
+    const firstName = target.firstName.value;
+    const telephone = target.telephone.value;
+    const mobile = target.mobile.value;
+    const email = target.email.value;
+    const SubmitedData = {
+      ...data,
+      position: position,
+      title: title,
+      common: common,
+      owners: owners,
+      lift: lift,
+      heat: heat,
+      owner: {
+        firstName: firstName,
+        lastName: lastName,
+        telephone: telephone,
+        mobile: mobile,
+        email: email,
+      },
+    };
+    console.log(SubmitedData);
+  };
+
   return (
     <Skeleton active loading={status === "loading" || isFetching}>
-      <Form.Provider
-        onFormFinish={async (name, { values, forms }) => {
-          const { appartmentForm, ownerForm, residentForm } = forms;
-          try {
-            await ownerForm.validateFields();
-            await residentForm.validateFields();
-            const owner = ownerForm.getFieldsValue();
-            const resident = residentForm.getFieldsValue();
-            const appartment = appartmentForm.getFieldsValue();
-            update({
-              ...data,
-              ...appartment,
-              owner: owner,
-              resident: resident,
-            });
-          } catch {}
-        }}
-      >
-        <ActionsForm returnUrl={`/buildings/${id1}`}>
+      <form onSubmit={handleSubmit} className="was-validated" noValidate>
+        <ActionsForm returnUrl={`/buildings/${id1}`} showSubmitButton={true}>
           <li className="breadcrumb-item " aria-current="page">
             {" "}
             <Link to="/buildings">Κτίρια</Link>
@@ -65,81 +92,82 @@ const ApartmentForm = () => {
             <Cards
               header={"Γενικές πληροφορίες"}
               body={
-                <Form
-                  name="appartmentForm"
-                  layout={"horizontal"}
-                  initialValues={data}
-                >
+                <div className="row">
                   <div className="row">
                     <div className="col">
                       <div className="row">
                         <div className="col">
-                          <Form.Item
-                            label="Α/Α"
+                          <TextInput
+                            type="text"
+                            label="A/A:"
                             name="position"
-                            rules={[{ required: true }]}
-                          >
-                            <InputNumber />
-                          </Form.Item>
+                            value={data.position}
+                            required={true}
+                            readOnly={true}
+                            disable={true}
+                          />
                         </div>
                         <div className="col">
-                          <Form.Item
-                            label="Διαμέρισμα"
+                          <TextInput
+                            type="text"
+                            label="Διαμέρισμα:"
                             name="title"
-                            rules={[{ required: true }]}
-                          >
-                            <Input />
-                          </Form.Item>
+                            value={data.title}
+                            required={true}
+                            readOnly={true}
+                            disable={true}
+                          />
                         </div>
                       </div>
                     </div>
 
                     <div className="col">
-                      <Form.Item
-                        label="Kλειστό"
-                        name="title"
-                        rules={[{ required: true }]}
-                      >
-                        <Input />
-                      </Form.Item>
+                      <TextInput
+                        type="text"
+                        label="Κοινό:"
+                        name="common"
+                        value={data.common}
+                        required={true}
+                      />
                     </div>
                   </div>
                   <div className="row">
                     <div className="col">
-                      <Form.Item
-                        label="Τρόπος επικοινωνίας"
-                        name="position"
-                        rules={[{ required: true }]}
-                      >
-                        <Input />
-                      </Form.Item>
+                      <TextInput
+                        type="text"
+                        label="Ιδιοκτήτες:"
+                        name="owners"
+                        value={data.owners}
+                        required={true}
+                      />
                     </div>
                     <div className="col">
-                      <Form.Item
-                        label="Υπεύθυνος"
-                        name="title"
-                        rules={[{ required: true }]}
-                      >
-                        <Input />
-                      </Form.Item>
+                      <TextInput
+                        type="text"
+                        label="Lift:"
+                        name="lift"
+                        value={data.lift}
+                        required={true}
+                      />
                     </div>
                   </div>
                   <div className="row">
                     <div className="col">
-                      <Form.Item
-                        label="Σχόλια"
-                        name="position"
-                        rules={[{ required: true }]}
-                      >
-                        <TextArea />
-                      </Form.Item>
+                      <TextInput
+                        type="text"
+                        label="heat:"
+                        name="heat"
+                        value={data.heat}
+                        required={true}
+                      />
                     </div>
                   </div>
-                </Form>
+                </div>
               }
             />
           </div>
         </div>
+        {/* NEED TO SEPERATE TWO FORMS  HAS SAME VALUES*/}
         <div className="row slideanim">
           <div className="col-lg-6">
             <Cards
@@ -156,49 +184,7 @@ const ApartmentForm = () => {
             />
           </div>
         </div>
-
-        {/* <div className="row">
-          <div className="col-sm">
-            <div className="card border-primary shadow h-100 py-2">
-              <div className="card-body">
-                <div className="row align-items-center">
-                  <div className="col mr-2">
-                    <div className="text-xs font-weight-bold text-primary mb-1">
-                      Κοινόχρηστα
-                    </div>
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="col">
-                    <div className="text-xs">Χιλιοστά:</div>
-                    <form className="user">
-                      <input
-                        type="text"
-                        className="form-control form-control-user"
-                        id="exampleRepeatPassword"
-                        placeholder="Χιλιοστά..."
-                      ></input>
-                    </form>
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="col">
-                    <div className="text-xs ">Ποσοστά:</div>
-                    <form className="user">
-                      <input
-                        type="text"
-                        className="form-control form-control-user"
-                        id="exampleRepeatPassword"
-                        placeholder="Ποσοστά.."
-                      ></input>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> */}
-      </Form.Provider>
+      </form>
     </Skeleton>
   );
 };

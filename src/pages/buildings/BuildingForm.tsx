@@ -2,10 +2,9 @@ import React, { useContext } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useQuery, useMutation, queryCache } from "react-query";
 import axios from "axios";
-import { Skeleton, notification, Form } from "antd";
+import { notification } from "antd";
 
 import UserContext from "UserContext";
-import AddressForm from "components/AddressForm";
 import { AddressTitle } from "app/models/Address";
 import { ActionsForm } from "components/ActionsForm";
 import Cards from "app/common/views/Cards";
@@ -51,52 +50,40 @@ const BuildingForm = () => {
   };
 
   return (
-    <Skeleton active loading={status === "loading" || isFetching}>
-      <Form.Provider
-        onFormFinish={(name, { values, forms }) => {
-          const { addressForm } = forms;
-          console.log(values);
-          addressForm.validateFields().then((values) => updateAddress(values));
-        }}
-      >
-        <ActionsForm returnUrl="/buildings">
-          <li className="breadcrumb-item active" aria-current="page">
-            <Link to="/buildings">Κτίρια</Link>
-          </li>
-          <li className="breadcrumb-item active" aria-current="page">
-            {data ? AddressTitle(data.address) : ""}
-          </li>
-        </ActionsForm>
-        <div className="row">
-          <div className="col-8">
-            <AddressForm formName="addressForm" data={data?.address} id={id} />
-            <br />
-          </div>
-          <div className="col-4">
-            <Cards
-              header={"Διαθέσιμες επιλογές"}
-              body={
-                <>
-                  <div className="row">
-                    <div className="col">
-                      <Link to={`${id}/info`}>Πληροφορίες</Link>
-                    </div>
-                    <div className="col">
-                      <Link to={`${id}/ratings`}>Ποσοστά</Link>
-                    </div>
-                    <div className="col">
-                      <Link to={`${id}/payments`}>Πληρωμές</Link>
-                    </div>
+    <React.Fragment>
+      <ActionsForm returnUrl="/buildings" showSubmitButton={false}>
+        <li className="breadcrumb-item active" aria-current="page">
+          <Link to="/buildings">Κτίρια</Link>
+        </li>
+        <li className="breadcrumb-item active" aria-current="page">
+          {data ? AddressTitle(data.address) : ""}
+        </li>
+      </ActionsForm>
+      <div className="row">
+        <div className="col">
+          <Cards
+            header={"Διαθέσιμες επιλογές"}
+            body={
+              <>
+                <div className="row">
+                  <div className="col">
+                    <Link to={`${id}/info`}>Πληροφορίες</Link>
                   </div>
-                  <br />
-                </>
-              }
-            />
-          </div>
+                  <div className="col">
+                    <Link to={`${id}/ratings`}>Ποσοστά</Link>
+                  </div>
+                  <div className="col">
+                    <Link to={`${id}/payments`}>Πληρωμές</Link>
+                  </div>
+                </div>
+                <br />
+              </>
+            }
+          />
         </div>
-      </Form.Provider>
+      </div>
       <AppartmentList data={data}></AppartmentList>
-    </Skeleton>
+    </React.Fragment>
   );
 };
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { Form, Input } from "antd";
 import { Person } from "../app/models/Person";
-
+import TextInput from "app/common/form/TextInput";
 interface PersonFormProps {
   formName: string;
   data: Person;
@@ -9,26 +9,52 @@ interface PersonFormProps {
 
 export const PersonForm = ({ data, formName }: PersonFormProps) => {
   return (
-    <Form name={formName} layout={"vertical"} initialValues={data}>
-      <Form.Item label="Επώνυμο" name="lastName" rules={[{ required: true }]}>
-        <Input />
-      </Form.Item>
-      <Form.Item label="Όνομα" name="firstName" rules={[{ required: true }]}>
-        <Input />
-      </Form.Item>
-      <Form.Item
-        label="Τηλέφωνο"
+    <div id={formName} key={formName}>
+      <TextInput
+        type="text"
+        label="Επώνυμο :"
+        name="lastName"
+        value={data.lastName}
+        placeholder="Επώνυμο..."
+        required={true}
+        invalidMessage="Συμπληρώστε το Επώνυμο"
+      />
+      <TextInput
+        type="text"
+        label="Όνομα :"
+        name="firstName"
+        value={data.firstName}
+        placeholder="Όνομα..."
+        required={true}
+        invalidMessage="Συμπληρώστε το Όνομα"
+      />
+      <TextInput
+        type="text"
+        label="Τηλέφωνο :"
         name="telephone"
-        rules={[{ required: false }]}
-      >
-        <Input />
-      </Form.Item>
-      <Form.Item label="Κινητό" name="mobile" rules={[{ required: false }]}>
-        <Input />
-      </Form.Item>
-      <Form.Item label="Email" name="email" rules={[{ required: false }]}>
-        <Input />
-      </Form.Item>
-    </Form>
+        value={data.telephone}
+        placeholder="Τηλέφωνο..."
+        required={true}
+        invalidMessage="Συμπληρώστε το Τηλέφωνο"
+      />
+      <TextInput
+        type="text"
+        label="Κινητό :"
+        name="mobile"
+        value={data.mobile}
+        placeholder="Κινητό..."
+        required={true}
+        invalidMessage="Συμπληρώστε το Κινητό"
+      />
+      <TextInput
+        type="text"
+        label="Email :"
+        name="email"
+        value={data.email}
+        placeholder="Email..."
+        required={true}
+        invalidMessage="Συμπληρώστε το Email"
+      />
+    </div>
   );
 };

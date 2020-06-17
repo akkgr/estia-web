@@ -25,7 +25,6 @@ const BuildingQueries = () => {
   const deleteBuildings = async (id: string) => {
     await Buildings.delete(entity, id);
   };
-
   // const updateBuildings=async (input:any)=>{
   //   const CancelToken = axios.CancelToken;
   //   const source = CancelToken.source();

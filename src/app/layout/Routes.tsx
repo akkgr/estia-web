@@ -5,7 +5,9 @@ const Dashboard = lazy(() => import("pages/Dashboard"));
 const NewBuilding = lazy(() => import("pages/buildings/NewBuilding"));
 const BuildingForm = lazy(() => import("pages/buildings/BuildingForm"));
 const Ratings = lazy(() => import("pages/buildings/Ratings"));
-const BuildingInfo = lazy(() => import("pages/buildings/BuildingInfo"));
+const BuildingInfo = lazy(() =>
+  import("components/admin/buildings/BuildingInfo")
+);
 
 const NewApartment = lazy(() => import("pages/apartments/NewApartment"));
 

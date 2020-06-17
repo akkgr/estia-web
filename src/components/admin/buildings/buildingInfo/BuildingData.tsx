@@ -1,7 +1,5 @@
 import React from "react";
 import TextInput from "app/common/form/TextInput";
-import { DateTimePicker } from "app/common/form/DateTimePicker";
-import { PersonTitleWithMobile } from "app/models/Person";
 import { Person } from "app/models/Person";
 import { Building } from "app/models/Building";
 

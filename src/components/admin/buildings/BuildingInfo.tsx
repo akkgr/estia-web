@@ -1,30 +1,25 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useQuery } from "react-query";
-import axios from "axios";
 
-import BuildingData from "pages/buildings/buildingInfo/BuildingData";
-import BuildingOtherInfo from "pages/buildings/buildingInfo/BuildingOtherInfo";
-import BuildingHeating from "pages/buildings/buildingInfo/BuildingHeating";
-import BuildingProvider from "pages/buildings/buildingInfo/BuildingProvider";
-import BuildingPdf from "pages/buildings/buildingInfo/BuildingPdf";
-import UserContext from "UserContext";
+import BuildingData from "components/admin/buildings/buildingInfo/BuildingData";
+import BuildingOtherInfo from "components/admin/buildings/buildingInfo/BuildingOtherInfo";
+import BuildingHeating from "components/admin/buildings/buildingInfo/BuildingHeating";
+import BuildingProvider from "components/admin/buildings/buildingInfo/BuildingProvider";
+import BuildingPdf from "components/admin/buildings/buildingInfo/BuildingPdf";
 import Card from "app/common/cards/Card";
 import Tab from "app/common/tabs/Tab";
 import TabItemButton from "app/common/tabs/TabItemButton";
 import TabItem from "app/common/tabs/TabItem";
 import PageHeader from "app/common/headers/PageHeader";
 import { HeatingType } from "app/models/Building";
-import { Building } from "app/models/Building";
 import { ProviderType } from "app/models/Provider";
 import { toast } from "react-toastify";
 import BuildingStatus from "./buildingInfo/BuildingStatus";
-
+import BuildingQueries from "components/admin/buildings/BuildingQueries";
 const entity = "buildings";
-const uri = process.env.REACT_APP_API_URL + "/api";
 
-const BuildingInfo: React.FC<{ provider: Building }> = ({ provider }) => {
-  const manager = useContext(UserContext);
+const BuildingInfo = () => {
   let { id } = useParams();
 
   const [tabActiveData, setTabActiveData] = useState<boolean>(true);
@@ -35,23 +30,11 @@ const BuildingInfo: React.FC<{ provider: Building }> = ({ provider }) => {
   const [tabActivePdf, setActivePdf] = useState<boolean>(false);
 
   const [disableSaveButton, setDisableSaveButton] = useState<boolean>(false);
-
-  const fetchData = async (key: string, id: string | undefined) => {
-    const user = await manager.getUser();
-    if (!user || user?.expired) {
-      manager.signinRedirect();
-    }
-    const { data } = await axios.get(`${uri}/${key}/${id}`, {
-      headers: {
-        Authorization: `Bearer ${user?.access_token}`,
-      },
-    });
-    return data;
-  };
+  const { fetchBuildingData } = BuildingQueries();
 
   const { data } = useQuery<any, [string, string | undefined]>(
     [entity, id],
-    fetchData
+    fetchBuildingData
   );
   const [dataProvider, setDataProvider] = useState([
     {

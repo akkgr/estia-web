@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import BuildingFormProvider from "pages/buildings/buildingInfo/BuildingFormProvider";
+import BuildingFormProvider from "components/admin/buildings/buildingInfo/BuildingFormProvider";
 import SelectInputSearch from "app/common/form/SelectInputSearch";
 import BootstrapTable from "react-bootstrap-table-next";
 import { BsTrashFill, BsPencilSquare, BsPlusCircle } from "react-icons/bs";

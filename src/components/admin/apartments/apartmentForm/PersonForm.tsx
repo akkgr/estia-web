@@ -1,20 +1,20 @@
 import React from "react";
-import { Form, Input } from "antd";
-import { Person } from "../app/models/Person";
-import TextInput from "app/common/form/TextInput";
+import { Person } from "../../../../app/models/Person";
+import TextInput from "../../../../app/common/form/TextInput";
 interface PersonFormProps {
   formName: string;
+  uniqueName: string;
   data: Person;
 }
 
-export const PersonForm = ({ data, formName }: PersonFormProps) => {
+export const PersonForm = ({ data, uniqueName, formName }: PersonFormProps) => {
   return (
     <div id={formName} key={formName}>
       <TextInput
         type="text"
         label="Επώνυμο :"
-        name="lastName"
-        value={data.lastName}
+        name={`${uniqueName}LastName`}
+        value={data?.lastName || ""}
         placeholder="Επώνυμο..."
         required={true}
         invalidMessage="Συμπληρώστε το Επώνυμο"
@@ -22,8 +22,8 @@ export const PersonForm = ({ data, formName }: PersonFormProps) => {
       <TextInput
         type="text"
         label="Όνομα :"
-        name="firstName"
-        value={data.firstName}
+        name={`${uniqueName}FirstName`}
+        value={data?.firstName || ""}
         placeholder="Όνομα..."
         required={true}
         invalidMessage="Συμπληρώστε το Όνομα"
@@ -31,8 +31,8 @@ export const PersonForm = ({ data, formName }: PersonFormProps) => {
       <TextInput
         type="text"
         label="Τηλέφωνο :"
-        name="telephone"
-        value={data.telephone}
+        name={`${uniqueName}Telephone`}
+        value={data?.telephone || ""}
         placeholder="Τηλέφωνο..."
         required={true}
         invalidMessage="Συμπληρώστε το Τηλέφωνο"
@@ -40,8 +40,8 @@ export const PersonForm = ({ data, formName }: PersonFormProps) => {
       <TextInput
         type="text"
         label="Κινητό :"
-        name="mobile"
-        value={data.mobile}
+        name={`${uniqueName}Mobile`}
+        value={data?.mobile || ""}
         placeholder="Κινητό..."
         required={true}
         invalidMessage="Συμπληρώστε το Κινητό"
@@ -49,8 +49,8 @@ export const PersonForm = ({ data, formName }: PersonFormProps) => {
       <TextInput
         type="text"
         label="Email :"
-        name="email"
-        value={data.email}
+        name={`${uniqueName}Email`}
+        value={data?.email || ""}
         placeholder="Email..."
         required={true}
         invalidMessage="Συμπληρώστε το Email"

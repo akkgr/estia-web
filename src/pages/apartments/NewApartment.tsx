@@ -2,7 +2,7 @@ import React from "react";
 import { useHistory, Link, useParams } from "react-router-dom";
 import { useMutation, queryCache, useQuery } from "react-query";
 import { Form, Input, InputNumber, Skeleton } from "antd";
-import { PersonForm } from "components/PersonForm";
+import { PersonForm } from "components/admin/apartments/apartmentForm/PersonForm";
 import { AddressTitle } from "app/models/Address";
 import { ActionsForm } from "components/ActionsForm";
 import Cards from "app/common/views/Cards";
@@ -15,26 +15,26 @@ const NewApartment = () => {
   let { id } = useParams();
   const {
     fetchApartments,
-    newudpateApartments,
+
     parentEntity,
-  } = ApartmentsQueries(id);
+  } = ApartmentsQueries(id, "apartments");
 
   const { status, data, isFetching } = useQuery<
     any,
     [string, string | undefined]
   >([parentEntity, id], fetchApartments);
 
-  const [mutate] = useMutation(newudpateApartments, {
-    onSuccess: (data) => {
-      queryCache.setQueryData([parentEntity, data.id], data);
-      history.push(`/buildings/${data.buildingId}/apartments/${data.id}`);
-    },
-  });
+  // const [mutate] = useMutation(newudpateApartments, {
+  //   onSuccess: (data) => {
+  //     queryCache.setQueryData([parentEntity, data.id], data);
+  //     history.push(`/buildings/${data.buildingId}/apartments/${data.id}`);
+  //   },
+  // });
 
-  const update = (input: any) => {
-    input.buildingId = id;
-    mutate(input);
-  };
+  // const update = (input: any) => {
+  //   input.buildingId = id;
+  //   mutate(input);
+  // };
 
   return (
     <Skeleton active loading={status === "loading" || isFetching}>
@@ -47,11 +47,11 @@ const NewApartment = () => {
             const owner = ownerForm.getFieldsValue();
             const resident = residentForm.getFieldsValue();
             const appartment = appartmentForm.getFieldsValue();
-            update({
-              ...appartment,
-              owner: owner,
-              resident: resident,
-            });
+            // update({
+            //   ...appartment,
+            //   owner: owner,
+            //   resident: resident,
+            // });
           } catch {}
         }}
       >
@@ -149,7 +149,13 @@ const NewApartment = () => {
           <div className="col-lg-6">
             <Cards
               header={"Ιδιοκτήτης"}
-              body={<PersonForm formName="ownerForm" data={data?.owner} />}
+              body={
+                <PersonForm
+                  formName="ownerForm"
+                  uniqueName="owner"
+                  data={data?.owner}
+                />
+              }
             />
           </div>
 
@@ -157,7 +163,11 @@ const NewApartment = () => {
             <Cards
               header={"Ένοικος"}
               body={
-                <PersonForm formName="residentForm" data={data?.resident} />
+                <PersonForm
+                  formName="residentForm"
+                  uniqueName="resident"
+                  data={data?.resident}
+                />
               }
             />
           </div>

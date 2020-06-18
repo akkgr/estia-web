@@ -84,6 +84,7 @@ const Agent = () => {
     update: (key: string, id: string, input: any) =>
       requests.put(`/${key}/${id}`, input),
     new_update: (key: string, input: any) => requests.put(`/${key}`, input),
+    create: (key: string, input: any) => requests.post(`/${key}`, input),
   };
 
   const isLoggedIn = async () => {

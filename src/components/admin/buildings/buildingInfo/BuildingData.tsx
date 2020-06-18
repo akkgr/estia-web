@@ -5,16 +5,13 @@ import { Building } from "app/models/Building";
 
 const BuildingData: React.FC<{ data: Building }> = ({ data }) => {
   const handleManagersShow = (managers: Person[]) => {
-    console.log(managers);
     if (managers.length > 0) {
-      console.log("mpike");
       const manager = managers.map((m, index) => {
         console.log(m.fatherName);
         return `${m.lastName} ${m.firstName} (${m.mobile})`;
       });
       return manager;
     } else {
-      console.log("den mpike");
       return "Δεν υπάρχει διαχειριστής";
     }
   };

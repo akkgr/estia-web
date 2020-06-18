@@ -45,7 +45,7 @@ function Routes(props: any) {
       <Route
         exact
         path="/buildings/:id/apartments/new"
-        component={NewApartment}
+        component={ApartmentForm}
       />
 
       <Route

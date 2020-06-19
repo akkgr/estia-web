@@ -44,12 +44,13 @@ const BuildingQueries = (id?: string) => {
   };
 
   const updateBuilding = async (data: Building) => {
+    console.log("Updatedata", JSON.stringify(data));
     const inserted = await Buildings.update(entity, id, data);
     return inserted;
   };
 
   const saveBuilding = async (data: Building) => {
-    return data.id === undefined
+    return data.id !== null
       ? await updateBuilding(data)
       : await createBuilding(data);
   };

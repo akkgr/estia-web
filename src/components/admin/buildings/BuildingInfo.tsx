@@ -76,7 +76,7 @@ const BuildingInfo = () => {
       area: { value: string };
       street: { value: string };
       streetNumber: { value: string };
-      postalCode: { value: any }; //need string
+      postalCode: { value: string };
       active: { value: boolean };
       management: { value: boolean };
       reserve: { value: number };
@@ -120,6 +120,9 @@ const BuildingInfo = () => {
         street: street,
         streetNumber: streetNumber,
         postalCode: postalCode,
+        country: "",
+        lat: 0,
+        lng: 0,
       },
       active: active,
       management: management,

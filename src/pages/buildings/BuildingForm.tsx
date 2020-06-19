@@ -16,7 +16,7 @@ const entity = "buildings";
 const BuildingForm = () => {
   const manager = useContext(UserContext);
   let { id } = useParams();
-  const { fetchBuildingData } = BuildingQueries();
+  const { fetchBuildingData } = BuildingQueries(id);
   const updateData = async (input: any) => {
     const user = await manager.getUser();
     if (!user || user?.expired) {

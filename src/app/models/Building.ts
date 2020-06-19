@@ -7,8 +7,8 @@ export interface Building extends Entity {
   address: Address;
   active: boolean;
   management: boolean;
-  managementStart: string;
-  managementEnd: string;
+  managementStart: Date;
+  managementEnd: Date;
   reserve: number;
   heatingType: HeatingType;
   caloriesCounter: boolean;

@@ -24,7 +24,7 @@ const BuildingStatus: React.FC<IDates> = ({
           <Checkbox
             name="management"
             label="Διαχείρηση"
-            checked={data.management}
+            checked={data?.management}
             required={true}
           />
         </div>
@@ -32,7 +32,7 @@ const BuildingStatus: React.FC<IDates> = ({
           <Checkbox
             name="active"
             label="Ενεργή"
-            checked={data.active}
+            checked={data?.active}
             required={true}
           />
         </div>

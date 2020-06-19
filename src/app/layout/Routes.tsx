@@ -33,7 +33,7 @@ function Routes(props: any) {
 
       <Route exact path="/buildings" component={BuildingList} />
 
-      <Route exact path="/buildings/new" component={NewBuilding} />
+      <Route exact path="/buildings/new" component={BuildingInfo} />
 
       <Route exact path="/buildings/:id" component={BuildingForm} />
 

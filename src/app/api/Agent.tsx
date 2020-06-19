@@ -3,8 +3,8 @@ import axios, { AxiosResponse } from "axios";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import UserContext from "../../UserContext";
-// import { Building } from "app/models/Building";
-
+import { Building } from "app/models/Building";
+import { Apartment } from "app/models/Apartment";
 axios.defaults.baseURL = process.env.REACT_APP_API_URL + "/api";
 const Agent = () => {
   const history = useHistory();
@@ -71,20 +71,22 @@ const Agent = () => {
   const Buildings = {
     view: (key: string, page: number, rows: number, s: string, f: string) =>
       requests.get(`/${key}?sort=${s}&page=[${page},${rows}]&filter=${f}`),
-    list_info: (key: string, id: string | undefined) =>
+    info: (key: string, id: string | undefined) =>
       requests.get(`/${key}/${id}`),
-    update: (key: string, id: string, input: any) =>
+    create: (key: string, input: Building) => requests.post(`/${key}`, input),
+    update: (key: string, id: string | undefined, input: Building) =>
       requests.put(`/${key}/${id}`, input),
-    delete: (entity: string, id: string) => requests.del(`/${entity}/${id}`),
+    delete: (key: string, id: string) => requests.del(`/${key}/${id}`),
   };
 
   const Apartments = {
     data: (key: string, id: string | undefined) =>
       requests.get(`/${key}/${id}`),
-    update: (key: string, id: string, input: any) =>
+    update: (key: string, id: string, input: Apartment) =>
       requests.put(`/${key}/${id}`, input),
     new_update: (key: string, input: any) => requests.put(`/${key}`, input),
-    create: (key: string, input: any) => requests.post(`/${key}`, input),
+    create: (key: string, input: Apartment) => requests.post(`/${key}`, input),
+    delete: (key: string, id: string) => requests.del(`/${key}/${id}`),
   };
 
   const isLoggedIn = async () => {

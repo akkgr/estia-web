@@ -9,7 +9,7 @@ import Table from "app/common/table/Table";
 import Table_Search from "app/common/table/Table_Search";
 const ApartmentList = (props: any) => {
   const history = useHistory();
-  const { fetchBuildings, deleteBuildings } = BuildingQueries();
+  const { fetchBuildings, deleteBuilding } = BuildingQueries();
   const [page, setPage] = useState(1);
   const [rows, setRows] = useState(10);
   // const [total, setTotal] = useState(0);
@@ -90,10 +90,10 @@ const ApartmentList = (props: any) => {
   ];
   const memoizedCallback = useCallback(
     async (id: string) => {
-      await deleteBuildings(id);
+      await deleteBuilding(id);
       queryCache.refetchQueries([entity, page, rows, filter]);
     },
-    [entity, page, rows, filter, deleteBuildings]
+    [entity, page, rows, filter, deleteBuilding]
   );
 
   const filterFn = (value: any) => {

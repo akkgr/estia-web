@@ -31,7 +31,7 @@ const BuildingHeating: React.FC<IProps> = ({ data, setHeatingType }) => {
           <Checkbox
             label="Θερμοώρες"
             name="caloriesCounter"
-            checked={data.caloriesCounter}
+            checked={data?.caloriesCounter}
             required={true}
             invalidMessage="Συμπληρώστε τις Θερμοώρες"
           />
@@ -44,7 +44,7 @@ const BuildingHeating: React.FC<IProps> = ({ data, setHeatingType }) => {
             type="number"
             label="Συμμετοχή Κλειστών :"
             name="closedApartmentParticipation"
-            value={data.closedApartmentParticipation}
+            value={data?.closedApartmentParticipation}
             // min={0}
             placeholder="Συμμετοχή Κλειστών..."
             required={true}
@@ -59,7 +59,7 @@ const BuildingHeating: React.FC<IProps> = ({ data, setHeatingType }) => {
             label="Λίτρα Πετρ. ανά cm :"
             name="litersPerCm"
             min={0}
-            value={data.litersPerCm}
+            value={data?.litersPerCm}
             placeholder="Λίτρα Πετρ. ανά cm..."
             required={true}
             invalidMessage="Συμπληρώστε τα Λίτρα Πετρ. ανά cm"

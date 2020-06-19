@@ -11,12 +11,13 @@ const entity = "buildings";
 
 const BuildingList = () => {
   const history = useHistory();
-  const { fetchBuildings, deleteBuildings } = BuildingQueries();
+  const { fetchBuildings, deleteBuilding } = BuildingQueries();
   const [page, setPage] = useState(1);
   const [rows, setRows] = useState(10);
   // const [total, setTotal] = useState(0);
   const [sort, setSort] = useState(["id", "ASC"]);
   const [filter, setFilter] = useState({});
+
   const columns = [
     {
       dataField: "address.area",
@@ -78,13 +79,13 @@ const BuildingList = () => {
     any,
     [string, number, number, string[], {}]
   >([entity, page, rows, sort, filter], fetchBuildings);
-
+  console.log(data);
   const memoizedCallback = useCallback(
     async (id: string) => {
-      await deleteBuildings(id);
+      await deleteBuilding(id);
       queryCache.refetchQueries([entity, page, rows, filter]);
     },
-    [page, rows, filter, deleteBuildings]
+    [page, rows, filter, deleteBuilding]
   );
 
   const filterFn = (value: any) => {

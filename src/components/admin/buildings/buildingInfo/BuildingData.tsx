@@ -5,14 +5,18 @@ import { Building } from "app/models/Building";
 
 const BuildingData: React.FC<{ data: Building }> = ({ data }) => {
   const handleManagersShow = (managers: Person[]) => {
-    if (managers.length > 0) {
-      const manager = managers.map((m, index) => {
-        console.log(m.fatherName);
-        return `${m.lastName} ${m.firstName} (${m.mobile})`;
-      });
-      return manager;
+    if (managers === undefined) {
+      return "Δεν εχει οριστεί διαχειριστής";
     } else {
-      return "Δεν υπάρχει διαχειριστής";
+      if (managers.length > 0) {
+        const manager = managers.map((m, index) => {
+          console.log(m.fatherName);
+          return `${m.lastName} ${m.firstName} (${m.mobile})`;
+        });
+        return manager;
+      } else {
+        return "Δεν υπάρχει διαχειριστής";
+      }
     }
   };
   return (
@@ -23,7 +27,7 @@ const BuildingData: React.FC<{ data: Building }> = ({ data }) => {
             type="text"
             label="Στοιχεία Διαχειριστή:"
             name="managers"
-            value={handleManagersShow(data.managers)}
+            value={handleManagersShow(data?.managers)}
             required={true}
             readOnly={true}
             disable={true}
@@ -36,7 +40,7 @@ const BuildingData: React.FC<{ data: Building }> = ({ data }) => {
             type="text"
             label="Περιοχή :"
             name="area"
-            value={data.address.area}
+            value={data?.address.area}
             placeholder="Περιοχή ..."
             required={true}
             // validMessage="Έγκυρη Περιοχή"
@@ -49,7 +53,7 @@ const BuildingData: React.FC<{ data: Building }> = ({ data }) => {
             type="text"
             label="Οδός :"
             name="street"
-            value={data.address.street}
+            value={data?.address.street}
             placeholder="Οδός..."
             required={true}
             // validMessage="Έγκυρη Οδός"
@@ -62,7 +66,7 @@ const BuildingData: React.FC<{ data: Building }> = ({ data }) => {
             type="text"
             label="Αριθμός :"
             name="streetNumber"
-            value={data.address.streetNumber}
+            value={data?.address.streetNumber}
             placeholder="Αριθμός"
             required={true}
             // validMessage="Έγκυρος Αριθμός Οδού"
@@ -77,7 +81,7 @@ const BuildingData: React.FC<{ data: Building }> = ({ data }) => {
             type="text"
             label="Διαχείρηση :"
             name="createdBy"
-            value={data.createdBy}
+            value={data?.createdBy}
             placeholder="Διαχείρηση..."
             required={true}
             // validMessage="Συμπληρώσατε τη Διαχείρηση"
@@ -89,7 +93,7 @@ const BuildingData: React.FC<{ data: Building }> = ({ data }) => {
             type="number"
             label="Αποθεματικό :"
             name="reserve"
-            value={data.reserve}
+            value={data?.reserve}
             placeholder="Αποθεματικό..."
             required={true}
             invalidMessage="Συμπληρώστε το Αποθεματικό"
@@ -100,7 +104,7 @@ const BuildingData: React.FC<{ data: Building }> = ({ data }) => {
             type="text"
             label="ΤΚ :"
             name="postalCode"
-            value={data.address.postalCode}
+            value={data?.address.postalCode}
             placeholder="ΤΚ"
             required={true}
             // validMessage="Έγκυρος Ταχυδρομικός Κώδικας"

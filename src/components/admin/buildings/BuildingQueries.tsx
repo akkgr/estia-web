@@ -1,8 +1,10 @@
 import Agent from "app/api/Agent";
-
-const BuildingQueries = () => {
+import { useQuery } from "react-query";
+import { Building } from "app/models/Building";
+const BuildingQueries = (id?: string) => {
   const entity = "buildings";
   const { Buildings } = Agent();
+
   const fetchBuildings = async (
     entity: string,
     page: number,
@@ -18,12 +20,38 @@ const BuildingQueries = () => {
   };
 
   const fetchBuildingData = async (key: string, id: string | undefined) => {
-    const data = await Buildings.list_info(key, id);
-    return data;
+    if (id === "new" || !id || id === undefined) {
+      return null;
+    } else {
+      const data = await Buildings.info(key, id);
+      return data;
+    }
   };
 
-  const deleteBuildings = async (id: string) => {
+  const deleteBuilding = async (id: string) => {
     await Buildings.delete(entity, id);
+  };
+
+  const createBuilding = async (data: Building) => {
+    try {
+      const inserted = await Buildings.create(entity, data);
+      if (inserted) {
+        console.log("εγινε η εισαγωγή στην βάση");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const updateBuilding = async (data: Building) => {
+    const inserted = await Buildings.update(entity, id, data);
+    return inserted;
+  };
+
+  const saveBuilding = async (data: Building) => {
+    return data.id === undefined
+      ? await updateBuilding(data)
+      : await createBuilding(data);
   };
   // const updateBuildings=async (input:any)=>{
   //   const CancelToken = axios.CancelToken;
@@ -35,6 +63,6 @@ const BuildingQueries = () => {
   //   return data;
   // }
 
-  return { fetchBuildings, deleteBuildings, fetchBuildingData };
+  return { fetchBuildings, fetchBuildingData, saveBuilding, deleteBuilding };
 };
 export default BuildingQueries;

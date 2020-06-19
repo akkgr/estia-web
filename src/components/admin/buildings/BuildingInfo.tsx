@@ -21,7 +21,7 @@ const entity = "buildings";
 
 const BuildingInfo = () => {
   let { id } = useParams();
-
+  console.log(id);
   const [tabActiveData, setTabActiveData] = useState<boolean>(true);
   const [tabActiveHeating, setActiveHeating] = useState<boolean>(false);
   const [tabActiveProvider, setActiveProvider] = useState<boolean>(false);
@@ -30,12 +30,12 @@ const BuildingInfo = () => {
   const [tabActivePdf, setActivePdf] = useState<boolean>(false);
 
   const [disableSaveButton, setDisableSaveButton] = useState<boolean>(false);
-  const { fetchBuildingData } = BuildingQueries();
-
+  const { fetchBuildingData, saveBuilding } = BuildingQueries(id);
   const { data } = useQuery<any, [string, string | undefined]>(
     [entity, id],
     fetchBuildingData
   );
+
   const [dataProvider, setDataProvider] = useState([
     {
       providerType: ProviderType.Electricity,
@@ -50,10 +50,16 @@ const BuildingInfo = () => {
       office: true,
     },
   ]); //data.providers
-  const [startDate, setStartDate] = useState(new Date(data.managementStart));
-  const [endDate, setEndDate] = useState(new Date(data.managementEnd));
-  const [heatingType, setHeatingType] = useState(data.heatingType);
-  const handleSubmit = (e: React.SyntheticEvent) => {
+  const [startDate, setStartDate] = useState(
+    data !== null ? new Date(data.managementStart) : new Date()
+  );
+  const [endDate, setEndDate] = useState(
+    data !== null ? new Date(data.managementEnd) : new Date()
+  );
+  const [heatingType, setHeatingType] = useState(
+    data !== null ? data.heatingType : "Κεντρική Θέρμανση"
+  );
+  const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     const HeatingTypeSelect = () => {
       if (heatingType === "Κεντρική Θέρμανση") {
@@ -69,7 +75,7 @@ const BuildingInfo = () => {
     const target = e.target as typeof e.target & {
       area: { value: string };
       street: { value: string };
-      streetNumber: { value: number };
+      streetNumber: { value: string };
       postalCode: { value: any }; //need string
       active: { value: boolean };
       management: { value: boolean };
@@ -107,7 +113,8 @@ const BuildingInfo = () => {
       toast.error("Η φόρμα εμφάνισε προβλήματα");
       return false;
     }
-    const submitedData = {
+    const UpdatedData = {
+      ...data,
       address: {
         area: area,
         street: street,
@@ -127,7 +134,44 @@ const BuildingInfo = () => {
       providers: dataProvider,
       createdBy: createdBy,
     };
-    console.log("submitedData" + JSON.stringify(submitedData));
+
+    const NewData = {
+      id: null,
+      createdOn: "",
+      updatedOn: "",
+      updatedBy: "",
+      deleted: false,
+      deletedOn: "",
+      deletedBy: "",
+      address: {
+        area: area,
+        street: street,
+        streetNumber: streetNumber,
+        postalCode: postalCode,
+        country: "",
+        lat: 0,
+        lng: 0,
+      },
+      active: active,
+      management: management,
+      reserve: reserve,
+      managementStart: startDate,
+      managementEnd: endDate,
+      closedApartmentParticipation: closedApartmentParticipation,
+      heatingType: HeatingTypeSelect(),
+      caloriesCounter: caloriesCounter,
+      litersPerCm: litersPerCm,
+      bankReason: bankReason,
+      providers: dataProvider,
+      createdBy: createdBy,
+      managers: [],
+    };
+    if (!id || id === undefined) {
+      await saveBuilding(NewData);
+    } else {
+      await saveBuilding(UpdatedData);
+    }
+    console.log("submitedData" + JSON.stringify(NewData));
   };
 
   const tabActivate = (reference: string) => {
@@ -194,13 +238,21 @@ const BuildingInfo = () => {
             returnUrl="/buildings"
             disableSubmitButton={disableSaveButton}
           >
-            <li className="breadcrumb-item active" aria-current="page">
-              <Link to="/buildings">Κτίρια</Link>
-            </li>
-            <li className="breadcrumb-item active" aria-current="page">
-              {data.address.street} {data.address.streetNumber},{" "}
-              {data.address.area}
-            </li>
+            {data === null ? (
+              <li className="breadcrumb-item " aria-current="page">
+                <Link to="/buildings">Νέο Κτίριο</Link>
+              </li>
+            ) : (
+              <div>
+                <li className="breadcrumb-item active" aria-current="page">
+                  <Link to="/buildings">Κτίρια</Link>
+                </li>
+                <li className="breadcrumb-item active" aria-current="page">
+                  {data.address.street} {data.address.streetNumber},{" "}
+                  {data.address.area}
+                </li>
+              </div>
+            )}
           </PageHeader>
           <Card
             cardBody={
@@ -251,13 +303,13 @@ const BuildingInfo = () => {
                       <TabItem
                         active={true}
                         tabId="data"
-                        item={<BuildingData data={data} />}
+                        item={<BuildingData data={data ? data : null} />}
                       />
                       <TabItem
                         tabId="heating"
                         item={
                           <BuildingHeating
-                            data={data}
+                            data={data ? data : null}
                             setHeatingType={setHeatingType}
                           />
                         }
@@ -275,7 +327,7 @@ const BuildingInfo = () => {
                         tabId="status"
                         item={
                           <BuildingStatus
-                            data={data}
+                            data={data ? data : null}
                             startDate={startDate}
                             setStartDate={setStartDate}
                             setEndDate={setEndDate}
@@ -286,7 +338,7 @@ const BuildingInfo = () => {
                       <TabItem
                         tabId="otherInfo"
                         item={
-                          <BuildingOtherInfo bankReason={data.bankReason} />
+                          <BuildingOtherInfo bankReason={data?.bankReason} />
                         }
                       />
                       <TabItem tabId="pdf" item={<BuildingPdf />} />

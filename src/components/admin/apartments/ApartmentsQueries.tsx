@@ -7,6 +7,7 @@ const ApartmentsQueries = (id: string, key: string) => {
   const entity = "apartments";
   const parentEntity = "buildings";
   const { Apartments } = Agent();
+
   const fetchApartments = async (id1: string) => {
     const data = await Apartments.data(key, id1);
     return data;
@@ -15,13 +16,6 @@ const ApartmentsQueries = (id: string, key: string) => {
     [id],
     fetchApartments
   );
-
-  const updateApartments = async (input: any) => {
-    console.log("update");
-    console.log(entity, id, input);
-    const data = await Apartments.update(entity, id, input);
-    return data;
-  };
 
   const createApartment = async (data: any) => {
     try {
@@ -37,6 +31,17 @@ const ApartmentsQueries = (id: string, key: string) => {
       console.log(err);
     }
   };
+
+  const updateApartments = async (input: any) => {
+    console.log("update");
+    console.log(input, id);
+    const data = await Apartments.update(entity, id, input);
+    return data;
+  };
+  const deleteApartment = async (id: string) => {
+    await Apartments.delete(entity, id);
+  };
+
   const saveApartment = async (data: any) => {
     return !data.id || data.id === "new"
       ? await createApartment(data)
@@ -46,6 +51,7 @@ const ApartmentsQueries = (id: string, key: string) => {
   return {
     fetchApartments,
     saveApartment,
+    deleteApartment,
     data,
     entity,
     parentEntity,

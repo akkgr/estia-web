@@ -19,5 +19,9 @@
 
 ## We suggest that you begin by typing:
 
+## Create template for typescript with basic structure project
+
+    npx create-react-app  --template vg-template
+
 cd client
 npm start

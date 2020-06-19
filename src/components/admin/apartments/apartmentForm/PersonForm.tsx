@@ -1,6 +1,7 @@
 import React from "react";
 import { Person } from "../../../../app/models/Person";
 import TextInput from "../../../../app/common/form/TextInput";
+import TextInputLabel from "app/common/form/TextInputLabel";
 interface PersonFormProps {
   formName: string;
   uniqueName: string;
@@ -10,7 +11,7 @@ interface PersonFormProps {
 export const PersonForm = ({ data, uniqueName, formName }: PersonFormProps) => {
   return (
     <div id={formName} key={formName}>
-      <TextInput
+      <TextInputLabel
         type="text"
         label="Επώνυμο :"
         name={`${uniqueName}LastName`}
@@ -19,7 +20,7 @@ export const PersonForm = ({ data, uniqueName, formName }: PersonFormProps) => {
         required={true}
         invalidMessage="Συμπληρώστε το Επώνυμο"
       />
-      <TextInput
+      <TextInputLabel
         type="text"
         label="Όνομα :"
         name={`${uniqueName}FirstName`}
@@ -28,7 +29,7 @@ export const PersonForm = ({ data, uniqueName, formName }: PersonFormProps) => {
         required={true}
         invalidMessage="Συμπληρώστε το Όνομα"
       />
-      <TextInput
+      <TextInputLabel
         type="text"
         label="Τηλέφωνο :"
         name={`${uniqueName}Telephone`}
@@ -37,7 +38,7 @@ export const PersonForm = ({ data, uniqueName, formName }: PersonFormProps) => {
         required={true}
         invalidMessage="Συμπληρώστε το Τηλέφωνο"
       />
-      <TextInput
+      <TextInputLabel
         type="text"
         label="Κινητό :"
         name={`${uniqueName}Mobile`}
@@ -46,7 +47,7 @@ export const PersonForm = ({ data, uniqueName, formName }: PersonFormProps) => {
         required={true}
         invalidMessage="Συμπληρώστε το Κινητό"
       />
-      <TextInput
+      <TextInputLabel
         type="text"
         label="Email :"
         name={`${uniqueName}Email`}

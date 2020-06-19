@@ -139,6 +139,7 @@ const ApartmentForm = () => {
                         />
                       </div>
                       <div className="col">
+                      
                         <TextInput
                           type="text"
                           label="Διαμέρισμα:"
@@ -151,7 +152,6 @@ const ApartmentForm = () => {
                       </div>
                     </div>
                   </div>
-
                   <div className="col">
                     <TextInput
                       type="text"

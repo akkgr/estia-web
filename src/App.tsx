@@ -100,7 +100,7 @@ function App() {
               <div id="routes-content" style={{ margin: 15 }}>
                 <Routes changeUser={changeUser} />
               </div>
-            </div>
+            </div>  
           </div>
           <div className="footer">
             <div className="media-container-row align-center ">

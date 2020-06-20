@@ -7,7 +7,7 @@ import Loading from "../../../app/layout/Loading";
 import "../buildings/buildings.css";
 import Table from "app/common/table/Table";
 import Table_Search from "app/common/table/Table_Search";
-const ApartmentList = (props: any) => {
+const ApartmentList = (buildingId: any) => {
   const history = useHistory();
   const { fetchBuildings, deleteBuilding } = BuildingQueries();
   const [page, setPage] = useState(1);
@@ -15,7 +15,8 @@ const ApartmentList = (props: any) => {
   // const [total, setTotal] = useState(0);
   const [sort, setSort] = useState(["id", "ASC"]);
   const [filter, setFilter] = useState({});
-  const entity = "buildings/" + props.data.id + "/apartments";
+  console.log(buildingId);
+  const entity = "buildings/" + buildingId.buildingId + "/apartments";
 
   const columns = [
     {

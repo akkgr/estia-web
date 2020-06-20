@@ -12,27 +12,29 @@ const ApartmentForm = () => {
   let { id1, id2 } = useParams();
   let { id } = useParams();
   const history = useHistory();
-  const { saveApartment, data, entity } = ApartmentsQueries(
+  const { saveApartment, fetchApartments, data, entity } = ApartmentsQueries(
     !id ? id2 : id,
     !id ? "apartments" : "buildings"
   );
-  // const [mutate] = useMutation(saveApartment, {
-  //   onSuccess: (data) => queryCache.setQueryData([entity, id2], data),
-  // });
 
-  // const update = (input: any) => {
-  //   mutate(input);
-  // };
+  const [mutate] = useMutation(saveApartment, {
+    // onSuccess: (data) => queryCache.setQueryData([!id ? id2 : id], data),
+    onSuccess: () => queryCache.refetchQueries(data),
+  });
+
+  const update = (input: any) => {
+    mutate(input);
+  };
 
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     const target = e.target as typeof e.target & {
       position: { value: number };
       title: { value: string };
-      common: { value: string };
-      owners: { value: string };
-      lift: { value: string };
-      heat: { value: string };
+      common: { value: number };
+      owners: { value: number };
+      lift: { value: number };
+      heat: { value: number };
       ownerLastName: { value: string };
       ownerFirstName: { value: string };
       ownerTelephone: { value: string };
@@ -44,20 +46,24 @@ const ApartmentForm = () => {
       residentMobile: { value: string };
       residentEmail: { value: string };
     };
+    console.log(target.common.value);
     const UpdatedData = {
       ...data,
-      position: target.position.value,
+      position: new Number(target.position.value),
       title: target.title.value,
-      common: target.common.value,
-      owners: target.owners.value,
-      lift: target.lift.value,
-      heat: target.heat.value,
+      common: new Number(target.common.value),
+      owners: new Number(target.owners.value),
+      lift: new Number(target.lift.value),
+      heat: new Number(target.heat.value),
       owner: {
         firstName: target.ownerFirstName.value,
         lastName: target.ownerLastName.value,
         telephone: target.ownerTelephone.value,
         mobile: target.ownerMobile.value,
         email: target.ownerEmail.value,
+        afm: "",
+        doy: "",
+        roleType: 0,
       },
       resident: {
         firstName: target.residentFirstName.value,
@@ -65,34 +71,58 @@ const ApartmentForm = () => {
         telephone: target.residentTelephone.value,
         mobile: target.residentMobile.value,
         email: target.residentEmail.value,
+        afm: "",
+        doy: "",
+        roleType: 0,
       },
     };
+
     const NewData = {
-      position: target.position.value,
+      id: null,
+      buildingId: id,
       title: target.title.value,
-      common: target.common.value,
-      owners: target.owners.value,
-      lift: target.lift.value,
-      heat: target.heat.value,
-      owner: {
-        firstName: target.ownerFirstName.value,
-        lastName: target.ownerLastName.value,
-        telephone: target.ownerTelephone.value,
-        mobile: target.ownerMobile.value,
-        email: target.ownerEmail.value,
-      },
+      position: new Number(target.position.value),
       resident: {
         firstName: target.residentFirstName.value,
         lastName: target.residentLastName.value,
         telephone: target.residentTelephone.value,
         mobile: target.residentMobile.value,
         email: target.residentEmail.value,
+        afm: "",
+        doy: "",
+        roleType: 0,
       },
+      owner: {
+        firstName: target.ownerFirstName.value,
+        lastName: target.ownerLastName.value,
+        telephone: target.ownerTelephone.value,
+        mobile: target.ownerMobile.value,
+        email: target.ownerEmail.value,
+        afm: "",
+        doy: "",
+        roleType: 0,
+      },
+      closed: false,
+      infoType: 0,
+      common: new Number(target.common.value),
+      lift: new Number(target.lift.value),
+      ei: 0,
+      fi: 0,
+      owners: new Number(target.owners.value),
+      special: 0,
+      special1: 0,
+      special2: 0,
+      special3: 0,
+      special4: 0,
+      heat: new Number(target.heat.value),
+      label: "",
+      buildingTitle: "Νέο Κτίριο Δοκιμαστικό",
     };
+
     if (!id) {
-      await saveApartment(UpdatedData);
+      await update(UpdatedData);
     } else {
-      await saveApartment(NewData);
+      await update(NewData);
     }
     history.goBack();
   };
@@ -129,7 +159,7 @@ const ApartmentForm = () => {
                     <div className="row">
                       <div className="col">
                         <TextInput
-                          type="text"
+                          type="number"
                           label="A/A:"
                           name="position"
                           value={data?.position}
@@ -139,7 +169,6 @@ const ApartmentForm = () => {
                         />
                       </div>
                       <div className="col">
-                      
                         <TextInput
                           type="text"
                           label="Διαμέρισμα:"
@@ -154,7 +183,7 @@ const ApartmentForm = () => {
                   </div>
                   <div className="col">
                     <TextInput
-                      type="text"
+                      type="number"
                       label="Κοινό:"
                       name="common"
                       value={data?.common}
@@ -165,7 +194,7 @@ const ApartmentForm = () => {
                 <div className="row">
                   <div className="col">
                     <TextInput
-                      type="text"
+                      type="number"
                       label="Ιδιοκτήτες:"
                       name="owners"
                       value={data?.owners}
@@ -174,7 +203,7 @@ const ApartmentForm = () => {
                   </div>
                   <div className="col">
                     <TextInput
-                      type="text"
+                      type="number"
                       label="Lift:"
                       name="lift"
                       value={data?.lift}
@@ -185,7 +214,7 @@ const ApartmentForm = () => {
                 <div className="row">
                   <div className="col">
                     <TextInput
-                      type="text"
+                      type="number"
                       label="heat:"
                       name="heat"
                       value={data?.heat}

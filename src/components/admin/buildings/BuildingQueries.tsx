@@ -1,6 +1,7 @@
 import Agent from "app/api/Agent";
 import { useQuery } from "react-query";
 import { Building } from "app/models/Building";
+import { Address } from "app/models/Address";
 const BuildingQueries = (id?: string) => {
   const entity = "buildings";
   const { Buildings } = Agent();
@@ -32,8 +33,9 @@ const BuildingQueries = (id?: string) => {
     await Buildings.delete(entity, id);
   };
 
-  const createBuilding = async (data: Building) => {
+  const createBuilding = async (data: Building | any) => {
     try {
+      console.log(data);
       const inserted = await Buildings.create(entity, data);
       if (inserted) {
         console.log("εγινε η εισαγωγή στην βάση");
@@ -44,15 +46,13 @@ const BuildingQueries = (id?: string) => {
   };
 
   const updateBuilding = async (data: Building) => {
-    console.log("Updatedata", JSON.stringify(data));
+    console.log("Updatedata", data);
     const inserted = await Buildings.update(entity, id, data);
     return inserted;
   };
 
-  const saveBuilding = async (data: Building) => {
-    return data.id !== null
-      ? await updateBuilding(data)
-      : await createBuilding(data);
+  const saveBuilding = async (data: Building | any) => {
+    return data.id ? await updateBuilding(data) : await createBuilding(data);
   };
   // const updateBuildings=async (input:any)=>{
   //   const CancelToken = axios.CancelToken;

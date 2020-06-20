@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
 import { useQuery, useMutation, queryCache } from "react-query";
 import Agent from "app/api/Agent";
-import { Console } from "console";
-
+import { Apartment } from "app/models/Apartment";
 const ApartmentsQueries = (id: string, key: string) => {
   const entity = "apartments";
   const parentEntity = "buildings";
@@ -20,7 +19,6 @@ const ApartmentsQueries = (id: string, key: string) => {
   const createApartment = async (data: any) => {
     try {
       console.log("create");
-      console.log(entity);
       console.log(data);
       data.id = null;
       const inserted = await Apartments.create(entity, data);
@@ -32,11 +30,10 @@ const ApartmentsQueries = (id: string, key: string) => {
     }
   };
 
-  const updateApartments = async (input: any) => {
+  const updateApartments = async (input: Apartment) => {
     console.log("update");
-    console.log(input, id);
-    const data = await Apartments.update(entity, id, input);
-    return data;
+    console.log(JSON.stringify(input));
+    await Apartments.update(entity, id, input);
   };
   const deleteApartment = async (id: string) => {
     await Apartments.delete(entity, id);

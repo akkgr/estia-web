@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useQuery } from "react-query";
-
+import { useHistory } from "react-router-dom";
 import BuildingData from "components/admin/buildings/buildingInfo/BuildingData";
 import BuildingOtherInfo from "components/admin/buildings/buildingInfo/BuildingOtherInfo";
 import BuildingHeating from "components/admin/buildings/buildingInfo/BuildingHeating";
@@ -22,6 +22,7 @@ const entity = "buildings";
 const BuildingInfo = () => {
   let { id } = useParams();
   console.log(id);
+  const history = useHistory();
   const [tabActiveData, setTabActiveData] = useState<boolean>(true);
   const [tabActiveHeating, setActiveHeating] = useState<boolean>(false);
   const [tabActiveProvider, setActiveProvider] = useState<boolean>(false);
@@ -36,20 +37,7 @@ const BuildingInfo = () => {
     fetchBuildingData
   );
 
-  const [dataProvider, setDataProvider] = useState([
-    {
-      providerType: ProviderType.Electricity,
-      providerName: "ΔΕΗ",
-      customerName: "thisCustomer", //need import in form field
-      contractNumber: "1243245798237",
-      connectionNumber: "wqf234324",
-      counterNumber: "co34241243",
-      paymentCode: "pay6768976",
-      interval: 0, //need import in form field
-      day: 1, //need import in form field
-      office: true,
-    },
-  ]); //data.providers
+  const [dataProvider, setDataProvider] = useState(data?.providers || []); //data.providers
   const [startDate, setStartDate] = useState(
     data !== null ? new Date(data.managementStart) : new Date()
   );
@@ -77,13 +65,13 @@ const BuildingInfo = () => {
       street: { value: string };
       streetNumber: { value: string };
       postalCode: { value: string };
-      active: { value: boolean };
-      management: { value: boolean };
+      active: { value: string };
+      management: { value: string };
       reserve: { value: number };
       startDate: { value: any };
       heatingType: { value: number };
       closedApartmentParticipation: { value: number };
-      caloriesCounter: { value: boolean };
+      caloriesCounter: { value: string };
       litersPerCm: { value: number };
       bankReason: { value: string };
       providers: { value: any }; //array
@@ -93,23 +81,17 @@ const BuildingInfo = () => {
     const street = target.street.value;
     const streetNumber = target.streetNumber.value;
     const postalCode = target.postalCode.value;
-    const active = target.active.value;
-    const management = target.management.value;
-    const reserve = target.reserve.value;
-    const closedApartmentParticipation =
-      target.closedApartmentParticipation.value;
-    const caloriesCounter = target.caloriesCounter.value;
-    const litersPerCm = target.litersPerCm.value;
+    const active = JSON.parse(target.active.value);
+    const management = JSON.parse(target.management.value);
+    const reserve = Number(target.reserve.value);
+    const closedApartmentParticipation = Number(
+      target.closedApartmentParticipation.value
+    );
+    const caloriesCounter = JSON.parse(target.caloriesCounter.value);
+    const litersPerCm = Number(target.litersPerCm.value);
     const bankReason = target.bankReason.value;
     const createdBy = target.createdBy.value;
-
-    if (
-      area === "" ||
-      street === "" ||
-      !streetNumber ||
-      !postalCode ||
-      !reserve
-    ) {
+    if (area === "" || street === "" || !streetNumber || !postalCode) {
       toast.error("Η φόρμα εμφάνισε προβλήματα");
       return false;
     }
@@ -120,15 +102,15 @@ const BuildingInfo = () => {
         street: street,
         streetNumber: streetNumber,
         postalCode: postalCode,
-        country: "",
+        country: "Ελλάδα",
         lat: 0,
         lng: 0,
       },
       active: active,
       management: management,
       reserve: reserve,
-      managementStart: startDate,
-      managementEnd: endDate,
+      managementStart: new Date(startDate.toISOString()),
+      managementEnd: new Date(endDate.toISOString()),
       closedApartmentParticipation: closedApartmentParticipation,
       heatingType: HeatingTypeSelect(),
       caloriesCounter: caloriesCounter,
@@ -137,43 +119,22 @@ const BuildingInfo = () => {
       providers: dataProvider,
       createdBy: createdBy,
     };
-
+    //MUST CHANGE THE CONTROLLER
     const NewData = {
-      id: null,
-      createdOn: "",
-      updatedOn: "",
-      updatedBy: "",
-      deleted: false,
-      deletedOn: "",
-      deletedBy: "",
-      address: {
-        area: area,
-        street: street,
-        streetNumber: streetNumber,
-        postalCode: postalCode,
-        country: "",
-        lat: 0,
-        lng: 0,
-      },
-      active: active,
-      management: management,
-      reserve: reserve,
-      managementStart: startDate,
-      managementEnd: endDate,
-      closedApartmentParticipation: closedApartmentParticipation,
-      heatingType: HeatingTypeSelect(),
-      caloriesCounter: caloriesCounter,
-      litersPerCm: litersPerCm,
-      bankReason: bankReason,
-      providers: dataProvider,
-      createdBy: createdBy,
-      managers: [],
+      area: area,
+      street: street,
+      streetNumber: streetNumber,
+      postalCode: postalCode,
+      country: "",
+      lat: 0,
+      lng: 0,
     };
     if (!id || id === undefined) {
       await saveBuilding(NewData);
     } else {
       await saveBuilding(UpdatedData);
     }
+    history.goBack();
     console.log("submitedData" + JSON.stringify(NewData));
   };
 

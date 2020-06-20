@@ -21,19 +21,23 @@ const BuildingFormProvider: React.FC<IProviderProps> = ({
   const counterNumber = useRef(row.counterNumber);
   const paymentCode = useRef(row.paymentCode);
   const connectionNumber = useRef(row.connectionNumber);
-  const office = useRef(row.office);
+  const [office, setOffice] = useState<any>(row.office);
   const handleSubmit = (e: any) => {
     e.preventDefault();
+    console.log(office);
     const submitedData = {
       providerType: providerType,
       providerName: providerName.current.value,
+      customerName: "thisCustomer", //need import in form field
       contractNumber: contractNumber.current.value,
       counterNumber: counterNumber.current.value,
       paymentCode: paymentCode.current.value,
       connectionNumber: connectionNumber.current.value,
-      office: office.current.value,
+      office: office,
+      interval: 0, //need import in form field
+      day: 1, //need import in form field
     };
-    console.log("office", office);
+
     console.log(providerName.current.value);
     if (
       providerName.current.value === "" ||
@@ -167,11 +171,11 @@ const BuildingFormProvider: React.FC<IProviderProps> = ({
                 <input
                   id="office"
                   type="checkbox"
-                  defaultChecked={row.office}
+                  value={office}
                   className="custom-control-input"
                   name="office"
                   required={true}
-                  ref={office}
+                  onClick={() => setOffice(!office)}
                 />
                 <label
                   className="custom-control-label"

@@ -84,7 +84,6 @@ const Agent = () => {
       requests.get(`/${key}/${id}`),
     update: (key: string, id: string, input: Apartment) =>
       requests.put(`/${key}/${id}`, input),
-    new_update: (key: string, input: any) => requests.put(`/${key}`, input),
     create: (key: string, input: Apartment) => requests.post(`/${key}`, input),
     delete: (key: string, id: string) => requests.del(`/${key}/${id}`),
   };

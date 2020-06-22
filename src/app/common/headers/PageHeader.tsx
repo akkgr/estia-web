@@ -19,7 +19,7 @@ interface IHeader {
 const PageΗeader: React.FC<IHeader> = ({
   returnUrl,
   children,
-  disableSubmitButton
+  disableSubmitButton,
 }) => {
   const history = useHistory();
 

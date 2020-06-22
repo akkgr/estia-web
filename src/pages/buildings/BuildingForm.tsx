@@ -20,7 +20,9 @@ const BuildingForm = () => {
     <React.Fragment>
       <ActionsForm returnUrl="/buildings" showSubmitButton={false}>
         <li className="breadcrumb-item active" aria-current="page">
-          <Link to="/buildings">Κτίρια</Link>
+          <Link to="/buildings" className="text-primary">
+            Κτίρια
+          </Link>
         </li>
         <li className="breadcrumb-item active" aria-current="page">
           {data ? AddressTitle(data.address) : ""}

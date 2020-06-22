@@ -13,7 +13,7 @@ import TabItemButton from "app/common/tabs/TabItemButton";
 import TabItem from "app/common/tabs/TabItem";
 import PageHeader from "app/common/headers/PageHeader";
 import { HeatingType } from "app/models/Building";
-import { ProviderType } from "app/models/Provider";
+import { AddressTitle } from "app/models/Address";
 import { toast } from "react-toastify";
 import BuildingStatus from "./buildingInfo/BuildingStatus";
 import BuildingQueries from "components/admin/buildings/BuildingQueries";
@@ -202,20 +202,17 @@ const BuildingInfo = () => {
             returnUrl="/buildings"
             disableSubmitButton={disableSaveButton}
           >
-            {data === null ? (
-              <li className="breadcrumb-item " aria-current="page">
-                <Link to="/buildings">Νέο Κτίριο</Link>
+            <li className="breadcrumb-item" aria-current="page">
+              <Link to="/buildings" className="text-primary">
+                {data ? "Κτίριo" : "Νέο Κτίριο"}
+              </Link>
+            </li>
+            {data ? (
+              <li className="breadcrumb-item active" aria-current="page">
+                {AddressTitle(data?.address)}
               </li>
             ) : (
-              <div>
-                <li className="breadcrumb-item active" aria-current="page">
-                  <Link to="/buildings">Κτίρια</Link>
-                </li>
-                <li className="breadcrumb-item active" aria-current="page">
-                  {data.address.street} {data.address.streetNumber},{" "}
-                  {data.address.area}
-                </li>
-              </div>
+              ""
             )}
           </PageHeader>
           <Card

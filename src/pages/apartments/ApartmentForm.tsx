@@ -11,6 +11,7 @@ import ApartmentsQueries from "components/admin/apartments/ApartmentsQueries";
 const ApartmentForm = () => {
   let { id1, id2 } = useParams();
   let { id } = useParams();
+  console.log("Newid" + id);
   const history = useHistory();
   const { saveApartment, fetchApartments, data, entity } = ApartmentsQueries(
     !id ? id2 : id,
@@ -131,21 +132,28 @@ const ApartmentForm = () => {
     <form onSubmit={handleSubmit} className="was-validated" noValidate>
       <ActionsForm returnUrl={`/buildings/${id1}`} showSubmitButton={true}>
         {data.buildingTitle === undefined ? (
-          <li className="breadcrumb-item " aria-current="page">
-            <Link to="/buildings">Νέο Κτίριο</Link>
+          <li className="breadcrumb-item" aria-current="page">
+            <Link to="/buildings" className="text-primary">
+              Νέο Κτίριο
+            </Link>
           </li>
         ) : (
-          <div>
-            <li className="breadcrumb-item " aria-current="page">
-              <Link to="/buildings">Κτίρια</Link>
+          <React.Fragment>
+            <li className="breadcrumb-item" aria-current="page">
+              <Link to="/buildings" className="text-primary">
+                Κτίρια
+              </Link>
             </li>
-            <li className="breadcrumb-item " aria-current="page">
-              <Link to={`/buildings/${id1}`}>{`${data.buildingTitle}`}</Link>
+            <li className="breadcrumb-item active" aria-current="page">
+              <Link
+                to={`/buildings/${id1}`}
+                className="text-info"
+              >{`${data.buildingTitle}`}</Link>
             </li>
-            <li className="breadcrumb-item " aria-current="page">
+            <li className="breadcrumb-item active" aria-current="page">
               {`${data.title}`}
             </li>
-          </div>
+          </React.Fragment>
         )}
       </ActionsForm>
       <div className="row slideanim">
@@ -227,7 +235,6 @@ const ApartmentForm = () => {
           />
         </div>
       </div>
-      {/* NEED TO SEPERATE TWO FORMS  HAS SAME VALUES*/}
       <div className="row slideanim">
         <div className="col-lg-6">
           <Cards

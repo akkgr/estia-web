@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 import { BsTrashFill, BsPencilSquare, BsPlusCircle } from "react-icons/bs";
 import Loading from "app/layout/Loading";
 import Table from "app/common/table/Table";
-import Table_Search from "app/common/table/Table_Search";
+import TableSearch from "app/common/table/TableSearch";
 import "components/shared/sharedStyles.css";
 const entity = "buildings";
 
@@ -174,7 +174,7 @@ const BuildingList = () => {
 
   return (
     <React.Fragment>
-      <Table_Search onSearch={onSearch} />
+      <TableSearch onSearch={onSearch} />
       {isFetching || status === "loading" ? <Loading /> : null}
       <Table
         data={data.data}

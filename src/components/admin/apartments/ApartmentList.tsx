@@ -1,5 +1,4 @@
 import React, { useState, useCallback } from "react";
-import BuildingQueries from "../buildings/BuildingQueries";
 import ApartmentsQueries from "components/admin/apartments/ApartmentsQueries";
 import { useQuery, queryCache } from "react-query";
 import { useHistory } from "react-router-dom";
@@ -7,7 +6,7 @@ import { BsTrashFill, BsPencilSquare, BsPlusCircle } from "react-icons/bs";
 import Loading from "../../../app/layout/Loading";
 import "components/shared/sharedStyles.css";
 import Table from "app/common/table/Table";
-import Table_Search from "app/common/table/Table_Search";
+import TableSearch from "app/common/table/TableSearch";
 const ApartmentList = (buildingId: any) => {
   const history = useHistory();
   const entity = "buildings/" + buildingId.buildingId + "/apartments";
@@ -192,7 +191,7 @@ const ApartmentList = (buildingId: any) => {
 
   return (
     <React.Fragment>
-      <Table_Search onSearch={onSearch} />
+      <TableSearch onSearch={onSearch} />
       {isFetching || status === "loading" ? <Loading /> : null}
       <Table
         data={data.data}

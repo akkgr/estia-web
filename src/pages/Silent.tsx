@@ -1,16 +1,11 @@
 import { useEffect } from "react";
-
-import { notification } from "antd";
+import { toast } from "react-toastify";
 import Oidc from "oidc-client";
 
 const Silent = () => {
   useEffect(() => {
-    new Oidc.UserManager({}).signinSilentCallback().catch(function (e) {
-      notification["error"]({
-        message: "Σφάλμα !!!",
-        description: e.message,
-        duration: 10,
-      });
+    new Oidc.UserManager({}).signinSilentCallback().catch((error) => {
+      return toast.error(error.message);
     });
   }, []);
 

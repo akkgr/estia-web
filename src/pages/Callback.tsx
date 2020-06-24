@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { notification } from "antd";
+import { toast } from "react-toastify";
 import Oidc from "oidc-client";
 
 const Callback = () => {
@@ -9,15 +9,11 @@ const Callback = () => {
   useEffect(() => {
     new Oidc.UserManager({ response_mode: "query" })
       .signinRedirectCallback()
-      .then(function () {
+      .then(() => {
         history.push("/dashboard");
       })
-      .catch(function (e) {
-        notification["error"]({
-          message: "Σφάλμα !!!",
-          description: e.message,
-          duration: 10,
-        });
+      .catch((error) => {
+        return toast.error(error.message);
       });
   }, [history]);
 

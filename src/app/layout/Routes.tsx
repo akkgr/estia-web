@@ -56,7 +56,7 @@ function Routes(props: any) {
 
       <Route exact path="/callback" component={Callback} />
 
-      <Route exact path="/callback" component={Silent} />
+      <Route exact path="/silentrenew" component={Silent} />
 
       <Route component={NotFound} />
     </Switch>

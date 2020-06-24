@@ -6,7 +6,7 @@ import { BsTrashFill, BsPencilSquare, BsPlusCircle } from "react-icons/bs";
 import Loading from "app/layout/Loading";
 import Table from "app/common/table/Table";
 import Table_Search from "app/common/table/Table_Search";
-import "./buildings.css";
+import "components/shared/sharedStyles.css";
 const entity = "buildings";
 
 const BuildingList = () => {

@@ -69,7 +69,7 @@ const Agent = () => {
   };
 
   const Buildings = {
-    view: (key: string, page: number, rows: number, s: string, f: string) =>
+    list: (key: string, page: number, rows: number, s: string, f: string) =>
       requests.get(`/${key}?sort=${s}&page=[${page},${rows}]&filter=${f}`),
     info: (key: string, id: string | undefined) =>
       requests.get(`/${key}/${id}`),
@@ -80,6 +80,8 @@ const Agent = () => {
   };
 
   const Apartments = {
+    list: (key: string, page: number, rows: number, s: string, f: string) =>
+      requests.get(`/${key}?sort=${s}&page=[${page},${rows}]&filter=${f}`),
     data: (key: string, id: string | undefined) =>
       requests.get(`/${key}/${id}`),
     update: (key: string, id: string, input: Apartment) =>

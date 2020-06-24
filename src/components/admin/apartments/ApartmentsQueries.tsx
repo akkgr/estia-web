@@ -1,5 +1,3 @@
-import React, { useEffect } from "react";
-import { useQuery, useMutation, queryCache } from "react-query";
 import Agent from "app/api/Agent";
 import { Apartment } from "app/models/Apartment";
 const ApartmentsQueries = (id: string, key: string) => {
@@ -7,14 +5,24 @@ const ApartmentsQueries = (id: string, key: string) => {
   const parentEntity = "buildings";
   const { Apartments } = Agent();
 
-  const fetchApartments = async (id1: string) => {
-    const data = await Apartments.data(key, id1);
+  const fetchApartments = async (
+    entity: string,
+    page: number,
+    rows: number,
+    sort: string[],
+    filter: {}
+  ) => {
+    const s = JSON.stringify(sort);
+    const f = JSON.stringify(filter);
+    // console.log("rows:", rows, " page:", page, " sort:", s);
+    const data = await Apartments.list(entity, page, rows, s, f);
     return data;
   };
-  const { status, data, isFetching } = useQuery<any, [string]>(
-    [id],
-    fetchApartments
-  );
+
+  const fetchApartmentData = async (id1: string) => {
+    const data: Apartment = await Apartments.data(key, id1);
+    return data;
+  };
 
   const createApartment = async (data: any) => {
     try {
@@ -35,6 +43,7 @@ const ApartmentsQueries = (id: string, key: string) => {
     console.log(JSON.stringify(input));
     await Apartments.update(entity, id, input);
   };
+
   const deleteApartment = async (id: string) => {
     await Apartments.delete(entity, id);
   };
@@ -47,9 +56,9 @@ const ApartmentsQueries = (id: string, key: string) => {
 
   return {
     fetchApartments,
+    fetchApartmentData,
     saveApartment,
     deleteApartment,
-    data,
     entity,
     parentEntity,
   };

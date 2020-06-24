@@ -1,22 +1,26 @@
 import React, { useState, useCallback } from "react";
 import BuildingQueries from "../buildings/BuildingQueries";
+import ApartmentsQueries from "components/admin/apartments/ApartmentsQueries";
 import { useQuery, queryCache } from "react-query";
 import { useHistory } from "react-router-dom";
 import { BsTrashFill, BsPencilSquare, BsPlusCircle } from "react-icons/bs";
 import Loading from "../../../app/layout/Loading";
-import "../buildings/buildings.css";
+import "components/shared/sharedStyles.css";
 import Table from "app/common/table/Table";
 import Table_Search from "app/common/table/Table_Search";
 const ApartmentList = (buildingId: any) => {
   const history = useHistory();
-  const { fetchBuildings, deleteBuilding } = BuildingQueries();
+  const entity = "buildings/" + buildingId.buildingId + "/apartments";
   const [page, setPage] = useState(1);
   const [rows, setRows] = useState(10);
   // const [total, setTotal] = useState(0);
   const [sort, setSort] = useState(["id", "ASC"]);
   const [filter, setFilter] = useState({});
-  console.log(buildingId);
-  const entity = "buildings/" + buildingId.buildingId + "/apartments";
+
+  const { deleteApartment, fetchApartments } = ApartmentsQueries(
+    buildingId.buildingId,
+    "apartments"
+  );
 
   const columns = [
     {
@@ -91,10 +95,10 @@ const ApartmentList = (buildingId: any) => {
   ];
   const memoizedCallback = useCallback(
     async (id: string) => {
-      await deleteBuilding(id);
+      await deleteApartment(id);
       queryCache.refetchQueries([entity, page, rows, filter]);
     },
-    [entity, page, rows, filter, deleteBuilding]
+    [entity, page, rows, filter, deleteApartment]
   );
 
   const filterFn = (value: any) => {
@@ -115,7 +119,7 @@ const ApartmentList = (buildingId: any) => {
   const { status, data, isFetching } = useQuery<
     any,
     [string, number, number, string[], {}]
-  >([entity, page, rows, sort, filter], fetchBuildings);
+  >([entity, page, rows, sort, filter], fetchApartments);
 
   const onSearch = (event: any) => {
     event.preventDefault();
@@ -157,7 +161,7 @@ const ApartmentList = (buildingId: any) => {
     options = {
       page: page,
       sizePerPage: rows,
-      totalSize: data.count, //ΠΡΕΠΕΙ ΝΑ ΜΟΥ ΣΤΕΙΛΕΙΣ ΑΠΟ ΤΟ BACKEND ΠΟΣΑ ΕΙΝΑΙ ΓΙΑ ΝΑ ΔΟΥΛΕΨΕΙ ΤΟ PAGINATION
+      totalSize: data.count,
       showTotal: true,
       paginationTotalRenderer: renderShowsTotal,
       sizePerPageList: [

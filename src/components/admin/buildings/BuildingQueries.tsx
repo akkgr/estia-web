@@ -1,7 +1,5 @@
 import Agent from "app/api/Agent";
-import { useQuery } from "react-query";
 import { Building } from "app/models/Building";
-import { Address } from "app/models/Address";
 const BuildingQueries = (id?: string) => {
   const entity = "buildings";
   const { Buildings } = Agent();
@@ -16,7 +14,7 @@ const BuildingQueries = (id?: string) => {
     const s = JSON.stringify(sort);
     const f = JSON.stringify(filter);
     // console.log("rows:", rows, " page:", page, " sort:", s);
-    const data = await Buildings.view(entity, page, rows, s, f);
+    const data = await Buildings.list(entity, page, rows, s, f);
     return data;
   };
 

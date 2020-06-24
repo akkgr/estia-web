@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
-import { DashboardBuildings } from "./dashboard/DashboardBuildings";
-import { DashboardSettings } from "./dashboard/DashboardSettings";
-import { DashboardCategory1 } from "./dashboard/DashboardCategory1";
-import { DashboardCategory2 } from "./dashboard/DashboardCategory2";
+import { DashboardBuildings } from "components/dashboard/dashboardViews/DashboardBuildings";
+import { DashboardSettings } from "components/dashboard/dashboardViews/DashboardSettings";
+import { DashboardCategory1 } from "components/dashboard/dashboardViews/DashboardCategory1";
+import { DashboardCategory2 } from "components/dashboard/dashboardViews/DashboardCategory2";
 
 const Dashboard = (props: any) => {
   const { changeUser } = props;

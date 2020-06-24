@@ -13,7 +13,7 @@
 9. We will use axios for fetch data and cleanup method to manage XHR requests for making cleanup
 10. We all use interface IProps and in component :React.FC<IProps>=({destruction}) in all components as TextInput.tsx
 11. We export default in components
-    ??? WE MUST DECIDE IF WE WILL USE MOBX FOR STATE MANAGMENT
+12. Create in every folder the .stories.tsx for testing
 
 ## IF YOU WANT TO MAKE REACT.LAZY FOR IMPORT AN export const (NO DEFAULT ) you must use//
 

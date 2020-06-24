@@ -1,15 +1,15 @@
 import React from "react";
 import Card from "app/common/cards/Card";
-import MyImage from "../../app/svgs/undraw_set_preferences_kwia.svg";
+import MyImage from "app/svgs/undraw_data_reports_706v.svg";
 
-export const DashboardSettings = () => {
+export const DashboardCategory2 = () => {
   return (
     <div>
       <Card
-        cardHeader={"Ρυθμίσεις"}
+        cardHeader={"Category2"}
         cardBody={
           <div className="d-flex justify-content-center">
-            <img src={MyImage} alt="Settings Logo" height="200" />
+            <img src={MyImage} alt="Category2 Logo" height="200" />
           </div>
         }
         cardFooter={"Προβολή"}

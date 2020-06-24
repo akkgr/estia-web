@@ -12,8 +12,8 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import UserContext from "UserContext";
-import MainMenu from "components/MainMenu";
-import MainHeader from "components/MainHeader";
+import MainMenu from "components/menu/MainMenu";
+import MainHeader from "components/menu/MainHeader";
 import Routes from "app/layout/Routes";
 import Loading from "app/layout/Loading";
 
@@ -63,30 +63,6 @@ function App() {
       <Suspense fallback={<Loading />}>
         <Router>
           <ToastContainer position="bottom-right" />
-          {/* <Layout style={{ minHeight: "100vh" }}>
-            <Sider trigger={null} collapsible collapsed={collapsed}>
-              <MainMenu></MainMenu>
-            </Sider>
-            <Layout className="site-layout">
-              <MainHeader
-                collapsed={collapsed}
-                menuClick={menuClick}
-                setCollapsed={setCollapsed}
-                user={user}
-              />
-              <Content
-                className="site-layout-background"
-                style={{
-                  margin: "24px 16px",
-                  padding: 24,
-                  minHeight: 280,
-                }}
-              >
-                <Routes changeUser={changeUser} />
-              </Content>
-              <Footer style={{ textAlign: "center" }}>Cinnamon ©2020</Footer>
-            </Layout>
-          </Layout> */}
           <div className="wrapper">
             <MainMenu></MainMenu>
             <div id="content">
@@ -100,7 +76,7 @@ function App() {
               <div id="routes-content" style={{ margin: 15 }}>
                 <Routes changeUser={changeUser} />
               </div>
-            </div>  
+            </div>
           </div>
           <div className="footer">
             <div className="media-container-row align-center ">

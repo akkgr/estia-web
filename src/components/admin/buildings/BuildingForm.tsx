@@ -2,7 +2,7 @@ import React from "react";
 import { useParams, Link } from "react-router-dom";
 import { useQuery } from "react-query";
 import { AddressTitle } from "app/models/Address";
-import { ActionsForm } from "components/ActionsForm";
+import { ActionsForm } from "app/common/headers/ActionsForm";
 import Cards from "app/common/views/Cards";
 import BuildingQueries from "components/admin/buildings/BuildingQueries";
 import AppartmentList from "components/admin/apartments/ApartmentList";

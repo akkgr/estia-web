@@ -1,15 +1,15 @@
 import React from "react";
 import Card from "app/common/cards/Card";
-import MyImage from "../../app/svgs/undraw_stock_prices_afrt.svg";
+import MyImage from "app/svgs/undraw_at_home_octe.svg";
 
-export const DashboardCategory1 = () => {
+export const DashboardBuildings = () => {
   return (
     <div>
       <Card
-        cardHeader={"Category1"}
+        cardHeader={"Κτήρια"}
         cardBody={
           <div className="d-flex justify-content-center">
-            <img src={MyImage} alt="Category1 Logo" height='200' />
+            <img src={MyImage} alt="Building Logo" height="200" />
           </div>
         }
         cardFooter={"Προβολή"}

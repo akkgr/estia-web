@@ -40,8 +40,14 @@
 
 ## react-icons
 
-    Svg react icons of popular icon packs   
+    Svg react icons of popular icon packs
 
 ## react-bootstrap-table-next ,react-bootstrap-table2-paginator
-    
+
     Bootstrap Table for React and additional dependency for paginator
+
+## storybook
+
+    command --npx -p @storybook/cli sb init--  This command install automatically all dependencies for storybook
+
+    About Storybook. Storybook is a development environment for UI components. It allows you to browse a component library, view the different states of each component, and interactively develop and test components.

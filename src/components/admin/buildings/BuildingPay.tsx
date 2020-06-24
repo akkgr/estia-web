@@ -2,17 +2,16 @@ import React, { useContext } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useQuery, useMutation, queryCache } from "react-query";
 import axios from "axios";
-import { Skeleton, Form } from "antd";
+import { Skeleton, notification, Form } from "antd";
 
 import UserContext from "UserContext";
 import { AddressTitle } from "app/models/Address";
-import { ActionsForm } from "components/ActionsForm";
-import { RatingsList } from "components/RatingsList";
+import { ActionsForm } from "app/common/headers/ActionsForm";
 
 const uri = process.env.REACT_APP_API_URL + "/api";
 const entity = "buildings";
 
-const Ratings = () => {
+const BuildingPay = () => {
   const manager = useContext(UserContext);
   let { id } = useParams();
 
@@ -31,6 +30,14 @@ const Ratings = () => {
 
   const updateData = async (input: any) => {
     const user = await manager.getUser();
+    if (!user || user?.expired) {
+      notification["error"]({
+        message: "Σφάλμα !!!",
+        description:
+          "Η σύνδεση σας έχει λήξει. Παρακαλώ ξανά συνδεθείτε για να συνεχίσετε.",
+        duration: 10,
+      });
+    }
     const { data } = await axios.put(`${uri}/${entity}/${id}`, input, {
       headers: {
         Authorization: `Bearer ${user?.access_token}`,
@@ -68,14 +75,10 @@ const Ratings = () => {
           <li className="breadcrumb-item active" aria-current="page">
             {data ? AddressTitle(data.address) : ""}
           </li>
-          <li className="breadcrumb-item active" aria-current="page">
-            Ποσοστά
-          </li>
         </ActionsForm>
-        <RatingsList data={data}></RatingsList>
       </Form.Provider>
     </Skeleton>
   );
 };
 
-export default Ratings;
+export default BuildingPay;

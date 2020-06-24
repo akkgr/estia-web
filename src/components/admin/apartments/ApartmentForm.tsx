@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useQuery, useMutation, queryCache } from "react-query";
 import { useHistory } from "react-router-dom";
-import { ActionsForm } from "components/ActionsForm";
+import { ActionsForm } from "app/common/headers/ActionsForm";
 import { PersonForm } from "components/admin/apartments/apartmentForm/PersonForm";
 import TextInput from "app/common/form/TextInput";
 import Cards from "app/common/views/Cards";

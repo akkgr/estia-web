@@ -74,7 +74,11 @@ const BuildingFormProvider: React.FC<IProviderProps> = ({
   return (
     <React.Fragment>
       {/* <div>{JSON.stringify(providerPower)}</div> */}
-      <div key={row.providerName} id={row.providerName}>
+      <div
+        key={row.providerName}
+        id={row.providerName}
+        className={validation === true ? "was-validated" : "needs-validation"}
+      >
         <div className="container">
           <div className="row">
             <div className="col">

@@ -26,7 +26,7 @@ const BuildingData: React.FC<{ data: Building }> = ({ data }) => {
           <TextInput
             type="text"
             label="Στοιχεία Διαχειριστή:"
-            name="managers"
+            name="managerShow"
             value={handleManagersShow(data?.managers)}
             required={true}
             readOnly={true}
@@ -76,18 +76,6 @@ const BuildingData: React.FC<{ data: Building }> = ({ data }) => {
       </div>
 
       <div className="row mt-2">
-        <div className="col-md-4 mb-3">
-          <TextInput
-            type="text"
-            label="Διαχείρηση :"
-            name="createdBy"
-            value={data?.createdBy}
-            placeholder="Διαχείρηση..."
-            required={true}
-            // validMessage="Συμπληρώσατε τη Διαχείρηση"
-            invalidMessage="Συμπληρώστε τη Διαχείρηση"
-          />
-        </div>
         <div className="col-md-2 mb-3">
           <TextInput
             type="number"

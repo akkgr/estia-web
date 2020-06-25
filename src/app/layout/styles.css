@@ -1,12 +1,12 @@
 html,
-body,
-#root {
-  height: 100%;
-}
-
 body {
   width: 100%;
   height: 100%;
+  margin: 0;
+}
+
+#root {
+  min-height: 100vh;
 }
 
 .trigger {
@@ -51,8 +51,7 @@ body {
 
 .wrapper {
   display: flex;
-  align-items: stretch;
-  height: 97%;
+  height: 100%;
   /* overflow: hidden; */
 }
 
@@ -151,6 +150,11 @@ ul ul a {
 }
 #content {
   width: 100%;
+}
+
+#routes-content {
+  margin-left: 15px;
+  margin-right: 15px;
 }
 
 .error-template {

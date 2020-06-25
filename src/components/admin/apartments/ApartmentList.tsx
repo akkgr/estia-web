@@ -4,7 +4,7 @@ import { useQuery, queryCache } from "react-query";
 import { useHistory } from "react-router-dom";
 import { BsTrashFill, BsPencilSquare, BsPlusCircle } from "react-icons/bs";
 import Loading from "../../../app/layout/Loading";
-import "components/shared/sharedStyles.css";
+import styles from "components/admin/admin.module.css";
 import Table from "app/common/table/Table";
 import TableSearch from "app/common/table/TableSearch";
 const ApartmentList = (buildingId: any) => {

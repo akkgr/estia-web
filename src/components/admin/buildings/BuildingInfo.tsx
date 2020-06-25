@@ -17,6 +17,7 @@ import { AddressTitle } from "app/models/Address";
 import { toast } from "react-toastify";
 import BuildingStatus from "./buildingInfo/BuildingStatus";
 import BuildingQueries from "components/admin/buildings/BuildingQueries";
+import styles from "components/admin/admin.module.css";
 const entity = "buildings";
 
 const BuildingInfo = () => {
@@ -75,7 +76,6 @@ const BuildingInfo = () => {
       litersPerCm: { value: number };
       bankReason: { value: string };
       providers: { value: any }; //array
-      createdBy: { value: string };
     };
     const area = target.area.value;
     const street = target.street.value;
@@ -90,52 +90,61 @@ const BuildingInfo = () => {
     const caloriesCounter = JSON.parse(target.caloriesCounter.value);
     const litersPerCm = Number(target.litersPerCm.value);
     const bankReason = target.bankReason.value;
-    const createdBy = target.createdBy.value;
     if (area === "" || street === "" || !streetNumber || !postalCode) {
       toast.error("Η φόρμα εμφάνισε προβλήματα");
       return false;
     }
-    const UpdatedData = {
-      ...data,
-      address: {
-        area: area,
-        street: street,
-        streetNumber: streetNumber,
-        postalCode: postalCode,
-        country: "Ελλάδα",
-        lat: 0,
-        lng: 0,
-      },
-      active: active,
-      management: management,
-      reserve: reserve,
-      managementStart: new Date(startDate.toISOString()),
-      managementEnd: new Date(endDate.toISOString()),
-      closedApartmentParticipation: closedApartmentParticipation,
-      heatingType: HeatingTypeSelect(),
-      caloriesCounter: caloriesCounter,
-      litersPerCm: litersPerCm,
-      bankReason: bankReason,
-      providers: dataProvider,
-      createdBy: createdBy,
-    };
-    //MUST CHANGE THE CONTROLLER
-    const NewData = {
-      area: area,
-      street: street,
-      streetNumber: streetNumber,
-      postalCode: postalCode,
-      country: "",
-      lat: 0,
-      lng: 0,
-    };
-    if (!id || id === undefined) {
-      await saveBuilding(NewData);
+    if (id === undefined) {
+      await saveBuilding({
+        address: {
+          area: area,
+          street: street,
+          streetNumber: streetNumber,
+          postalCode: postalCode,
+          country: "Ελλάδα",
+          lat: 0,
+          lng: 0,
+        },
+        active: active,
+        management: management,
+        reserve: reserve,
+        managementStart: new Date(startDate.toISOString()),
+        managementEnd: new Date(endDate.toISOString()),
+        closedApartmentParticipation: closedApartmentParticipation,
+        heatingType: HeatingTypeSelect(),
+        caloriesCounter: caloriesCounter,
+        litersPerCm: litersPerCm,
+        bankReason: bankReason,
+        providers: dataProvider,
+        managers: [],
+      });
     } else {
-      await saveBuilding(UpdatedData);
+      await saveBuilding({
+        ...data,
+        address: {
+          area: area,
+          street: street,
+          streetNumber: streetNumber,
+          postalCode: postalCode,
+          country: "Ελλάδα",
+          lat: 0,
+          lng: 0,
+        },
+        active: active,
+        management: management,
+        reserve: reserve,
+        managementStart: new Date(startDate.toISOString()),
+        managementEnd: new Date(endDate.toISOString()),
+        closedApartmentParticipation: closedApartmentParticipation,
+        heatingType: HeatingTypeSelect(),
+        caloriesCounter: caloriesCounter,
+        litersPerCm: litersPerCm,
+        bankReason: bankReason,
+        providers: dataProvider,
+        managers: [],
+      });
     }
     history.goBack();
-    console.log("submitedData" + JSON.stringify(NewData));
   };
 
   const tabActivate = (reference: string) => {

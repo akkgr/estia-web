@@ -1,0 +1,15 @@
+:global .dropdown-toggle::after {
+  display: inline-block !important;
+  position: relative !important;
+  right: auto !important;
+  top: auto !important;
+  transform: translateY(0px) !important;
+}
+
+:global .react-bootstrap-table table {
+  table-layout: auto;
+}
+
+:global .dropdown-menu.open.show {
+  display: flex !important;
+}

@@ -6,7 +6,7 @@ import { BsTrashFill, BsPencilSquare, BsPlusCircle } from "react-icons/bs";
 import Loading from "app/layout/Loading";
 import Table from "app/common/table/Table";
 import TableSearch from "app/common/table/TableSearch";
-import "components/shared/sharedStyles.css";
+import styles from "components/admin/admin.module.css";
 const entity = "buildings";
 
 const BuildingList = () => {
@@ -133,6 +133,7 @@ const BuildingList = () => {
       </span>
     );
   };
+
   var options;
   if (Object.keys(data.data).length === 0) {
     options = {

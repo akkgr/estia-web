@@ -62,7 +62,7 @@ function App() {
     <ReactQueryConfigProvider config={queryConfig}>
       <Suspense fallback={<Loading />}>
         <Router>
-          <ToastContainer position="bottom-right" />
+          <ToastContainer position="top-right" />
           <div className="wrapper">
             <MainMenu></MainMenu>
             <div id="content">
@@ -72,8 +72,7 @@ function App() {
                 setCollapsed={setCollapsed}
                 user={user}
               />
-              <br />
-              <div id="routes-content" style={{ margin: 15 }}>
+              <div id="routes-content">
                 <Routes changeUser={changeUser} />
               </div>
             </div>
@@ -81,7 +80,7 @@ function App() {
           <div className="footer">
             <div className="media-container-row align-center ">
               <p className="mbr-text mb-0 mbr-fonts-style display-7 text-center bg-dark text-white ">
-                Copyright © 2020 - GG noob
+                Copyright © 2020 - ΕΣΤΙΑ City Services
               </p>
             </div>
           </div>

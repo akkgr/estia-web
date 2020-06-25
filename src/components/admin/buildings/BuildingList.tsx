@@ -79,7 +79,6 @@ const BuildingList = () => {
     any,
     [string, number, number, string[], {}]
   >([entity, page, rows, sort, filter], fetchBuildings);
-  console.log(data);
   const memoizedCallback = useCallback(
     async (id: string) => {
       await deleteBuilding(id);

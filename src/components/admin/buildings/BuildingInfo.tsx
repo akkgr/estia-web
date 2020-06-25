@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { useQuery } from "react-query";
+import { useQuery, useMutation, queryCache } from "react-query";
 import { useHistory } from "react-router-dom";
 import BuildingData from "components/admin/buildings/buildingInfo/BuildingData";
 import BuildingOtherInfo from "components/admin/buildings/buildingInfo/BuildingOtherInfo";
@@ -22,16 +22,15 @@ const entity = "buildings";
 
 const BuildingInfo = () => {
   let { id } = useParams();
-  console.log(id);
   const history = useHistory();
-  const [tabActiveData, setTabActiveData] = useState<boolean>(true);
-  const [tabActiveHeating, setActiveHeating] = useState<boolean>(false);
-  const [tabActiveProvider, setActiveProvider] = useState<boolean>(false);
-  const [tabActiveStatus, setActiveStatus] = useState<boolean>(false);
-  const [tabActiveOtherInfo, setActiveOtherInfo] = useState<boolean>(false);
-  const [tabActivePdf, setActivePdf] = useState<boolean>(false);
+  const [tabActiveData, setTabActiveData] = useState(true);
+  const [tabActiveHeating, setActiveHeating] = useState(false);
+  const [tabActiveProvider, setActiveProvider] = useState(false);
+  const [tabActiveStatus, setActiveStatus] = useState(false);
+  const [tabActiveOtherInfo, setActiveOtherInfo] = useState(false);
+  const [tabActivePdf, setActivePdf] = useState(false);
 
-  const [disableSaveButton, setDisableSaveButton] = useState<boolean>(false);
+  const [disableSaveButton, setDisableSaveButton] = useState(false);
   const { fetchBuildingData, saveBuilding } = BuildingQueries(id);
   const { data } = useQuery<any, [string, string | undefined]>(
     [entity, id],
@@ -48,8 +47,21 @@ const BuildingInfo = () => {
   const [heatingType, setHeatingType] = useState(
     data !== null ? data.heatingType : "Κεντρική Θέρμανση"
   );
-  const handleSubmit = async (e: React.SyntheticEvent) => {
+
+  const [mutate] = useMutation(saveBuilding, {
+    onSuccess: (newData) =>
+      queryCache.setQueryData([id], (prev: any) => [...prev, newData]),
+    onSettled: () => queryCache.refetchQueries([id], data),
+  });
+  const handleSubmit = async (e: React.SyntheticEvent | any) => {
     e.preventDefault();
+    e.stopPropagation();
+    const form = e.target;
+    const isValid = form.checkValidity();
+    if (!isValid) {
+      e.target.className += " was-validated";
+      return toast.info("Δέν έχει συμπληρωθεί σωστά η φόρμα");
+    }
     const HeatingTypeSelect = () => {
       if (heatingType === "Κεντρική Θέρμανση") {
         return HeatingType.Central;
@@ -95,7 +107,7 @@ const BuildingInfo = () => {
       return false;
     }
     if (id === undefined) {
-      await saveBuilding({
+      await mutate({
         address: {
           area: area,
           street: street,
@@ -119,7 +131,7 @@ const BuildingInfo = () => {
         managers: [],
       });
     } else {
-      await saveBuilding({
+      await mutate({
         ...data,
         address: {
           area: area,
@@ -205,7 +217,7 @@ const BuildingInfo = () => {
   return (
     <React.Fragment>
       <div>data = {JSON.stringify(data)}</div>
-      <form onSubmit={handleSubmit} className="was-validated" noValidate>
+      <form onSubmit={handleSubmit} className="needs-validation" noValidate>
         <React.Fragment>
           <PageHeader
             returnUrl="/buildings"

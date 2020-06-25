@@ -14,7 +14,7 @@ interface InputParams {
   invalidMessage?: string;
   min?: number;
   max?: number;
-  step?: number;
+  step?: number | string;
 }
 const TextInputLabel: React.FC<InputParams> = ({
   type,
@@ -40,18 +40,20 @@ const TextInputLabel: React.FC<InputParams> = ({
   return (
     <React.Fragment>
       <div className="form-group">
-        
         <div className="input-group">
           {prepend !== undefined && (
             <div className="input-group-prepend">
               <span className="input-group-text w-100">{prepend}</span>
             </div>
           )}
-          <div className="input-group-prepend " style={{width: '25%'}}>
-              <label htmlFor={name} className="control-label input-group-text w-100">
-                {label}
-             </label>
-           </div>
+          <div className="input-group-prepend ">
+            <label
+              htmlFor={name}
+              className="control-label input-group-text w-100"
+            >
+              {label}
+            </label>
+          </div>
           <input
             type={checkInputType(type)}
             className="form-control"

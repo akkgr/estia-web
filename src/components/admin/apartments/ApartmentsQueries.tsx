@@ -14,7 +14,6 @@ const ApartmentsQueries = (id: string, key: string) => {
   ) => {
     const s = JSON.stringify(sort);
     const f = JSON.stringify(filter);
-    // console.log("rows:", rows, " page:", page, " sort:", s);
     const data = await Apartments.list(entity, page, rows, s, f);
     return data;
   };
@@ -39,8 +38,6 @@ const ApartmentsQueries = (id: string, key: string) => {
   };
 
   const updateApartments = async (input: Apartment) => {
-    console.log("update");
-    console.log(JSON.stringify(input));
     await Apartments.update(entity, id, input);
   };
 

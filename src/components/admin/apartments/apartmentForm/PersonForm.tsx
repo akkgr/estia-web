@@ -15,7 +15,6 @@ export const PersonForm = ({ data, uniqueName, formName }: PersonFormProps) => {
         label="Επώνυμο :"
         name={`${uniqueName}LastName`}
         value={data?.lastName || ""}
-        placeholder="Επώνυμο..."
         required={true}
         invalidMessage="Συμπληρώστε το Επώνυμο"
       />
@@ -24,7 +23,6 @@ export const PersonForm = ({ data, uniqueName, formName }: PersonFormProps) => {
         label="Όνομα :"
         name={`${uniqueName}FirstName`}
         value={data?.firstName || ""}
-        placeholder="Όνομα..."
         required={true}
         invalidMessage="Συμπληρώστε το Όνομα"
       />
@@ -33,7 +31,6 @@ export const PersonForm = ({ data, uniqueName, formName }: PersonFormProps) => {
         label="Τηλέφωνο :"
         name={`${uniqueName}Telephone`}
         value={data?.telephone || ""}
-        placeholder="Τηλέφωνο..."
         required={true}
         invalidMessage="Συμπληρώστε το Τηλέφωνο"
       />
@@ -42,7 +39,6 @@ export const PersonForm = ({ data, uniqueName, formName }: PersonFormProps) => {
         label="Κινητό :"
         name={`${uniqueName}Mobile`}
         value={data?.mobile || ""}
-        placeholder="Κινητό..."
         required={true}
         invalidMessage="Συμπληρώστε το Κινητό"
       />
@@ -51,9 +47,24 @@ export const PersonForm = ({ data, uniqueName, formName }: PersonFormProps) => {
         label="Email :"
         name={`${uniqueName}Email`}
         value={data?.email || ""}
-        placeholder="Email..."
         required={true}
         invalidMessage="Συμπληρώστε το Email"
+      />
+      <TextInputLabel
+        type="text"
+        label="ΑΦΜ :"
+        name={`${uniqueName}Afm`}
+        value={data?.afm || ""}
+        required={true}
+        invalidMessage="Συμπληρώστε το ΑΦΜ"
+      />
+      <TextInputLabel
+        type="text"
+        label="ΔΟΥ :"
+        name={`${uniqueName}Doy`}
+        value={data?.doy || ""}
+        required={true}
+        invalidMessage="Συμπληρώστε την ΔΟΥ"
       />
     </div>
   );

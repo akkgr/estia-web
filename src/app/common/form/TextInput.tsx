@@ -14,7 +14,7 @@ interface InputParams {
   invalidMessage?: string;
   min?: number;
   max?: number;
-  step?: number;
+  step?: number | string;
 }
 const TextInput: React.FC<InputParams> = ({
   type,

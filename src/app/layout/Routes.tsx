@@ -9,8 +9,8 @@ const BuildingInfo = lazy(() =>
   import("components/admin/buildings/BuildingInfo")
 );
 
-const ApartmentForm = lazy(() =>
-  import("components/admin/apartments/ApartmentForm")
+const EditApartment = lazy(() =>
+  import("components/admin/apartments/EditApartment")
 );
 
 const Callback = lazy(() => import("pages/Callback"));
@@ -45,13 +45,13 @@ function Routes(props: any) {
       <Route
         exact
         path="/buildings/:id/apartments/new"
-        component={ApartmentForm}
+        component={EditApartment}
       />
 
       <Route
         exact
         path="/buildings/:id1/apartments/:id2"
-        component={ApartmentForm}
+        component={EditApartment}
       />
 
       <Route exact path="/callback" component={Callback} />

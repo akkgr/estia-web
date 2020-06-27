@@ -10,29 +10,36 @@ import { Apartment } from "app/models/Apartment";
 import { toast } from "react-toastify";
 import GeneralInfoForm from "components/admin/apartments/apartmentForm/GeneralInfoForm";
 
-const ApartmentForm = () => {
-  let { id1, id2 } = useParams();
-  let { id } = useParams();
+interface IProps {
+  id: any;
+  id1: any;
+  id2: any;
+  mutate: any | null;
+  data: any;
+}
+
+const ApartmentForm: React.FC<IProps> = ({ id, id1, id2, mutate, data }) => {
+  console.log(data);
+  // let { id1, id2 } = useParams();
+  // let { id } = useParams();
   const history = useHistory();
-  const { saveApartment, fetchApartmentData } = ApartmentsQueries(
-    !id ? id2 : id,
-    !id ? "apartments" : "buildings"
-  );
+  // const { saveApartment, fetchApartmentData } = ApartmentsQueries(
+  //   !id ? id2 : id,
+  //   !id ? "apartments" : "buildings"
+  // );
 
-  const { status, data, isFetching } = useQuery<any, [string]>(
-    [!id ? id2 : id],
-    fetchApartmentData
-  );
-
-  const [mutate] = useMutation(saveApartment, {
-    onSuccess: (newData) =>
-      queryCache.setQueryData([!id ? id2 : id], (prev: any) => [
-        ...prev,
-        newData,
-      ]),
-    onSettled: () => queryCache.refetchQueries([!id ? id2 : id], data),
-  });
-
+  // const { status, data, isFetching } = useQuery<any, [string]>(
+  //   [!id ? id2 : id],
+  //   fetchApartmentData
+  // );
+  // const [mutate] = useMutation(saveApartment, {
+  //   onSuccess: (newData) =>
+  //     queryCache.setQueryData([!id ? id2 : id], (prev: any) => [
+  //       ...prev,
+  //       newData,
+  //     ]),
+  //   onSettled: () => queryCache.refetchQueries([!id ? id2 : id], data),
+  // });
   const handleSubmit = async (e: React.SyntheticEvent | any) => {
     e.preventDefault();
     e.stopPropagation();
@@ -160,7 +167,7 @@ const ApartmentForm = () => {
     <React.Fragment>
       <form onSubmit={handleSubmit} className="needs-validation" noValidate>
         <ActionsForm returnUrl={`/buildings/${id1}`} showSubmitButton={true}>
-          {data.buildingTitle === undefined ? (
+          {data === undefined ? (
             <li className="breadcrumb-item" aria-current="page">
               <Link to="/buildings" className="text-primary">
                 Νέο Κτίριο
@@ -170,7 +177,7 @@ const ApartmentForm = () => {
             <React.Fragment>
               <li className="breadcrumb-item" aria-current="page">
                 <Link to="/buildings" className="text-primary">
-                  Κτίρια
+                  Κτίριο
                 </Link>
               </li>
               <li className="breadcrumb-item active" aria-current="page">

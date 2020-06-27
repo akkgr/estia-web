@@ -50,7 +50,7 @@ function Routes(props: any) {
 
       <Route
         exact
-        path="/buildings/:id1/apartments/:id2"
+        path="/buildings/:id/apartments/:id1"
         component={EditApartment}
       />
 

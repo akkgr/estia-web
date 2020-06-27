@@ -1,11 +1,9 @@
 import React from "react";
-import { useParams, Link } from "react-router-dom";
-import { useQuery, useMutation, queryCache } from "react-query";
+import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { ActionsForm } from "app/common/headers/ActionsForm";
 import { PersonForm } from "components/admin/apartments/apartmentForm/PersonForm";
 import Cards from "app/common/views/Cards";
-import ApartmentsQueries from "components/admin/apartments/ApartmentsQueries";
 import { Apartment } from "app/models/Apartment";
 import { toast } from "react-toastify";
 import GeneralInfoForm from "components/admin/apartments/apartmentForm/GeneralInfoForm";
@@ -13,33 +11,13 @@ import GeneralInfoForm from "components/admin/apartments/apartmentForm/GeneralIn
 interface IProps {
   id: any;
   id1: any;
-  id2: any;
   mutate: any | null;
   data: any;
 }
 
-const ApartmentForm: React.FC<IProps> = ({ id, id1, id2, mutate, data }) => {
-  console.log(data);
-  // let { id1, id2 } = useParams();
-  // let { id } = useParams();
+const ApartmentForm: React.FC<IProps> = ({ id, id1, mutate, data }) => {
   const history = useHistory();
-  // const { saveApartment, fetchApartmentData } = ApartmentsQueries(
-  //   !id ? id2 : id,
-  //   !id ? "apartments" : "buildings"
-  // );
 
-  // const { status, data, isFetching } = useQuery<any, [string]>(
-  //   [!id ? id2 : id],
-  //   fetchApartmentData
-  // );
-  // const [mutate] = useMutation(saveApartment, {
-  //   onSuccess: (newData) =>
-  //     queryCache.setQueryData([!id ? id2 : id], (prev: any) => [
-  //       ...prev,
-  //       newData,
-  //     ]),
-  //   onSettled: () => queryCache.refetchQueries([!id ? id2 : id], data),
-  // });
   const handleSubmit = async (e: React.SyntheticEvent | any) => {
     e.preventDefault();
     e.stopPropagation();
@@ -155,8 +133,8 @@ const ApartmentForm: React.FC<IProps> = ({ id, id1, id2, mutate, data }) => {
       heat: Number(target.heat.value),
       label: "",
     };
-    if (!id) {
-      await mutate(UpdatedData, id2);
+    if (id1) {
+      await mutate(UpdatedData, id1);
     } else {
       await mutate(NewData);
     }
@@ -166,8 +144,8 @@ const ApartmentForm: React.FC<IProps> = ({ id, id1, id2, mutate, data }) => {
   return (
     <React.Fragment>
       <form onSubmit={handleSubmit} className="needs-validation" noValidate>
-        <ActionsForm returnUrl={`/buildings/${id1}`} showSubmitButton={true}>
-          {data === undefined ? (
+        <ActionsForm returnUrl={`/buildings/${id}`} showSubmitButton={true}>
+          {id1 === undefined ? (
             <li className="breadcrumb-item" aria-current="page">
               <Link to="/buildings" className="text-primary">
                 Νέο Κτίριο
@@ -182,7 +160,7 @@ const ApartmentForm: React.FC<IProps> = ({ id, id1, id2, mutate, data }) => {
               </li>
               <li className="breadcrumb-item active" aria-current="page">
                 <Link
-                  to={`/buildings/${id1}`}
+                  to={`/buildings/${id}`}
                   className="text-info"
                 >{`${data.buildingTitle}`}</Link>
               </li>

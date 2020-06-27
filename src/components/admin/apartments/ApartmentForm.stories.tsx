@@ -1,13 +1,13 @@
 import React from "react";
 import { action } from "@storybook/addon-actions";
 import { MemoryRouter } from "react-router-dom";
-import ApartmentForm from "./ApartmentForm";
+import ApartmentForm from "components/admin/apartments/apartmentForm/ApartmentForm";
 
 export default {
   component: ApartmentForm,
   title: "components/admin/apartments/ApartmentForm",
-  // Our exports that end in "Data" are not stories.
   decorators: [(getStory: any) => <MemoryRouter>{getStory()}</MemoryRouter>],
+  // Our exports that end in "Data" are not stories.
   excludeStories: /.*Data$/,
 };
 
@@ -61,7 +61,6 @@ export const CreateNewApartment = () => {
     <ApartmentForm
       id="5e9dd3947fd9793bb0b5562c"
       id1={undefined}
-      id2={undefined}
       data={undefined}
       {...actionsData}
     />
@@ -71,9 +70,8 @@ export const CreateNewApartment = () => {
 export const UpdateApartment = () => {
   return (
     <ApartmentForm
-      id={undefined}
-      id1="5e9dd3947fd9793bb0b5562c"
-      id2="5e9dd3ac7fd9793bb0b5562d"
+      id="5e9dd3947fd9793bb0b5562c"
+      id1="5e9dd3ac7fd9793bb0b5562d"
       data={ApartmentData}
       {...actionsData}
     />

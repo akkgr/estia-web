@@ -168,3 +168,14 @@ ul ul a {
 .error-actions .btn {
   margin-right: 10px;
 }
+
+.nav-item.active {
+  background-color: #78c2ad !important;
+  font-weight: bold;
+}
+
+button.nav-link {
+  background-color: transparent !important;
+
+  font: inherit !important;
+}

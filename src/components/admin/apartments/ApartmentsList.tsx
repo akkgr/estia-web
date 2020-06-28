@@ -149,7 +149,7 @@ const ApartmentsList: React.FC<IProps> = ({
   const renderShowsTotal = (from: any, to: any, size: any) => {
     return (
       <span className="react-bootstrap-table-pagination-total">
-        Showing {from} to {to} of {size} Results
+        Διαμερίσματα {from} έως {to} απο {size}
       </span>
     );
   };

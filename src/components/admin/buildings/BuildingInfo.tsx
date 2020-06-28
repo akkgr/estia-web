@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { useParams, Link } from "react-router-dom";
-import { useQuery, useMutation, queryCache } from "react-query";
+import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import BuildingData from "components/admin/buildings/buildingInfo/BuildingData";
 import BuildingOtherInfo from "components/admin/buildings/buildingInfo/BuildingOtherInfo";
@@ -9,14 +8,11 @@ import BuildingProvider from "components/admin/buildings/buildingInfo/BuildingPr
 import BuildingPdf from "components/admin/buildings/buildingInfo/BuildingPdf";
 import Card from "app/common/cards/Card";
 import Tab from "app/common/tabs/Tab";
-import TabItemButton from "app/common/tabs/TabItemButton";
 import TabItem from "app/common/tabs/TabItem";
 import PageHeader from "app/common/headers/PageHeader";
-import { HeatingType } from "app/models/Building";
 import { AddressTitle } from "app/models/Address";
 import { toast } from "react-toastify";
 import BuildingStatus from "./buildingInfo/BuildingStatus";
-import BuildingQueries from "components/admin/buildings/BuildingQueries";
 import styles from "components/admin/admin.module.css";
 const entity = "buildings";
 
@@ -27,21 +23,9 @@ interface BuildingProps {
 }
 
 const BuildingInfo: React.FC<BuildingProps> = ({ id, data, mutate }) => {
-  // let { id } = useParams();
   const history = useHistory();
-  const [tabActiveData, setTabActiveData] = useState(true);
-  const [tabActiveHeating, setActiveHeating] = useState(false);
-  const [tabActiveProvider, setActiveProvider] = useState(false);
-  const [tabActiveStatus, setActiveStatus] = useState(false);
-  const [tabActiveOtherInfo, setActiveOtherInfo] = useState(false);
-  const [tabActivePdf, setActivePdf] = useState(false);
 
   const [disableSaveButton, setDisableSaveButton] = useState(false);
-  // const { fetchBuildingData, saveBuilding } = BuildingQueries(id);
-  // const { data } = useQuery<any, [string, string | undefined]>(
-  //   [entity, id],
-  //   fetchBuildingData
-  // );
 
   const [dataProvider, setDataProvider] = useState(data?.providers || []); //data.providers
   const [startDate, setStartDate] = useState(
@@ -54,11 +38,6 @@ const BuildingInfo: React.FC<BuildingProps> = ({ id, data, mutate }) => {
     data !== null ? data.heatingType : 0
   );
 
-  // const [mutate] = useMutation(saveBuilding, {
-  //   onSuccess: (newData) =>
-  //     queryCache.setQueryData([id], (prev: any) => [...prev, newData]),
-  //   onSuccess: () => queryCache.refetchQueries([id], data),
-  // });
   const handleSubmit = async (e: React.SyntheticEvent | any) => {
     e.preventDefault();
     e.stopPropagation();
@@ -154,61 +133,6 @@ const BuildingInfo: React.FC<BuildingProps> = ({ id, data, mutate }) => {
     history.goBack();
   };
 
-  const tabActivate = (reference: string) => {
-    if (reference === "data") {
-      setTabActiveData(true);
-      setActiveOtherInfo(false);
-      setActiveProvider(false);
-      setActivePdf(false);
-      setActiveHeating(false);
-      setActiveStatus(false);
-    }
-
-    if (reference === "heating") {
-      setTabActiveData(false);
-      setActiveHeating(true);
-      setActiveOtherInfo(false);
-      setActiveProvider(false);
-      setActivePdf(false);
-      setActiveStatus(false);
-    }
-
-    if (reference === "provider") {
-      setActiveProvider(true);
-      setActiveOtherInfo(false);
-      setTabActiveData(false);
-      setActivePdf(false);
-      setActiveHeating(false);
-      setActiveStatus(false);
-    }
-
-    if (reference === "status") {
-      setActiveStatus(true);
-      setActiveOtherInfo(false);
-      setTabActiveData(false);
-      setActiveProvider(false);
-      setActivePdf(false);
-      setActiveHeating(false);
-    }
-    if (reference === "otherInfo") {
-      setActiveOtherInfo(true);
-      setTabActiveData(false);
-      setActiveProvider(false);
-      setActivePdf(false);
-      setActiveHeating(false);
-      setActiveStatus(false);
-    }
-
-    if (reference === "pdf") {
-      setActivePdf(true);
-      setActiveProvider(false);
-      setActiveOtherInfo(false);
-      setTabActiveData(false);
-      setActiveHeating(false);
-      setActiveStatus(false);
-    }
-  };
-
   return (
     <React.Fragment>
       <div>data = {JSON.stringify(data)}</div>
@@ -237,42 +161,60 @@ const BuildingInfo: React.FC<BuildingProps> = ({ id, data, mutate }) => {
                 <Tab
                   tabListItems={
                     <React.Fragment>
-                      <TabItemButton
-                        reference="data"
-                        message="Βασικά Στοιχεία"
-                        activeTabButton={tabActiveData}
-                        tabOnClick={() => tabActivate("data")}
-                      />
-                      <TabItemButton
-                        reference="heating"
-                        message="Στοιχεία Θέρμανσης"
-                        activeTabButton={tabActiveHeating}
-                        tabOnClick={() => tabActivate("heating")}
-                      />
-                      <TabItemButton
-                        reference="provider"
-                        message="Στοιχεία Παρόχων"
-                        activeTabButton={tabActiveProvider}
-                        tabOnClick={() => tabActivate("provider")}
-                      />
-                      <TabItemButton
-                        reference="status"
-                        message="Κατάσταση"
-                        activeTabButton={tabActiveStatus}
-                        tabOnClick={() => tabActivate("status")}
-                      />
-                      <TabItemButton
-                        reference="otherInfo"
-                        message="Διάφορες Πληροροφορίες"
-                        activeTabButton={tabActiveOtherInfo}
-                        tabOnClick={() => tabActivate("otherInfo")}
-                      />
-                      <TabItemButton
-                        reference="pdf"
-                        message="Ιστορικό Αρχείων"
-                        activeTabButton={tabActivePdf}
-                        tabOnClick={() => tabActivate("pdf")}
-                      />
+                      <li className="nav-item">
+                        <button
+                          className="nav-link"
+                          data-toggle="tab"
+                          data-target="#data"
+                        >
+                          Βασικά Στοιχεία
+                        </button>
+                      </li>
+                      <li className="nav-item">
+                        <button
+                          className="nav-link"
+                          data-toggle="tab"
+                          data-target="#heating"
+                        >
+                          Στοιχεία Θέρμανσης
+                        </button>
+                      </li>
+                      <li className="nav-item">
+                        <button
+                          className="nav-link"
+                          data-toggle="tab"
+                          data-target="#provider"
+                        >
+                          Στοιχεία Παρόχων
+                        </button>
+                      </li>
+                      <li className="nav-item">
+                        <button
+                          className="nav-link"
+                          data-toggle="tab"
+                          data-target="#status"
+                        >
+                          Κατάσταση
+                        </button>
+                      </li>
+                      <li className="nav-item">
+                        <button
+                          className="nav-link"
+                          data-toggle="tab"
+                          data-target="#otherInfo"
+                        >
+                          Διάφορες Πληροροφορίες
+                        </button>
+                      </li>
+                      <li className="nav-item">
+                        <button
+                          className="nav-link"
+                          data-toggle="tab"
+                          data-target="#pdf"
+                        >
+                          Ιστορικό Αρχείων
+                        </button>
+                      </li>
                     </React.Fragment>
                   }
                   content={

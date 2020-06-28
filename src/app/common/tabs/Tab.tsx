@@ -8,20 +8,15 @@ interface ITab {
   element?: any;
 }
 
-const Tab: React.FC<ITab> = ({
-  tabId,
-  content,
-  tabListItems
-}) => {
+const Tab: React.FC<ITab> = ({ tabId, content, tabListItems }) => {
   return (
     <React.Fragment>
-      <div id={tabId}>
-        <ul className="nav nav-tabs">
-          {tabListItems}
-        </ul>
-        <div id="myTabContent"  className="tab-content">
-            {content}
-        </div>
+      <ul id="tabs" className="nav nav-tabs">
+        {tabListItems}
+      </ul>
+      <br />
+      <div className="tab-content" id="tabsContent">
+        {content}
       </div>
     </React.Fragment>
   );

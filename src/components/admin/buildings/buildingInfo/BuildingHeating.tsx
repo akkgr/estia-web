@@ -4,24 +4,40 @@ import TextInput from "app/common/form/TextInput";
 import Checkbox from "app/common/form/Checkbox";
 import { Building } from "app/models/Building";
 export const HeatingTypes = [
-  { value: "Κεντρική Θέρμανση", label: "Κεντρική Θέρμανση" },
-  { value: "Αυτόνομη - Πετρέλαιο", label: "Αυτόνομη - Πετρέλαιο" },
-  { value: "Αυτόνομη - Φυσικό Αέριο", label: "Αυτόνομη - Φυσικό Αέριο" },
+  { value: 0, label: "Κεντρική Θέρμανση" },
+  { value: 1, label: "Αυτόνομη - Πετρέλαιο" },
+  { value: 2, label: "Αυτόνομη - Φυσικό Αέριο" },
 ];
 
 interface IProps {
   data: Building;
   setHeatingType?: any;
+  heatingType?: number;
 }
 
-const BuildingHeating: React.FC<IProps> = ({ data, setHeatingType }) => {
+const BuildingHeating: React.FC<IProps> = ({
+  data,
+  setHeatingType,
+  heatingType,
+}) => {
+  console.log(heatingType);
   return (
     <React.Fragment>
       <div className="row">
         <div className="col-md-4 mb-3">
           <SelectInputSearch
+            defaultvalue={{
+              value: heatingType,
+              label:
+                heatingType === 0
+                  ? "Κεντρική Θέρμανση"
+                  : heatingType === 1
+                  ? "Αυτόνομη - Πετρέλαιο"
+                  : "Αυτόνομη - Φυσικό Αέριο",
+            }}
             label="Τύπος Θέρμανσης :"
             setValueSelect={setHeatingType}
+            value={heatingType}
             name="heatingType"
             className="custom-select"
             options={HeatingTypes}
@@ -32,7 +48,6 @@ const BuildingHeating: React.FC<IProps> = ({ data, setHeatingType }) => {
             label="Θερμοώρες"
             name="caloriesCounter"
             checked={data?.caloriesCounter}
-            required={true}
             invalidMessage="Συμπληρώστε τις Θερμοώρες"
           />
         </div>
@@ -63,17 +78,6 @@ const BuildingHeating: React.FC<IProps> = ({ data, setHeatingType }) => {
             placeholder="Λίτρα Πετρ. ανά cm..."
             required={true}
             invalidMessage="Συμπληρώστε τα Λίτρα Πετρ. ανά cm"
-          />
-        </div>
-        <div className="col-md-3 mb-3">
-          <TextInput
-            type="number"
-            label="Πετρέλαιο Δεξαμενής :"
-            name="oilInTank"
-            min={0}
-            placeholder="Πετρέλαιο Δεξαμενής..."
-            required={true}
-            invalidMessage="Συμπληρώστε το Πετρέλαιο Δεξαμενής"
           />
         </div>
       </div>

@@ -1,7 +1,7 @@
 import React from "react";
 import { action } from "@storybook/addon-actions";
 import { MemoryRouter } from "react-router-dom";
-import ApartmentForm from "components/admin/apartments/apartmentForm/ApartmentForm";
+import ApartmentForm from "./ApartmentForm";
 
 export default {
   component: ApartmentForm,

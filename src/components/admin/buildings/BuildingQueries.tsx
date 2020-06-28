@@ -31,7 +31,7 @@ const BuildingQueries = (id?: string) => {
     await Buildings.delete(entity, id);
   };
 
-  const createBuilding = async (data: Building | any) => {
+  const createBuilding = async (data: any) => {
     try {
       console.log(data);
       const inserted = await Buildings.create(entity, data);
@@ -43,13 +43,13 @@ const BuildingQueries = (id?: string) => {
     }
   };
 
-  const updateBuilding = async (data: Building) => {
+  const updateBuilding = async (data: any) => {
     console.log("Updatedata", data);
     const inserted = await Buildings.update(entity, id, data);
     return inserted;
   };
 
-  const saveBuilding = async (data: Building | any) => {
+  const saveBuilding = async (data: any) => {
     return data.id ? await updateBuilding(data) : await createBuilding(data);
   };
   // const updateBuildings=async (input:any)=>{

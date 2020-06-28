@@ -3,24 +3,39 @@ import ApartmentsQueries from "components/admin/apartments/ApartmentsQueries";
 import { useQuery, queryCache } from "react-query";
 import { useHistory } from "react-router-dom";
 import { BsTrashFill, BsPencilSquare, BsPlusCircle } from "react-icons/bs";
-import Loading from "../../../app/layout/Loading";
+import Loading from "app/layout/Loading";
 import styles from "components/admin/admin.module.css";
 import Table from "app/common/table/Table";
 import TableSearch from "app/common/table/TableSearch";
-const ApartmentList = (buildingId: any) => {
+
+interface IProps {
+  entity: any;
+  page: number;
+  setPage: any;
+  rows: number;
+  setRows: any;
+  setSort: any;
+  setFilter: any;
+  memoizedCallback: any;
+  data: any;
+  isFetching: boolean;
+  status: any;
+}
+
+const ApartmentsList: React.FC<IProps> = ({
+  entity,
+  page,
+  setPage,
+  rows,
+  setRows,
+  setSort,
+  setFilter,
+  memoizedCallback,
+  data,
+  isFetching,
+  status,
+}) => {
   const history = useHistory();
-  const entity = "buildings/" + buildingId.buildingId + "/apartments";
-  const [page, setPage] = useState(1);
-  const [rows, setRows] = useState(10);
-  // const [total, setTotal] = useState(0);
-  const [sort, setSort] = useState(["id", "ASC"]);
-  const [filter, setFilter] = useState({});
-
-  const { deleteApartment, fetchApartments } = ApartmentsQueries(
-    buildingId.buildingId,
-    "apartments"
-  );
-
   const columns = [
     {
       dataField: "position",
@@ -92,13 +107,6 @@ const ApartmentList = (buildingId: any) => {
       ),
     },
   ];
-  const memoizedCallback = useCallback(
-    async (id: string) => {
-      await deleteApartment(id);
-      queryCache.refetchQueries([entity, page, rows, filter]);
-    },
-    [entity, page, rows, filter, deleteApartment]
-  );
 
   const filterFn = (value: any) => {
     return {
@@ -114,11 +122,6 @@ const ApartmentList = (buildingId: any) => {
       ],
     };
   };
-
-  const { status, data, isFetching } = useQuery<
-    any,
-    [string, number, number, string[], {}]
-  >([entity, page, rows, sort, filter], fetchApartments);
 
   const onSearch = (event: any) => {
     event.preventDefault();
@@ -203,4 +206,4 @@ const ApartmentList = (buildingId: any) => {
   );
 };
 
-export default ApartmentList;
+export default ApartmentsList;

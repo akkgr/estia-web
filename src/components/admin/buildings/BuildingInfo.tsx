@@ -20,8 +20,14 @@ import BuildingQueries from "components/admin/buildings/BuildingQueries";
 import styles from "components/admin/admin.module.css";
 const entity = "buildings";
 
-const BuildingInfo = () => {
-  let { id } = useParams();
+interface BuildingProps {
+  id: any;
+  data: any;
+  mutate: any | null;
+}
+
+const BuildingInfo: React.FC<BuildingProps> = ({ id, data, mutate }) => {
+  // let { id } = useParams();
   const history = useHistory();
   const [tabActiveData, setTabActiveData] = useState(true);
   const [tabActiveHeating, setActiveHeating] = useState(false);
@@ -31,11 +37,11 @@ const BuildingInfo = () => {
   const [tabActivePdf, setActivePdf] = useState(false);
 
   const [disableSaveButton, setDisableSaveButton] = useState(false);
-  const { fetchBuildingData, saveBuilding } = BuildingQueries(id);
-  const { data } = useQuery<any, [string, string | undefined]>(
-    [entity, id],
-    fetchBuildingData
-  );
+  // const { fetchBuildingData, saveBuilding } = BuildingQueries(id);
+  // const { data } = useQuery<any, [string, string | undefined]>(
+  //   [entity, id],
+  //   fetchBuildingData
+  // );
 
   const [dataProvider, setDataProvider] = useState(data?.providers || []); //data.providers
   const [startDate, setStartDate] = useState(
@@ -45,14 +51,14 @@ const BuildingInfo = () => {
     data !== null ? new Date(data.managementEnd) : new Date()
   );
   const [heatingType, setHeatingType] = useState(
-    data !== null ? data.heatingType : "Κεντρική Θέρμανση"
+    data !== null ? data.heatingType : 0
   );
 
-  const [mutate] = useMutation(saveBuilding, {
-    onSuccess: (newData) =>
-      queryCache.setQueryData([id], (prev: any) => [...prev, newData]),
-    onSettled: () => queryCache.refetchQueries([id], data),
-  });
+  // const [mutate] = useMutation(saveBuilding, {
+  //   onSuccess: (newData) =>
+  //     queryCache.setQueryData([id], (prev: any) => [...prev, newData]),
+  //   onSuccess: () => queryCache.refetchQueries([id], data),
+  // });
   const handleSubmit = async (e: React.SyntheticEvent | any) => {
     e.preventDefault();
     e.stopPropagation();
@@ -62,17 +68,6 @@ const BuildingInfo = () => {
       e.target.className += " was-validated";
       return toast.info("Δέν έχει συμπληρωθεί σωστά η φόρμα");
     }
-    const HeatingTypeSelect = () => {
-      if (heatingType === "Κεντρική Θέρμανση") {
-        return HeatingType.Central;
-      } else if (heatingType === "Αυτόνομη - Πετρέλαιο") {
-        return HeatingType.Oil;
-      } else if (heatingType === "Αυτόνομη - Φυσικό Αέριο") {
-        return HeatingType.Gas;
-      } else {
-        return heatingType;
-      }
-    };
     const target = e.target as typeof e.target & {
       area: { value: string };
       street: { value: string };
@@ -120,10 +115,10 @@ const BuildingInfo = () => {
         active: active,
         management: management,
         reserve: reserve,
-        managementStart: new Date(startDate.toISOString()),
-        managementEnd: new Date(endDate.toISOString()),
+        managementStart: new Date(startDate.toDateString()),
+        managementEnd: new Date(endDate.toDateString()),
         closedApartmentParticipation: closedApartmentParticipation,
-        heatingType: HeatingTypeSelect(),
+        heatingType: heatingType,
         caloriesCounter: caloriesCounter,
         litersPerCm: litersPerCm,
         bankReason: bankReason,
@@ -148,7 +143,7 @@ const BuildingInfo = () => {
         managementStart: new Date(startDate.toISOString()),
         managementEnd: new Date(endDate.toISOString()),
         closedApartmentParticipation: closedApartmentParticipation,
-        heatingType: HeatingTypeSelect(),
+        heatingType: heatingType,
         caloriesCounter: caloriesCounter,
         litersPerCm: litersPerCm,
         bankReason: bankReason,
@@ -293,6 +288,7 @@ const BuildingInfo = () => {
                           <BuildingHeating
                             data={data ? data : null}
                             setHeatingType={setHeatingType}
+                            heatingType={heatingType}
                           />
                         }
                       />

@@ -22,6 +22,7 @@ const BuildingFormProvider: React.FC<IProviderProps> = ({
   const paymentCode = useRef(row.paymentCode);
   const connectionNumber = useRef(row.connectionNumber);
   const [office, setOffice] = useState<any>(row.office);
+  console.log("office:", row.office);
   const handleSubmit = (e: any) => {
     e.preventDefault();
     console.log(office);
@@ -176,6 +177,7 @@ const BuildingFormProvider: React.FC<IProviderProps> = ({
                   id="office"
                   type="checkbox"
                   value={office}
+                  defaultChecked={row.office}
                   className="custom-control-input"
                   name="office"
                   required={true}

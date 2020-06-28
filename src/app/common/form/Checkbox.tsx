@@ -19,6 +19,7 @@ const Checkbox: React.FC<CheckboxParams> = ({
   const handleChange = () => {
     setCheck(!check);
   };
+
   return (
     <React.Fragment>
       <div className="custom-control custom-checkbox mb-3">
@@ -26,6 +27,7 @@ const Checkbox: React.FC<CheckboxParams> = ({
           id={name}
           type="checkbox"
           value={check}
+          defaultChecked={check}
           className="custom-control-input"
           name={name}
           required={required}

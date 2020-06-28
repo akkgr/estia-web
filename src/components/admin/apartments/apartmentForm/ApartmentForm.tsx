@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { ActionsForm } from "app/common/headers/ActionsForm";
 import { PersonForm } from "components/admin/apartments/apartmentForm/PersonForm";
-import Cards from "app/common/views/Cards";
+import Cards from "app/common/cards/Cards";
 import { Apartment } from "app/models/Apartment";
 import { toast } from "react-toastify";
 import GeneralInfoForm from "components/admin/apartments/apartmentForm/GeneralInfoForm";

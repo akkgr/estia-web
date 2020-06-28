@@ -3,9 +3,9 @@ import { useParams, Link } from "react-router-dom";
 import { useQuery } from "react-query";
 import { AddressTitle } from "app/models/Address";
 import { ActionsForm } from "app/common/headers/ActionsForm";
-import Cards from "app/common/views/Cards";
+import Cards from "app/common/cards/Cards";
 import BuildingQueries from "components/admin/buildings/BuildingQueries";
-import AppartmentList from "components/admin/apartments/ApartmentList";
+import Apartments from "components/admin/apartments/Apartments";
 const entity = "buildings";
 
 const BuildingForm = () => {
@@ -51,7 +51,7 @@ const BuildingForm = () => {
           />
         </div>
       </div>
-      <AppartmentList buildingId={id} />
+      <Apartments buildingId={id} />
     </React.Fragment>
   );
 };

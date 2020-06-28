@@ -6,10 +6,10 @@ import { BsTrashFill, BsPencilSquare, BsPlusCircle } from "react-icons/bs";
 import { ProviderType } from "app/models/Provider";
 import { Provider } from "app/models/Provider";
 const choices = [
-  { label: "Electricity", value: "Electricity" },
-  { label: "Gas", value: "Gas" },
-  { label: "Water", value: "Water" },
-  { label: "Telecommunications", value: "Telecommunications" },
+  { label: "Ηλεκτρικό Ρεύμα", value: "Electricity" },
+  { label: "Αέριο", value: "Gas" },
+  { label: "Νερό", value: "Water" },
+  { label: "Τηλεπικοινωνίες", value: "Telecommunications" },
 ];
 interface IProps {
   data: Provider | any;

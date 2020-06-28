@@ -25,16 +25,10 @@ const BuildingStatus: React.FC<IDates> = ({
             name="management"
             label="Διαχείρηση"
             checked={data?.management}
-            required={true}
           />
         </div>
         <div className="col-md-2 mb-3">
-          <Checkbox
-            name="active"
-            label="Ενεργή"
-            checked={data?.active}
-            required={true}
-          />
+          <Checkbox name="active" label="Ενεργή" checked={data?.active} />
         </div>
       </div>
       <div className="row">
@@ -47,10 +41,6 @@ const BuildingStatus: React.FC<IDates> = ({
             name="startDate"
           />
         </div>
-        {/* <div classNameName="invalid-feedback">
-          Παρακαλώ εισάγετε έγκυρη Ημερομηνία Παράλαβής
-        </div> */}
-
         <div className="col-md-2 mb-3">
           <DateTimePicker
             label="Ημερομηνία Παράδοσης :"
@@ -60,10 +50,6 @@ const BuildingStatus: React.FC<IDates> = ({
             name="endDate"
           />
         </div>
-
-        {/* <div classNameName="invalid-feedback">
-            Παρακαλώ εισάγετε έγκυρη Ημερομηνία Παράδοσης
-          </div> */}
       </div>
     </React.Fragment>
   );

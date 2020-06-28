@@ -5,8 +5,8 @@ const Dashboard = lazy(() => import("components/dashboard/Dashboard"));
 const BuildingForm = lazy(() =>
   import("components/admin/buildings/BuildingForm")
 );
-const BuildingInfo = lazy(() =>
-  import("components/admin/buildings/BuildingInfo")
+const EditBuilding = lazy(() =>
+  import("components/admin/buildings/EditBuilding")
 );
 
 const EditApartment = lazy(() =>
@@ -35,11 +35,11 @@ function Routes(props: any) {
 
       <Route exact path="/buildings" component={BuildingList} />
 
-      <Route exact path="/buildings/new" component={BuildingInfo} />
+      <Route exact path="/buildings/new" component={EditBuilding} />
 
       <Route exact path="/buildings/:id" component={BuildingForm} />
 
-      <Route exact path="/buildings/:id/info" component={BuildingInfo} />
+      <Route exact path="/buildings/:id/info" component={EditBuilding} />
       <Route exact path="/buildings/:id/payments" component={BuildingPay} />
 
       <Route

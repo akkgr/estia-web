@@ -57,7 +57,7 @@ export const BuildingData = {
 };
 
 export const actionsData = {
-  mutate: action("saveBuilding"),
+  onSave: action("saveBuilding"),
 };
 
 export const CreateNewBuilding = () => {

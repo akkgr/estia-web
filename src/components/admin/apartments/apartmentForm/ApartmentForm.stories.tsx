@@ -53,7 +53,7 @@ export const ApartmentData = {
   buildingTitle: "Α1",
 };
 export const actionsData = {
-  mutate: action("saveApartment"),
+  onSave: action("saveApartment"),
 };
 
 export const CreateNewApartment = () => {

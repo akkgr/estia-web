@@ -1,5 +1,5 @@
 import React from "react";
-import Oidc from "oidc-client";
+import { UserManager, Log } from "oidc-client";
 
 const config = {
   authority: "http://localhost:4000",
@@ -15,7 +15,9 @@ const config = {
   revokeAccessTokenOnSignout: true,
 };
 
-const userManager = new Oidc.UserManager(config);
+const userManager = new UserManager(config);
+Log.logger = console;
+Log.level = Log.INFO;
 
 const UserContext = React.createContext(userManager);
 

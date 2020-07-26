@@ -17,7 +17,6 @@ const BuildingList = () => {
   // const [total, setTotal] = useState(0);
   const [sort, setSort] = useState(["id", "ASC"]);
   const [filter, setFilter] = useState({});
-
   const columns = [
     {
       dataField: "address.area",

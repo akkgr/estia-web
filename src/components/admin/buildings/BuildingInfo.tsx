@@ -19,10 +19,10 @@ const entity = "buildings";
 interface BuildingProps {
   id: any;
   data: any;
-  mutate: any | null;
+  onSave: any | null;
 }
 
-const BuildingInfo: React.FC<BuildingProps> = ({ id, data, mutate }) => {
+const BuildingInfo: React.FC<BuildingProps> = ({ id, data, onSave }) => {
   const history = useHistory();
 
   const [disableSaveButton, setDisableSaveButton] = useState(false);
@@ -81,7 +81,7 @@ const BuildingInfo: React.FC<BuildingProps> = ({ id, data, mutate }) => {
       return false;
     }
     if (id === undefined) {
-      await mutate({
+      await onSave({
         address: {
           area: area,
           street: street,
@@ -105,7 +105,7 @@ const BuildingInfo: React.FC<BuildingProps> = ({ id, data, mutate }) => {
         managers: [],
       });
     } else {
-      await mutate({
+      await onSave({
         ...data,
         address: {
           area: area,
@@ -162,58 +162,58 @@ const BuildingInfo: React.FC<BuildingProps> = ({ id, data, mutate }) => {
                   tabListItems={
                     <React.Fragment>
                       <li className="nav-item">
-                        <button
+                        <a
                           className="nav-link"
                           data-toggle="tab"
                           data-target="#data"
                         >
                           Βασικά Στοιχεία
-                        </button>
+                        </a>
                       </li>
                       <li className="nav-item">
-                        <button
+                        <a
                           className="nav-link"
                           data-toggle="tab"
                           data-target="#heating"
                         >
                           Στοιχεία Θέρμανσης
-                        </button>
+                        </a>
                       </li>
                       <li className="nav-item">
-                        <button
+                        <a
                           className="nav-link"
                           data-toggle="tab"
                           data-target="#provider"
                         >
                           Στοιχεία Παρόχων
-                        </button>
+                        </a>
                       </li>
                       <li className="nav-item">
-                        <button
+                        <a
                           className="nav-link"
                           data-toggle="tab"
                           data-target="#status"
                         >
                           Κατάσταση
-                        </button>
+                        </a>
                       </li>
                       <li className="nav-item">
-                        <button
+                        <a
                           className="nav-link"
                           data-toggle="tab"
                           data-target="#otherInfo"
                         >
                           Διάφορες Πληροροφορίες
-                        </button>
+                        </a>
                       </li>
                       <li className="nav-item">
-                        <button
+                        <a
                           className="nav-link"
                           data-toggle="tab"
                           data-target="#pdf"
                         >
                           Ιστορικό Αρχείων
-                        </button>
+                        </a>
                       </li>
                     </React.Fragment>
                   }

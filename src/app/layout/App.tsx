@@ -11,7 +11,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import UserContext from "UserContext";
+import UserContext from "auth/UserContext";
 import MainMenu from "components/menu/MainMenu";
 import MainHeader from "components/menu/MainHeader";
 import Routes from "app/layout/Routes";

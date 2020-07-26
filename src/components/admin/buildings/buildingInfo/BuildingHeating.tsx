@@ -20,7 +20,6 @@ const BuildingHeating: React.FC<IProps> = ({
   setHeatingType,
   heatingType,
 }) => {
-  console.log(heatingType);
   return (
     <React.Fragment>
       <div className="row">

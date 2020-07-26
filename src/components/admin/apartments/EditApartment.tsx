@@ -25,7 +25,7 @@ const EditApartment = () => {
   });
   return (
     <React.Fragment>
-      <ApartmentForm id={id} id1={id1} mutate={mutate} data={data} />
+      <ApartmentForm id={id} id1={id1} onSave={mutate} data={data} />
     </React.Fragment>
   );
 };

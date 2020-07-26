@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { FiMenu, FiLogIn, FiLogOut } from "react-icons/fi";
-import UserContext from "UserContext";
+import UserContext from "auth/UserContext";
 
 function MainHeader(props: any) {
   const manager = useContext(UserContext);

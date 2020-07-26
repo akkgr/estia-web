@@ -20,7 +20,7 @@ const EditBuilding = () => {
     onSuccess: () => queryCache.refetchQueries([id], data),
   });
 
-  return <BuildingInfo id={id} data={data} mutate={mutate} />;
+  return <BuildingInfo id={id} data={data} onSave={mutate} />;
 };
 
 export default EditBuilding;

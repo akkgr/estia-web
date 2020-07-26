@@ -13,12 +13,12 @@ const EditApartment = lazy(() =>
   import("components/admin/apartments/EditApartment")
 );
 
-const Callback = lazy(() => import("pages/Callback"));
+const Callback = lazy(() => import("auth/Callback"));
 const BuildingList = lazy(() =>
   import("components/admin/buildings/BuildingList")
 );
 const NotFound = lazy(() => import("app/layout/NotFound"));
-const Silent = lazy(() => import("pages/Silent"));
+const Silent = lazy(() => import("auth/Silent"));
 const BuildingPay = lazy(() =>
   import("components/admin/buildings/BuildingPay")
 );

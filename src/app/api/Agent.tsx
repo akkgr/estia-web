@@ -2,7 +2,7 @@ import { useContext } from "react";
 import axios, { AxiosResponse } from "axios";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
-import UserContext from "../../UserContext";
+import UserContext from "../../auth/UserContext";
 import { Building } from "app/models/Building";
 import { Apartment } from "app/models/Apartment";
 axios.defaults.baseURL = process.env.REACT_APP_API_URL + "/api";
@@ -10,23 +10,31 @@ const Agent = () => {
   const history = useHistory();
   const manager = useContext(UserContext);
   let cancelSource = axios.CancelToken.source();
-  axios.interceptors.request.use(
-    async (config) => {
-      const user = await manager.getUser();
-      const token = user?.access_token;
-      if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
-      } else {
-        manager.signinRedirect();
-      }
-      config.cancelToken = cancelSource.token;
-      // console.info("info" + JSON.stringify(config));
-      return config;
-    },
-    (error) => {
-      return Promise.reject(error);
+  manager.getUser().then((user) => {
+    if (user) {
+      axios.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${user.access_token}`;
+    } else {
+      manager.signinRedirect();
     }
-  );
+  });
+  // axios.interceptors.request.use(
+  //   async (config) => {
+  //     const user = await manager.getUser();
+  //     if (user) {
+  //       config.headers.Authorization = `Bearer ${user?.access_token}`;
+  //     } else {
+  //       manager.signinRedirect();
+  //     }
+  //     config.cancelToken = cancelSource.token;
+  //     // console.info("info" + JSON.stringify(config));
+  //     return config;
+  //   },
+  //   (error) => {
+  //     return Promise.reject(error);
+  //   }
+  // );
 
   //client side error handling
   axios.interceptors.response.use(undefined, (error) => {

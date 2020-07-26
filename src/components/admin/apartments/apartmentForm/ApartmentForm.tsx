@@ -11,11 +11,11 @@ import GeneralInfoForm from "components/admin/apartments/apartmentForm/GeneralIn
 interface IProps {
   id: any;
   id1: any;
-  mutate: any | null;
+  onSave: any | null;
   data: any;
 }
 
-const ApartmentForm: React.FC<IProps> = ({ id, id1, mutate, data }) => {
+const ApartmentForm: React.FC<IProps> = ({ id, id1, onSave, data }) => {
   const history = useHistory();
 
   const handleSubmit = async (e: React.SyntheticEvent | any) => {
@@ -134,9 +134,9 @@ const ApartmentForm: React.FC<IProps> = ({ id, id1, mutate, data }) => {
       label: "",
     };
     if (id1) {
-      await mutate(UpdatedData, id1);
+      await onSave(UpdatedData, id1);
     } else {
-      await mutate(NewData);
+      await onSave(NewData);
     }
     history.goBack();
   };
